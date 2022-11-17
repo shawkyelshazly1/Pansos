@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "pansos backend server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shawkyelshazly1/Pansos.git"
+  },
+  "author": "Elshazlii",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shawkyelshazly1/Pansos/issues"
+  },
+  "homepage": "https://github.com/shawkyelshazly1/Pansos#readme"
+}
