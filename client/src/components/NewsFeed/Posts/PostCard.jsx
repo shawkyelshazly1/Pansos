@@ -1,10 +1,10 @@
 import React from "react";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import AddCommentSection from "./AddCommentSection";
-import PostMediaCollage from "./PostMediaCollage";
+import AddCommentSection from "./Comments/AddCommentSection";
+import PostMediaCollage from "./Media/PostMediaCollage";
 import PostStats from "./PostStats";
 
-export default function PostCard() {
+export default function PostCard({ isOpened, toggleModal }) {
 	const list = ["media", ""];
 	return (
 		<div className="flex flex-col gap-4 bg-white  rounded-2xl py-6 px-5 shadow-postCardShadow">
@@ -39,7 +39,7 @@ export default function PostCard() {
 			<hr />
 			<div className="flex flex-row justify-between gap-6">
 				<AddCommentSection />
-				<PostStats />
+				<PostStats isOpened={isOpened} toggleModal={toggleModal} />
 			</div>
 		</div>
 	);

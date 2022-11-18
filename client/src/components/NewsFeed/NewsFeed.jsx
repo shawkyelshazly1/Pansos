@@ -1,6 +1,6 @@
 import React from "react";
-import PostsSection from "./PostsSection";
-import StoriesSection from "./StoriesSection";
+import StoriesSection from "./Stories/StoriesSection";
+import PostsSection from "./Posts/PostsSection";
 
 export default function NewsFeed() {
 	return (

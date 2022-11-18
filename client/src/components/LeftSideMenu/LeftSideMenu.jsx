@@ -1,6 +1,6 @@
 import React from "react";
-import FriendsSection from "./FriendsSection";
-import GroupSection from "./GroupSection";
+import FriendsSection from "./Friends/FriendsSection";
+import GroupSection from "./Groups/GroupSection";
 
 export default function LeftSideMenu() {
 	return (

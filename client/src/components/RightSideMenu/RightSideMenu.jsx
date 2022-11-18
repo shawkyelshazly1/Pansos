@@ -1,7 +1,7 @@
 import React from "react";
-import AccountStatsSection from "./AccountStatsSection";
-import NewPostSection from "./NewPostSection";
-import NotificationsSection from "./NotificationsSection";
+import AccountStatsSection from "./AccountStats/AccountStatsSection";
+import NewPostSection from "./AccountStats/NewPostSection";
+import NotificationsSection from "./Notifications/NotificationsSection";
 
 export default function RightSideMenu() {
 	return (
