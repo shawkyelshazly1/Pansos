@@ -9,7 +9,13 @@ const userTypes = `
 	}
 
 	type Query {
-		getUser(userId: ID!): String!
+		loadUser(userId: ID!): User!
+		searchUsers(searchQuery: String!): [User]!
+	}
+
+	type LoginResponse {
+		accessToken: String!
+		user:User!
 	}
 
 	type Mutation {
@@ -19,7 +25,8 @@ const userTypes = `
 			email: String!
 			password: String!
 			confirmPassword: String!
-		): String!
+		): User!
+		loginUser(email: String!, password: String!): LoginResponse!
 	}
 `;
 

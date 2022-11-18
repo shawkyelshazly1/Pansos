@@ -18,7 +18,7 @@ require("dotenv").config();
 	// setting app dependancies
 	app.use(cors());
 	app.use(express.json());
-	app.use(morgan("combined"));
+	// app.use(morgan("combined"));
 
 	// starting DB connection
 	initiDBConnection();
@@ -27,14 +27,18 @@ require("dotenv").config();
 	const server = new ApolloServer({
 		typeDefs,
 		resolvers,
-		context: ({ req, res }) => ({ req, res }),
 	});
 
 	// start apollo server
 	await server.start();
 
 	// setting the route to query graphql
-	app.use("/graphql", expressMiddleware(server));
+	app.use(
+		"/graphql",
+		expressMiddleware(server, {
+			context: async ({ req, res }) => ({ req, res }),
+		})
+	);
 
 	// starting express server
 	app.listen(process.env.PORT || 5000, () => {

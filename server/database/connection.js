@@ -10,7 +10,7 @@ module.exports = () => {
 		consola.success("💾 Pansos DB connected!");
 	} catch (error) {
 		consola.error("🪲 Pansos DB failed to connect!");
-		console.log("🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲");
+		consola.error("🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲");
 		consola.error(error);
 	}
 };

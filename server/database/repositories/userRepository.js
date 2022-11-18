@@ -59,9 +59,11 @@ class UserRepository {
 	async FindSimilarUsers(query) {
 		try {
 			const regex = new RegExp(query, "i");
-			const users = await UserModal.find()
-				.or([{ firstName: { $regex: regex } }, { lastName: { $regex: regex } }])
-				.projection({ password: 0 });
+			const users = await UserModal.find({}, { password: 0 }).or([
+				{ firstName: { $regex: regex } },
+				{ lastName: { $regex: regex } },
+			]);
+
 			return users;
 		} catch (error) {
 			consola.error(error);
