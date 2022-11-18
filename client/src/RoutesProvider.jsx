@@ -24,7 +24,7 @@ export default function RoutesProvider() {
 									<div className="container md:min-w-[97%]  mx-auto h-full flex items-center">
 										<Routes>
 											<Route path="/" element={<Home />} />
-											<Route path="/profile/:userId" element={<Profile />} />
+											<Route path="/profile/:userId/*" element={<Profile />} />
 										</Routes>
 									</div>
 								</PrivateRouter>

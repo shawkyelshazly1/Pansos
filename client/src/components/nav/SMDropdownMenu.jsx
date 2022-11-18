@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 export default function SMDropdownMenu() {
 	return (
@@ -18,29 +19,29 @@ export default function SMDropdownMenu() {
 			<Menu.Items className="absolute flex  text-lg font-medium flex-col w-fit py-2 px-6 right-0  mt-4 origin-top-right bg-white rounded-md shadow-lg ">
 				<Menu.Item>
 					{({ active }) => (
-						<a
+						<Link
 							className={`${active && "text-mainColor"}`}
-							href="/profile/123456"
+							to={"/profile/123456"}
 						>
 							Profile
-						</a>
+						</Link>
 					)}
 				</Menu.Item>
 				<Menu.Item>
 					{({ active }) => (
-						<a
+						<Link
 							className={`${active && "text-mainColor"}`}
-							href="/notifications"
+							to={"/notifications"}
 						>
 							Notifications
-						</a>
+						</Link>
 					)}
 				</Menu.Item>
 				<Menu.Item>
 					{({ active }) => (
-						<a className={`${active && "text-mainColor"}`} href="/logout">
+						<Link className={`${active && "text-mainColor"}`} to={"/logout"}>
 							Logout
-						</a>
+						</Link>
 					)}
 				</Menu.Item>
 			</Menu.Items>

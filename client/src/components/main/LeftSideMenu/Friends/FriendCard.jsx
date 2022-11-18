@@ -1,18 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function FriendCard() {
 	let test = ["online", ""];
 	const status = test[Math.floor(Math.random() * test.length)];
 	return (
 		<div className="flex felx-row gap-3 items-center cursor-pointer justify-between">
-			<div className="flex flex-row gap-3 items-center">
-				<img
-					className="w-10 rounded-lg object-cover"
-					src="https://i.postimg.cc/4yc4NfPr/hacker-team-esport-logo-177315-79-1.webp"
-					alt=""
-				/>
-				<h1 className="text-[#53596d] font-medium">Ahmed Mohamed</h1>
-			</div>
+			<Link to={"/profile/1223456"}>
+				<div className="flex flex-row gap-3 items-center">
+					<img
+						className="w-10 rounded-lg object-cover"
+						src="https://i.postimg.cc/4yc4NfPr/hacker-team-esport-logo-177315-79-1.webp"
+						alt=""
+					/>
+					<h1 className="text-[#53596d] font-medium">Ahmed Mohamed</h1>
+				</div>
+			</Link>
 			{status === "online" ? (
 				<span className="bg-[#27ae60] w-[10px] h-[10px] rounded-full"></span>
 			) : (

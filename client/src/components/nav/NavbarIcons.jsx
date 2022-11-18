@@ -27,7 +27,7 @@ export default function NavbarIcons() {
 				break;
 
 			default:
-				setSelectedIcon("home");
+				setSelectedIcon("");
 				break;
 		}
 	}, [location]);
