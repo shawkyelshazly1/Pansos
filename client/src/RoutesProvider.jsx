@@ -11,17 +11,17 @@ import Navbar from "./components/nav/Navbar";
 export default function RoutesProvider() {
 	return (
 		<Router>
-			<div className="flex mx-auto min-h-[100vh]">
+			<div className="flex mx-auto min-h-[100vh] ">
 				<Toaster />
 				<Routes>
 					{/* private router to direct to login if not authenticated */}
 					<Route
 						path="*"
 						element={
-							<div className="flex w-full flex-col mx-auto bg-bgColor">
+							<div className="flex w-full flex-col gap-6 mx-auto bg-bgColor">
 								<PrivateRouter>
 									<Navbar />
-									<div className="container mx-auto h-full ">
+									<div className="container md:min-w-[97%]  mx-auto h-full flex items-center">
 										<Routes>
 											<Route path="/" element={<Home />} />
 											<Route path="/profile/:userId" element={<Profile />} />

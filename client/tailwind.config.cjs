@@ -2,6 +2,9 @@
 module.exports = {
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
 	theme: {
+		container: {
+			center: true,
+		},
 		extend: {
 			fontFamily: {
 				roboto: ["Roboto", "sans-serif"],
@@ -11,6 +14,9 @@ module.exports = {
 				mainColor: "#FF4400",
 				secondaryColor: "#c5d0e6",
 				bgColor: "#f7f7f7",
+			},
+			boxShadow: {
+				postCardShadow: "0px 10px 15px -3px rgba(0,0,0,0.1)",
 			},
 		},
 		screens: {

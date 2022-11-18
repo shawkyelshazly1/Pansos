@@ -1,9 +1,15 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
 import { TiArrowSortedDown } from "react-icons/ti";
-export default function UserDropwdown() {
+
+export default function LGMDDropdownMenu() {
 	return (
-		<Menu as="div" className="relative inline-block text-left">
+		// large and medium screen menu
+
+		<Menu
+			as="div"
+			className="hidden md:inline-block lg:inline-block relative  text-left z-[999]"
+		>
 			<Menu.Button className=" ">
 				<div className="flex flex-row gap-4 cursor-pointer">
 					<h1 className="text-[#192252] font-semibold text-lg">Shawky</h1>
