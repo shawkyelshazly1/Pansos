@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsImageFill } from "react-icons/bs";
 import { MdOutlineOndemandVideo } from "react-icons/md";
-import LoadingSpinner from "../../utils/LoadingSpinner";
+import LoadingSpinner from "../../../utils/LoadingSpinner";
 import { Player } from "@lottiefiles/react-lottie-player";
 
 export default function NewPostSection() {

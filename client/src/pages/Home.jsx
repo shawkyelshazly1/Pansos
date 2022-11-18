@@ -1,7 +1,7 @@
 import React from "react";
-import LeftSideMenu from "../components/LeftSideMenu/LeftSideMenu";
-import NewsFeed from "../components/NewsFeed/NewsFeed";
-import RightSideMenu from "../components/RightSideMenu/RightSideMenu";
+import LeftSideMenu from "../components/main/LeftSideMenu/LeftSideMenu";
+import NewsFeed from "../components/main/NewsFeed/NewsFeed";
+import RightSideMenu from "../components/main/RightSideMenu/RightSideMenu";
 
 export default function Home() {
 	return (
