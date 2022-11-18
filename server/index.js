@@ -1,24 +1,43 @@
 const express = require("express"),
 	cors = require("cors"),
 	morgan = require("morgan"),
-	consola = require("consola");
-const { initiDBConnection } = require("./databse");
+	consola = require("consola"),
+	{ ApolloServer } = require("@apollo/server"),
+	{ expressMiddleware } = require("@apollo/server/express4"),
+	{ initiDBConnection } = require("./database"),
+	{ typeDefs, resolvers } = require("./graphql");
 
 // set env variables config
 require("dotenv").config();
 
-// express app instance
-const app = express();
+// self invonking async function to start both express and apollo graphql servers
+(async () => {
+	// express app instance
+	const app = express();
 
-// setting app dependancies
-app.use(cors());
-app.use(express.json());
-app.use(morgan("combined"));
+	// setting app dependancies
+	app.use(cors());
+	app.use(express.json());
+	app.use(morgan("combined"));
 
-// starting DB connection
-initiDBConnection();
+	// starting DB connection
+	initiDBConnection();
 
-// starting server
-app.listen(process.env.PORT || 5000, () => {
-	consola.success(`🚀 Server started on port: ${process.env.PORT || 5000}`);
-});
+	// create apollo server
+	const server = new ApolloServer({
+		typeDefs,
+		resolvers,
+		context: ({ req, res }) => ({ req, res }),
+	});
+
+	// start apollo server
+	await server.start();
+
+	// setting the route to query graphql
+	app.use("/graphql", expressMiddleware(server));
+
+	// starting express server
+	app.listen(process.env.PORT || 5000, () => {
+		consola.success(`🚀 Server started on port: ${process.env.PORT || 5000}`);
+	});
+})();

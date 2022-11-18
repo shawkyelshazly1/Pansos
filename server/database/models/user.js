@@ -12,7 +12,9 @@ const userSchema = mongoose.Schema(
 			default: "https://i.postimg.cc/9Mj9yQgY/jonespeace-1.webp",
 		},
 	},
-	{ timstamps: true }
+	{ timestamps: true }
 );
 
 module.exports = mongoose.model("User", userSchema);
+
+

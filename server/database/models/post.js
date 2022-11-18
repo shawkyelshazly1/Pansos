@@ -5,6 +5,6 @@ const postSchema = mongoose.Schema({
 	author: { type: mongoose.Types.ObjectId, ref: "User", required: true },
 	media: [{ type: mongoose.Types.ObjectId, ref: "Media" }],
 },
-{ timstamps: true });
+{ timestamps: true });
 
 module.exports = mongoose.model("Post", postSchema);
