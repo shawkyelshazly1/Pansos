@@ -22,7 +22,6 @@ class PostLikeService {
 				postId
 			);
 
-			console.log(postLiked);
 
 			// like post in DB
 			if (!postLiked) {
@@ -30,7 +29,6 @@ class PostLikeService {
 					post: postId,
 					author: userId,
 				});
-				console.log(postLike);
 				return postLike;
 			}
 			// remove post like from DB

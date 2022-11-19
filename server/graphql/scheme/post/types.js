@@ -3,6 +3,10 @@ const postTypes = `
 		id: ID!
 		content: String!
 		author: User
+		commentsCount: Int!
+		comments: [Comment]!
+		likesCount: Int!
+		isLiked: Boolean!
 	}
 
 	type Query {

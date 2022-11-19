@@ -5,6 +5,7 @@ const commentTypes = `
 		id: ID!
 		content: String!
 		author: User!
+		
 	}
 
 	type Query {

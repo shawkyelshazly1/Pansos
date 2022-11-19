@@ -1,10 +1,20 @@
-const { postQueries, postMutations, postTypes } = require("./scheme/post"),
+const {
+		postQueries,
+		postMutations,
+		postTypes,
+		postResolvers,
+	} = require("./scheme/post"),
 	{
 		postLikeQueries,
 		postLikeMutations,
 		postLikeTypes,
 	} = require("./scheme/postLike"),
-	{ userTypes, userQueries, userMutations } = require("./scheme/user"),
+	{
+		userTypes,
+		userQueries,
+		userMutations,
+		userResolvers,
+	} = require("./scheme/user"),
 	{
 		commentTypes,
 		commentQueries,
@@ -38,6 +48,12 @@ const resolvers = {
 		...postLikeMutations,
 		...commentMutations,
 		...friendshipMutations,
+	},
+	User: {
+		...userResolvers,
+	},
+	Post: {
+		...postResolvers,
 	},
 };
 

@@ -85,7 +85,6 @@ class FriendshipRepository {
 	// get user pending friendship requests
 	async GetUserPendingFriendships(userId) {
 		try {
-			console.log(userId);
 			const userPendingFriendships = await FriendshipModal.find({
 				target: mongoose.Types.ObjectId(userId),
 				status: "pending",

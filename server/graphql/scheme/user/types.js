@@ -6,6 +6,8 @@ const userTypes = `
 		email: String!
 		password: String!
 		profileImage: String!
+		FollowersCount: Int!
+		FollowingsCount: Int!
 	}
 
 	type Query {
@@ -15,7 +17,7 @@ const userTypes = `
 
 	type LoginResponse {
 		accessToken: String!
-		user:User!
+		user: User!
 	}
 
 	type Mutation {
