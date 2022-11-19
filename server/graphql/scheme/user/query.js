@@ -1,5 +1,5 @@
-const UserService = require("../../services/userService"),
-	{ isAuthenticated } = require("../middlewares/auth");
+const UserService = require("../../../services/userService"),
+	{ isAuthenticated } = require("../../middlewares/auth");
 
 const userService = new UserService();
 // user graphql queries

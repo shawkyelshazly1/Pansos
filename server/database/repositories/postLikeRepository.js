@@ -7,9 +7,12 @@ class PostLikeRepository {
 	// create new postLike
 	async CreatePostLike(postLikeData) {
 		try {
-			const newPostLike = await new PostLikeModal(postLikeData);
+			let newPostLike = await new PostLikeModal(postLikeData);
 
-			return await newPostLike.save();
+			newPostLike = await newPostLike.save();
+			newPostLike = await newPostLike.populate("author", "-password");
+			newPostLike = await newPostLike.populate("post");
+			return newPostLike;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };
@@ -22,7 +25,9 @@ class PostLikeRepository {
 			const deletedPostLike = await PostLikeModal.findOneAndDelete({
 				post: mongoose.Types.ObjectId(postLikeData.post),
 				author: mongoose.Types.ObjectId(postLikeData.author),
-			});
+			})
+				.populate("author", "-password")
+				.populate("post");
 
 			return deletedPostLike;
 		} catch (error) {

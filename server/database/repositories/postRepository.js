@@ -37,7 +37,7 @@ class PostRepository {
 	async GetUserPostsById(userId) {
 		try {
 			const userPosts = await PostModal.find({
-				userId: mongoose.Types.ObjectId(userId),
+				author: mongoose.Types.ObjectId(userId),
 			}).populate("author", "-password");
 
 			return userPosts;

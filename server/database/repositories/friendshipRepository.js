@@ -7,9 +7,10 @@ class FriendshipRepository {
 	// create friendship
 	async CreateFriendShip(friendshipData) {
 		try {
-			const newFriendship = await new FriendshipModal(friendshipData);
-
-			return await newFriendship.save();
+			let newFriendship = await new FriendshipModal(friendshipData);
+			newFriendship = await newFriendship.save();
+			newFriendship = await newFriendship.populate("target", "-password");
+			return newFriendship;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };
@@ -21,12 +22,12 @@ class FriendshipRepository {
 		try {
 			const updatedFriendship = await FriendshipModal.findOneAndUpdate(
 				{
-					author: mongoose.Types.ObjectId(friendshipData.authorId),
-					target: mongoose.Types.ObjectId(friendshipData.targetId),
+					author: mongoose.Types.ObjectId(friendshipData.author),
+					target: mongoose.Types.ObjectId(friendshipData.target),
 				},
 				friendshipData,
 				{ new: true }
-			);
+			).populate("author", "-password");
 
 			return updatedFriendship;
 		} catch (error) {
@@ -39,9 +40,9 @@ class FriendshipRepository {
 	async DeleteFriendShip(friendshipData) {
 		try {
 			const deletedFriendship = await FriendshipModal.findOneAndDelete({
-				author: mongoose.Types.ObjectId(friendshipData.authorId),
-				target: mongoose.Types.ObjectId(friendshipData.targetId),
-			});
+				author: mongoose.Types.ObjectId(friendshipData.author),
+				target: mongoose.Types.ObjectId(friendshipData.target),
+			}).populate("target", "-password");
 
 			return deletedFriendship;
 		} catch (error) {
@@ -51,7 +52,23 @@ class FriendshipRepository {
 	}
 
 	// get user Friendship
-	async GetUserFriendships(userId) {
+	async GetUserFollowings(userId) {
+		try {
+			const userFriendships = await FriendshipModal.find({
+				author: mongoose.Types.ObjectId(userId),
+				status: "approved",
+			}).populate("target", "-password");
+
+			return userFriendships;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
+
+	// get user Followers
+	// get user Friendship
+	async GetUserFollowers(userId) {
 		try {
 			const userFriendships = await FriendshipModal.find({
 				target: mongoose.Types.ObjectId(userId),
@@ -68,12 +85,45 @@ class FriendshipRepository {
 	// get user pending friendship requests
 	async GetUserPendingFriendships(userId) {
 		try {
+			console.log(userId);
 			const userPendingFriendships = await FriendshipModal.find({
 				target: mongoose.Types.ObjectId(userId),
 				status: "pending",
 			}).populate("author", "-password");
 
 			return userPendingFriendships;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
+
+	// get user pending sent friendship requests
+	async GetUserPendingSentFriendships(userId) {
+		try {
+			const userPendingFriendships = await FriendshipModal.find({
+				author: mongoose.Types.ObjectId(userId),
+				status: "pending",
+			}).populate("target", "-password");
+
+			return userPendingFriendships;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
+
+	// get single friendship
+	async getFriendship(author, target) {
+		try {
+			const existingFriendship = await FriendshipModal.findOne({
+				author,
+				target,
+			})
+				.populate("author", "-password")
+				.populate("target", "-password");
+
+			return existingFriendship;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };

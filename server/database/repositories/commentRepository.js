@@ -37,7 +37,9 @@ class CommentRepository {
 		try {
 			const existingComment = await CommentModal.findById(
 				mongoose.Types.ObjectId(commentId)
-			);
+			)
+				.populate("author", "-password")
+				.populate("post");
 
 			return existingComment;
 		} catch (error) {
