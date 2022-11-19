@@ -18,6 +18,10 @@ class FriendshipService {
 			if (!author || !target)
 				return await BadInputGraphQLError("Friendship data is required!");
 
+			// validate if same ID
+			if (String(author) === String(target))
+				return await BadInputGraphQLError("Invalid request!");
+
 			// validate if request isn't there already
 			const existingFriendship = await this.repository.getFriendship(
 				author,

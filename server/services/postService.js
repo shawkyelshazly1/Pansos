@@ -16,7 +16,6 @@ class PostService {
 	async createPost(postData) {
 		try {
 			const { content, author } = postData;
-			console.log("herrrr");
 			// validate if all inputs are valid
 			if (!content || !author)
 				return await BadInputGraphQLError("Post data is required!");
