@@ -62,6 +62,22 @@ class PostService {
 		}
 	}
 
+	// load newsfeed
+	async loadNewsFeed(userId) {
+		try {
+			// validate input correct
+			if (!userId) return await BadInputGraphQLError("UserId is required!");
+
+			// load newsfeed posts from DB
+			const newsFeedPosts = await this.repository.GetUserNewsFeed(userId);
+
+			return newsFeedPosts;
+		} catch (error) {
+			consola.error(error);
+			return await BadInputGraphQLError("Something went wrong!");
+		}
+	}
+
 	// delete post
 	async deletePost(currentUserId, postId) {
 		try {

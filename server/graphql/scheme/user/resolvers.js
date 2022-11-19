@@ -4,10 +4,10 @@ const friendshipService = new FriendshipService();
 
 // user graphql resolvers
 const userResolvers = {
-	async FollowersCount(parent) {
+	async followersCount(parent) {
 		return await friendshipService.getUserFollowersCount(parent._id);
 	},
-	async FollowingsCount(parent) {
+	async followingsCount(parent) {
 		return await friendshipService.getUserFollowingsCount(parent._id);
 	},
 };

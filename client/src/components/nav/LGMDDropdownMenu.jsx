@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Menu } from "@headlessui/react";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { Link } from "react-router-dom";
+import { currentUserContext } from "../../contexts/CurrentUserContext";
+import s from "underscore.string";
 
 export default function LGMDDropdownMenu() {
+	// currentUserContext
+	const { logoutUser, currentUser } = useContext(currentUserContext);
+	
 	return (
 		// large and medium screen menu
-
 		<Menu
 			as="div"
 			className="hidden md:inline-block lg:inline-block relative  text-left z-[999]"
 		>
 			<Menu.Button className=" ">
 				<div className="flex flex-row gap-4 cursor-pointer">
-					<h1 className="text-[#192252] font-semibold text-lg">Shawky</h1>
+					<h1 className="text-[#192252] font-semibold text-lg">
+						{s(currentUser.firstName).capitalize().value()}
+					</h1>
 					<TiArrowSortedDown size={25} className="text-[#848fac] " />
 				</div>
 			</Menu.Button>
@@ -22,7 +28,7 @@ export default function LGMDDropdownMenu() {
 					{({ active }) => (
 						<Link
 							className={`${active && "text-mainColor"}`}
-							to={"/profile/123456"}
+							to={`/profile/${currentUser.id}`}
 						>
 							Profile
 						</Link>
@@ -30,9 +36,14 @@ export default function LGMDDropdownMenu() {
 				</Menu.Item>
 				<Menu.Item>
 					{({ active }) => (
-						<Link className={`${active && "text-mainColor"}`} to={"/logout"}>
+						<span
+							className={`${active && "text-mainColor"} cursor-pointer`}
+							onClick={() => {
+								logoutUser();
+							}}
+						>
 							Logout
-						</Link>
+						</span>
 					)}
 				</Menu.Item>
 			</Menu.Items>

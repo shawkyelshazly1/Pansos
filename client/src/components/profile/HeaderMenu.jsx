@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import S from "underscore.string";
 
-export default function HeaderMenu() {
+export default function HeaderMenu({ loadedUser }) {
 	const location = useLocation();
 	const [selectedPage, setSelectedPage] = useState("timeline");
 
@@ -17,7 +18,7 @@ export default function HeaderMenu() {
 	return (
 		<div className="flex flex-row justify-between items-center w-[90%] mx-auto pt-6">
 			<div className="hidden lg:flex flex-row gap-8 items-center">
-				<Link to={"/profile/123456"}>
+				<Link to={`/profile/${loadedUser.id}`}>
 					<h1
 						className={`font-semibold cursor-pointer  ${
 							selectedPage === "timeline" ? "text-mainColor" : "text-[#8091ac]"
@@ -26,7 +27,7 @@ export default function HeaderMenu() {
 						Timeline
 					</h1>
 				</Link>
-				<Link to={"/profile/123456/about"}>
+				<Link to={`/profile/${loadedUser.id}/about`}>
 					<h1
 						className={`font-semibold  cursor-pointer ${
 							selectedPage === "about" ? "text-mainColor" : "text-[#8091ac]"
@@ -35,7 +36,7 @@ export default function HeaderMenu() {
 						About
 					</h1>
 				</Link>
-				<Link to={"/profile/123456/friends"}>
+				<Link to={`/profile/${loadedUser.id}/friends`}>
 					<h1
 						className={`font-semibold cursor-pointer  ${
 							selectedPage === "friends" ? "text-mainColor" : "text-[#8091ac]"
@@ -48,13 +49,15 @@ export default function HeaderMenu() {
 			<div className="flex flex-row gap-4 flex-1 justify-center">
 				<div className="flex flex-col gap-1 items-center lg:ml-10">
 					<h1 className="text-2xl text-[#192252] font-semibold hover:text-mainColor">
-						Shawky Ahmed
+						{S(loadedUser.firstName + " " + loadedUser.lastName)
+							.titleize()
+							.value()}
 					</h1>
 					<p className="text-[#96a7c2] font-medium">Cairo, Egypt</p>
 				</div>
 			</div>
 			<div className="hidden lg:flex flex-row gap-8 items-center">
-				<Link to={"/profile/123456/photos"}>
+				<Link to={`/profile/${loadedUser.id}/photos`}>
 					<h1
 						className={`font-semibold cursor-pointer  ${
 							selectedPage === "photos" ? "text-mainColor" : "text-[#8091ac]"
@@ -63,7 +66,7 @@ export default function HeaderMenu() {
 						Photos
 					</h1>
 				</Link>
-				<Link to={"/profile/123456/videos"}>
+				<Link to={`/profile/${loadedUser.id}/videos`}>
 					<h1
 						className={`font-semibold cursor-pointer  ${
 							selectedPage === "videos" ? "text-mainColor" : "text-[#8091ac]"

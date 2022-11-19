@@ -1,4 +1,6 @@
 import { createContext, useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
+import { AUTH_USER } from "../graphql/user/query";
 
 // create user context
 export const currentUserContext = createContext(null);
@@ -6,8 +8,19 @@ export const currentUserContext = createContext(null);
 // craete user provider
 export const CurrentUserProvider = ({ children }) => {
 	// initial status
-	const [currentUser, setCurrentUser] = useState(" ");
+	const [currentUser, setCurrentUser] = useState("");
 	const [isAuthLoading, setIsAuthLoading] = useState(true);
+
+	// query to load user
+	const { refetch } = useQuery(AUTH_USER, {
+		onError: (error) => {
+			logoutUser();
+		},
+		onCompleted: ({ authUser }) => {
+			setIsAuthLoading(false);
+			setCurrentUser(authUser);
+		},
+	});
 
 	// useEffect to auth user
 	useEffect(() => {
@@ -25,7 +38,7 @@ export const CurrentUserProvider = ({ children }) => {
 
 		// validate token exists
 		if (token && token !== "") {
-			// #TODO:  call api to auth here and set current user in context
+			refetch();
 		} else {
 			// if user not authenticated or invalid token
 			setIsAuthLoading(false);
@@ -38,12 +51,14 @@ export const CurrentUserProvider = ({ children }) => {
 		// remove accessToken from localstorage
 		localStorage.setItem("accessToken", "");
 		setCurrentUser(null);
+		setIsAuthLoading(false);
 	};
 
 	// context exposed stateValues
 	const stateValues = {
 		currentUser,
 		isAuthLoading,
+		setCurrentUser,
 		logoutUser,
 	};
 

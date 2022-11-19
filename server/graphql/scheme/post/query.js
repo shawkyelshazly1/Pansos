@@ -16,6 +16,13 @@ const postQueries = {
 		await isAuthenticated(context);
 		return await postService.loadUserPosts(userId);
 	},
+
+	// load user newsfeed posts
+	getUserNewsfeed: async (_, __, context) => {
+		await isAuthenticated(context);
+		const { _id } = context.req.payload;
+		return await postService.loadNewsFeed(_id);
+	},
 };
 
 module.exports = postQueries;

@@ -6,13 +6,16 @@ const userTypes = `
 		email: String!
 		password: String!
 		profileImage: String!
-		FollowersCount: Int!
-		FollowingsCount: Int!
+		profileCover:String!
+		followersCount: Int!
+		followingsCount: Int!
+		
 	}
 
 	type Query {
 		loadUser(userId: ID!): User!
 		searchUsers(searchQuery: String!): [User]!
+		authUser:User!
 	}
 
 	type LoginResponse {

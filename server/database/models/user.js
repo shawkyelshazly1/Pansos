@@ -11,10 +11,13 @@ const userSchema = mongoose.Schema(
 			trim: true,
 			default: "https://i.postimg.cc/9Mj9yQgY/jonespeace-1.webp",
 		},
+		profileCover: {
+			type: String,
+			trim: true,
+			default: "https://html.crumina.net/html-olympus/img/top-header1.webp",
+		},
 	},
 	{ timestamps: true }
 );
 
 module.exports = mongoose.model("User", userSchema);
-
-

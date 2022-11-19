@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Menu } from "@headlessui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { currentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function SMDropdownMenu() {
+	//logout user from context
+	const { logoutUser, currentUser } = useContext(currentUserContext);
+
 	return (
 		//  small screen menu
-
 		<Menu
 			as="div"
 			className="relative lg:hidden md:hidden inline-block text-left z-[999]"
@@ -21,7 +24,7 @@ export default function SMDropdownMenu() {
 					{({ active }) => (
 						<Link
 							className={`${active && "text-mainColor"}`}
-							to={"/profile/123456"}
+							to={`/profile/${currentUser.id}`}
 						>
 							Profile
 						</Link>
@@ -39,9 +42,14 @@ export default function SMDropdownMenu() {
 				</Menu.Item>
 				<Menu.Item>
 					{({ active }) => (
-						<Link className={`${active && "text-mainColor"}`} to={"/logout"}>
+						<span
+							className={`${active && "text-mainColor"} cursor-pointer`}
+							onClick={() => {
+								logoutUser();
+							}}
+						>
 							Logout
-						</Link>
+						</span>
 					)}
 				</Menu.Item>
 			</Menu.Items>

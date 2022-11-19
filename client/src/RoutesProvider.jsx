@@ -18,8 +18,8 @@ export default function RoutesProvider() {
 					<Route
 						path="*"
 						element={
-							<div className="flex w-full flex-col gap-6 mx-auto bg-bgColor">
-								<PrivateRouter>
+							<PrivateRouter>
+								<div className="flex w-full flex-col gap-6 mx-auto bg-bgColor">
 									<Navbar />
 									<div className="container md:min-w-[97%]  mx-auto h-full flex items-center">
 										<Routes>
@@ -27,8 +27,8 @@ export default function RoutesProvider() {
 											<Route path="/profile/:userId/*" element={<Profile />} />
 										</Routes>
 									</div>
-								</PrivateRouter>
-							</div>
+								</div>
+							</PrivateRouter>
 						}
 					/>
 					<Route path="/register" element={<Register />} />

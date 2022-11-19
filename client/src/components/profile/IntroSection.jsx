@@ -5,7 +5,7 @@ import { BsHouseDoorFill } from "react-icons/bs";
 
 export default function IntroSection() {
 	return (
-		<div className="hidden lg:flex flex-col  gap-8 bg-white  px-8  rounded-xl shadow-postCardShadow py-6 h-fit lg:min-w-[35%] xl:min-w-[25%] ">
+		<div className="hidden lg:flex flex-col  gap-8 bg-white  px-8  rounded-xl shadow-postCardShadow py-6 h-fit lg:min-w-[35%] xl:min-w-[25%] max-w-[35%]">
 			<h1 className="text-2xl font-semibold">Intro</h1>
 			<hr />
 			<div className="flex flex-col gap-1">

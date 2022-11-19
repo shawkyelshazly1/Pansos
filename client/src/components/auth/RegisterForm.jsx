@@ -1,8 +1,14 @@
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { REGISTER_USER } from "../../graphql/user/mutation";
 import FormInput from "./FormInput";
 
 export default function RegisterForm() {
+	//navigate hook
+	const navigate = useNavigate();
+
 	//form state
 	const [formData, setFormData] = useState({
 		firstName: "",
@@ -17,8 +23,30 @@ export default function RegisterForm() {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
+	// register mutation
+	const [registerUser, { data, loading }] = useMutation(REGISTER_USER, {
+		onError: (error) => {
+			toast.error(error.message, {
+				position: "bottom-center",
+			});
+		},
+		onCompleted: (_) => {
+			toast.success("Registered Successfully!");
+			navigate("/login");
+		},
+	});
+
+	// submit form handler
+	const submitFormHandler = (e) => {
+		e.preventDefault();
+		registerUser({ variables: { ...formData } });
+	};
+
 	return (
-		<form className="flex flex-col gap-3  min-w-[20%]">
+		<form
+			className="flex flex-col gap-3  min-w-[20%]"
+			onSubmit={submitFormHandler}
+		>
 			<div className="flex flex-row gap-4  items-center justify-center">
 				<FormInput
 					type={"text"}

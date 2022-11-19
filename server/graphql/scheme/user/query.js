@@ -10,6 +10,13 @@ const userQuery = {
 		return await userService.getUser(userId);
 	},
 
+	//auth User
+	authUser: async (_, __, context) => {
+		await isAuthenticated(context);
+		const { _id: userId } = context.req.payload;
+		return await userService.getUser(userId);
+	},
+
 	// search users
 	searchUsers: async (_, { searchQuery }, context) => {
 		await isAuthenticated(context);

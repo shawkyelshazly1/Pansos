@@ -1,4 +1,9 @@
-const { PostModal, PostLikeModal, CommentModal } = require("../models"),
+const {
+		PostModal,
+		PostLikeModal,
+		CommentModal,
+		FriendshipModal,
+	} = require("../models"),
 	mongoose = require("mongoose"),
 	consola = require("consola");
 
@@ -47,7 +52,39 @@ class PostRepository {
 		}
 	}
 
-	// #TODO: create news feed fanout
+	// create news feed
+	async GetUserNewsFeed(userId) {
+		try {
+			const userFollowings = await FriendshipModal.find(
+				{
+					author: mongoose.Types.ObjectId(userId),
+					status: "approved",
+				},
+				{ target: 1 }
+			)
+				.distinct("target")
+				.lean();
+
+			const posts = await PostModal.find({
+				$or: [
+					{
+						author: { $in: userFollowings },
+					},
+					{
+						author: mongoose.Types.ObjectId(userId),
+					},
+				],
+			})
+				.sort({ createdAt: "desc" })
+				.populate("author", "-password");
+			return posts;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
+
+	//
 
 	// delete post by ID
 	async DeletePostById(postId) {
