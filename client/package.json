@@ -12,6 +12,7 @@
     "@apollo/client": "^3.7.1",
     "@headlessui/react": "^1.7.4",
     "@lottiefiles/react-lottie-player": "^3.4.9",
+    "apollo-upload-client": "^17.0.0",
     "css-loader": "^6.7.2",
     "graphql": "^16.6.0",
     "moment": "^2.29.4",

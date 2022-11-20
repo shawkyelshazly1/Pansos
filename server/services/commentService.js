@@ -1,5 +1,5 @@
 const { CommentRepository } = require("../database");
-const { BadInputGraphQLError } = require("../utils/error");
+const { BadInputGraphQLError } = require("../utils/error.js");
 const consola = require("consola");
 
 // class to interact with user service

@@ -1,8 +1,8 @@
 const { UserRepository } = require("../database"),
-	{ hashPassword, generateAccessToken } = require("../utils/auth"),
+	{ hashPassword, generateAccessToken } = require("../utils/auth.js"),
 	consola = require("consola"),
 	bcryptjs = require("bcryptjs"),
-	{ BadInputGraphQLError } = require("../utils/error");
+	{ BadInputGraphQLError } = require("../utils/error.js");
 
 // class to interact with user service
 class UserService {

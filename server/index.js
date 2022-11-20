@@ -32,6 +32,8 @@ require("dotenv").config();
 	// start apollo server
 	await server.start();
 
+
+
 	// setting the route to query graphql
 	app.use(
 		"/graphql",

@@ -1,4 +1,4 @@
-const { NotAuthorizedGraphQLError } = require("../../utils/error"),
+const { NotAuthorizedGraphQLError } = require("../../utils/error.js"),
 	consola = require("consola"),
 	jwt = require("jsonwebtoken");
 

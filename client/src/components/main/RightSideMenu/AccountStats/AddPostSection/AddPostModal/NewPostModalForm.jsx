@@ -17,7 +17,7 @@ export default function NewPostModalForm({ setCurrentStatus }) {
 	};
 
 	// add post mutation
-	const [addPost, { data, loading, error }] = useMutation(ADD_POST, {
+	const [addPost] = useMutation(ADD_POST, {
 		variables: { content: formData.content },
 		onError: (_) => {
 			toast.error("Something Went Wrong!");
@@ -51,6 +51,7 @@ export default function NewPostModalForm({ setCurrentStatus }) {
 			target=""
 			className="flex flex-col gap-4"
 			onSubmit={handleFormSubmission}
+			enctype="multipart/form-data"
 		>
 			<textarea
 				required
