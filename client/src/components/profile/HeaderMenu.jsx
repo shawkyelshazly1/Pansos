@@ -32,6 +32,7 @@ export default function HeaderMenu({ loadedUser, toggleModal }) {
 						Timeline
 					</h1>
 				</Link>
+				{}
 				<Link to={`/profile/${loadedUser.id}/about`}>
 					<h1
 						className={`font-semibold  cursor-pointer ${

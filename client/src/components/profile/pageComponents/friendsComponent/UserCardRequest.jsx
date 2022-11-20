@@ -18,6 +18,16 @@ export default function UserCardRequest({ user }) {
 		onCompleted: (_) => {
 			toast.success("Follow Request Accepted!");
 		},
+		update: (cache, { data }) => {
+			if (!data) return;
+			// normalize relation ship to use it with cache
+			const normalized = cache.identify({
+				id: data.acceptFollowRequest.id,
+				__typename: "Friendship",
+			});
+			cache.evict({ id: normalized });
+			cache.gc();
+		},
 	});
 
 	// mutation to decline follow request
@@ -28,6 +38,16 @@ export default function UserCardRequest({ user }) {
 		},
 		onCompleted: (_) => {
 			toast.success("Follow Request Declined!");
+		},
+		update: (cache, { data }) => {
+			if (!data) return;
+			// normalize relation ship to use it with cache
+			const normalized = cache.identify({
+				id: data.declineFollowRequest.id,
+				__typename: "Friendship",
+			});
+			cache.evict({ id: normalized });
+			cache.gc();
 		},
 	});
 
