@@ -12,8 +12,6 @@ export default function PostStats({
 	post,
 	setSelectedPost,
 }) {
-	const [triggerAnimation, settriggerAnimation] = useState(false);
-
 	// like or unlike post mutation
 	const [likeOrUnlikePost] = useMutation(LIKE_OR_UNLIKE_POST, {
 		variables: { postId: post.id },

@@ -3,7 +3,7 @@ const { PostRepository } = require("../database");
 const {
 	BadInputGraphQLError,
 	NotAuthorizedGraphQLError,
-} = require("../utils/error");
+} = require("../utils/error.js");
 
 // class to interact with user service
 class PostService {

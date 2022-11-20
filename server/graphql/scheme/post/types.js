@@ -13,7 +13,7 @@ const postTypes = `
 	type Query {
 		getPostById(postId: ID!): Post!
 		getUserPosts(userId: ID!): [Post]!
-		getUserNewsfeed:[Post]!
+		getUserNewsfeed: [Post]!
 	}
 
 	type Mutation {

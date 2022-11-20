@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { BsImageFill } from "react-icons/bs";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import { useMutation } from "@apollo/client";
-import { ADD_POST } from "../../../../graphql/post/mutation";
-import { LOAD_NEWSFEED } from "../../../../graphql/post/query";
-import LoadingSpinner from "../../../utils/LoadingSpinner";
+import { ADD_POST } from "../../../../../../graphql/post/mutation";
+import { LOAD_NEWSFEED } from "../../../../../../graphql/post/query";
+
 import toast from "react-hot-toast";
 
-export default function NewPostForm({ setCurrentStatus }) {
+export default function NewPostModalForm({ setCurrentStatus }) {
 	// formdata this.state
 	const [formData, setFormData] = useState({ content: "" });
 
@@ -17,7 +17,7 @@ export default function NewPostForm({ setCurrentStatus }) {
 	};
 
 	// add post mutation
-	const [addPost, { data, loading, error }] = useMutation(ADD_POST, {
+	const [addPost] = useMutation(ADD_POST, {
 		variables: { content: formData.content },
 		onError: (_) => {
 			toast.error("Something Went Wrong!");
@@ -46,12 +46,12 @@ export default function NewPostForm({ setCurrentStatus }) {
 		addPost();
 	};
 
-	if (loading) return <LoadingSpinner />;
 	return (
 		<form
 			target=""
 			className="flex flex-col gap-4"
 			onSubmit={handleFormSubmission}
+			enctype="multipart/form-data"
 		>
 			<textarea
 				required
