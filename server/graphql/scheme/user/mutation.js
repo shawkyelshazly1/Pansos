@@ -1,4 +1,5 @@
 const UserService = require("../../../services/userService");
+const { isAuthenticated } = require("../../middlewares/auth");
 const userService = new UserService();
 
 const userMutation = {
@@ -17,6 +18,13 @@ const userMutation = {
 	// login user
 	loginUser: async (_, { email, password }) => {
 		return await userService.loginUser({ email, password });
+	},
+
+	// update user profileCover
+	updateProfileInfo: async (_, { firstName, lastName }, context) => {
+		await isAuthenticated(context);
+		const { _id } = context.req.payload;
+		return await userService.updateProfileInfo(_id, { firstName, lastName });
 	},
 };
 

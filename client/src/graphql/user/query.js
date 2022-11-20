@@ -49,4 +49,18 @@ const SEARCH_USERS = gql`
 	}
 `;
 
-export { LOAD_USER, AUTH_USER, SEARCH_USERS };
+const LOAD_SUGGGESSTED_USERS = gql`
+	query getSuggesstedUsers {
+		getSuggesstedUsers {
+			id
+			profileImage
+			followingsCount
+			followersCount
+			followStatus
+			firstName
+			lastName
+		}
+	}
+`;
+
+export { LOAD_USER, AUTH_USER, SEARCH_USERS, LOAD_SUGGGESSTED_USERS };

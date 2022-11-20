@@ -5,17 +5,17 @@ const userTypes = `
 		lastName: String!
 		email: String!
 		profileImage: String!
-		profileCover:String!
+		profileCover: String!
 		followersCount: Int!
 		followingsCount: Int!
 		followStatus: String!
-		
 	}
 
 	type Query {
 		loadUser(userId: ID!): User!
 		searchUsers(searchQuery: String!): [User]!
-		authUser:User!
+		authUser: User!
+		getSuggesstedUsers: [User]!
 	}
 
 	type LoginResponse {
@@ -32,6 +32,7 @@ const userTypes = `
 			confirmPassword: String!
 		): User!
 		loginUser(email: String!, password: String!): LoginResponse!
+		updateProfileInfo(firstName: String!, lastName: String!): User!
 	}
 `;
 
