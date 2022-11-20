@@ -8,4 +8,16 @@ const DELETE_POST = gql`
 	}
 `;
 
-export { DELETE_POST };
+const LIKE_OR_UNLIKE_POST = gql`
+	mutation likeOrUnlikePost($postId: ID!) {
+		LikeOrUnlikePost(postId: $postId) {
+			post {
+				id
+				likesCount
+				isLiked
+			}
+		}
+	}
+`;
+
+export { DELETE_POST, LIKE_OR_UNLIKE_POST };

@@ -24,7 +24,6 @@ export default function PostOptionsMenu({ postId }) {
 			cache.gc();
 		},
 	});
-
 	return (
 		<Menu as="div" className="  inline-block relative  text-left z-[999]">
 			<Menu.Button className=" ">
