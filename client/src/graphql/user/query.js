@@ -16,24 +16,7 @@ const LOAD_USER = gql`
 	}
 `;
 
-// load user profile
-const LOAD_USER_POSTS = gql`
-	query getUserPosts($userId: ID!) {
-		getUserPosts(userId: $userId) {
-			id
-			content
-			isLiked
-			likesCount
-			commentsCount
-			author {
-				id
-				firstName
-				lastName
-				profileImage
-			}
-		}
-	}
-`;
+
 
 // load & auth current user
 const AUTH_USER = gql`
@@ -51,4 +34,4 @@ const AUTH_USER = gql`
 	}
 `;
 
-export { LOAD_USER, LOAD_USER_POSTS, AUTH_USER };
+export { LOAD_USER, AUTH_USER };

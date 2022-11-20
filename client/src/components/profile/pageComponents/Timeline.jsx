@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import { LOAD_USER_POSTS } from "../../../graphql/user/query";
+import { LOAD_USER_POSTS } from "../../../graphql/post/query";
 import PostsSection from "../../main/NewsFeed/Posts/PostsSection";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import IntroSection from "../IntroSection";

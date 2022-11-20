@@ -24,9 +24,11 @@ const {
 		friendshipTypes,
 		friendshipQueries,
 		friendshipMutations,
-	} = require("./scheme/friendship");
+	} = require("./scheme/friendship"),
+	{ dateScalar } = require("./scheme/customScalars/dateScalar");
 
 const typeDefs = `
+	scalar Date		
 	${userTypes}
 	${postTypes}
 	${postLikeTypes}
@@ -55,6 +57,7 @@ const resolvers = {
 	Post: {
 		...postResolvers,
 	},
+	Date: dateScalar,
 };
 
 module.exports = { typeDefs, resolvers };

@@ -7,6 +7,7 @@ const postTypes = `
 		comments: [Comment]!
 		likesCount: Int!
 		isLiked: Boolean!
+		createdAt: Date!
 	}
 
 	type Query {

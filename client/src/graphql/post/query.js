@@ -8,15 +8,35 @@ const LOAD_NEWSFEED = gql`
 			commentsCount
 			likesCount
 			isLiked
+			createdAt
 			author {
 				id
 				firstName
 				lastName
-				id
 				profileImage
 			}
 		}
 	}
 `;
 
-export { LOAD_NEWSFEED };
+// load user posts
+const LOAD_USER_POSTS = gql`
+	query getUserPosts($userId: ID!) {
+		getUserPosts(userId: $userId) {
+			id
+			content
+			isLiked
+			likesCount
+			commentsCount
+			createdAt
+			author {
+				id
+				firstName
+				lastName
+				profileImage
+			}
+		}
+	}
+`;
+
+export { LOAD_NEWSFEED, LOAD_USER_POSTS };

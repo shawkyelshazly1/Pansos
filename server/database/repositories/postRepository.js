@@ -43,7 +43,9 @@ class PostRepository {
 		try {
 			const userPosts = await PostModal.find({
 				author: mongoose.Types.ObjectId(userId),
-			}).populate("author", "-password");
+			})
+				.populate("author", "-password")
+				.sort({ createdAt: "desc" });
 
 			return userPosts;
 		} catch (error) {

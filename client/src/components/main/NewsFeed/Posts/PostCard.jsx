@@ -6,6 +6,7 @@ import AddCommentSection from "./Comments/AddCommentSection";
 import PostMediaCollage from "./Media/PostMediaCollage";
 import PostStats from "./PostStats";
 import S from "underscore.string";
+import moment from "moment";
 
 export default function PostCard({ isOpened, toggleModal, post }) {
 	const list = ["media", ""];
@@ -27,7 +28,9 @@ export default function PostCard({ isOpened, toggleModal, post }) {
 					</div>
 				</Link>
 				<div className="flex flex-row gap-4 items-center">
-					<span>3 minutes ago</span>
+					<span className="text-[#8494c1] text-sm">
+						{moment(post.createdAt).fromNow()}
+					</span>
 					<Menu as="div" className="  inline-block relative  text-left z-[999]">
 						<Menu.Button className=" ">
 							<div className="flex flex-row gap-4 cursor-pointer">

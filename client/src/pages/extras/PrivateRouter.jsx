@@ -5,10 +5,10 @@ import { currentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function PrivateRouter({ children }) {
 	// load user and loading status from currentUser context
-	const { currentUser, authLoading } = useContext(currentUserContext);
+	const { currentUser, isAuthLoading } = useContext(currentUserContext);
 
 	// show loading spinner if loading user
-	if (authLoading) return <LoadingSpinner />;
+	if (isAuthLoading) return <LoadingSpinner />;
 
 	// check if authenticated or not to render login component
 	if (!currentUser) return <Login />;
