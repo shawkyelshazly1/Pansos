@@ -1,4 +1,4 @@
-const { UserModal } = require("../models"),
+const { UserModal, FriendshipModal } = require("../models"),
 	consola = require("consola"),
 	mongoose = require("mongoose");
 
@@ -65,6 +65,49 @@ class UserRepository {
 				.limit(5);
 
 			return users;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
+
+	// load suggessted user
+	async GetSuggesstedUsers(currentuserId) {
+		try {
+			// get all IDs for users the user follows and accepted
+			const userFollowings = await FriendshipModal.find(
+				{
+					author: mongoose.Types.ObjectId(currentuserId),
+					status: "approved",
+				},
+				{ target: 1 }
+			)
+				.distinct("target")
+				.lean();
+
+			// load suggessted not followed users
+			// const suggesstedUsers = await UserModal.find({
+			// 	_id: { $nin: userFollowings },
+			// });
+
+			let suggesstedUsers = await UserModal.aggregate([
+				{
+					$match: {
+						_id: {
+							$nin: [...userFollowings, mongoose.Types.ObjectId(currentuserId)],
+						},
+					},
+				},
+				{ $sample: { size: 20 } },
+			]);
+
+			suggesstedUsers = suggesstedUsers.map((user) => {
+				const { _id, ...updatedUser } = user;
+
+				return { ...updatedUser, id: _id };
+			});
+
+			return suggesstedUsers;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };

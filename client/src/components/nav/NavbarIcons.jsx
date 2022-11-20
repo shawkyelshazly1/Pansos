@@ -23,6 +23,7 @@ export default function NavbarIcons() {
 				break;
 			case "profile":
 			case "search":
+			case "explore":
 				setSelectedIcon("profile");
 				break;
 
@@ -53,7 +54,7 @@ export default function NavbarIcons() {
 					selectedIcon === "profile" ? "bg-mainColor " : ""
 				}  rounded-lg cursor-pointer`}
 			>
-				<Link to={"/search"}>
+				<Link to={"/explore"}>
 					<FaCompass
 						size={30}
 						className={` ${

@@ -1,6 +1,10 @@
+import { useState } from "react";
+import EditProfileModal from "./EditProfileModal";
 import HeaderMenu from "./HeaderMenu";
 
 export default function ProfileHeader({ loadedUser }) {
+	const [showModal, setShowModal] = useState(false);
+
 	return (
 		<div className=" w-[90%] flex flex-col gap-4 bg-white  px-8  rounded-xl shadow-postCardShadow py-6  ">
 			<div className="relative items-center flex justify-center w-full ">
@@ -17,7 +21,12 @@ export default function ProfileHeader({ loadedUser }) {
 					/>
 				</div>
 			</div>
-			<HeaderMenu loadedUser={loadedUser} />
+			<HeaderMenu loadedUser={loadedUser} toggleModal={setShowModal} />
+			<EditProfileModal
+				isOpened={showModal}
+				toggleModal={setShowModal}
+				user={loadedUser}
+			/>
 		</div>
 	);
 }

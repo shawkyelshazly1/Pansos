@@ -45,11 +45,11 @@ export default function PostCard({
 					)}
 				</div>
 			</div>
-			{list[Math.floor(Math.random() * list.length)] === "media" ? (
+			{/* {list[Math.floor(Math.random() * list.length)] === "media" ? (
 				<PostMediaCollage />
 			) : (
 				<></>
-			)}
+			)} */}
 			<p>{post.content}</p>
 			<hr />
 			<div className="flex flex-row justify-between gap-6">

@@ -7,10 +7,8 @@ import {
 	InMemoryCache,
 	ApolloProvider,
 	createHttpLink,
-	ApolloLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { createUploadLink } from "apollo-upload-client";
 
 function App() {
 	// basic http link
@@ -30,12 +28,9 @@ function App() {
 		};
 	});
 
-	// graphql uploadLink
-	const uploadLink = createUploadLink({ uri: "http://localhost:5000/graphql" });
-
 	// setup apollo client
 	const client = new ApolloClient({
-		link: ApolloLink.from([authLink.concat(httpLink), uploadLink]),
+		link: authLink.concat(httpLink),
 		cache: new InMemoryCache(),
 		connectToDevTools: true,
 	});

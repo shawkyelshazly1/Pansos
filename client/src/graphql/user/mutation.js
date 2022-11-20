@@ -42,4 +42,18 @@ const REGISTER_USER = gql`
 	}
 `;
 
-export { LOGIN_USER, REGISTER_USER };
+const UPDATE_PROFILE_INFO = gql`
+	mutation updateProfileInfo($firstName: String!, $lastName: String!) {
+		updateProfileInfo(firstName: $firstName, lastName: $lastName) {
+			id
+			firstName
+			lastName
+			profileCover
+			profileImage
+			followersCount
+			followingsCount
+		}
+	}
+`;
+
+export { LOGIN_USER, REGISTER_USER, UPDATE_PROFILE_INFO };

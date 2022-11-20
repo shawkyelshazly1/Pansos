@@ -4,7 +4,7 @@ import S from "underscore.string";
 import FollowButton from "./FollowButton";
 import { currentUserContext } from "../../contexts/CurrentUserContext";
 
-export default function HeaderMenu({ loadedUser }) {
+export default function HeaderMenu({ loadedUser, toggleModal }) {
 	const location = useLocation();
 	const [selectedPage, setSelectedPage] = useState("timeline");
 
@@ -83,7 +83,12 @@ export default function HeaderMenu({ loadedUser }) {
 				{currentUser.id !== loadedUser.id ? (
 					<FollowButton loadedUser={loadedUser} />
 				) : (
-					<button className="font-semibold text-lg text-white bg-[#3a8dc1] rounded-lg   px-4 py-2 mr-[-20px]">
+					<button
+						onClick={(e) => {
+							toggleModal(true);
+						}}
+						className="font-semibold text-lg text-white bg-[#3a8dc1] rounded-lg   px-4 py-2 mr-[-20px]"
+					>
 						Edit Profile
 					</button>
 				)}

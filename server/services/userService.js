@@ -115,6 +115,56 @@ class UserService {
 			return await BadInputGraphQLError("Something went wrong!");
 		}
 	}
+
+	// update User
+	async updateProfileInfo(userId, userData) {
+		try {
+			// check for valid param
+			if (!userId || !userData)
+				return await BadInputGraphQLError("Userdata & UserId are required.");
+
+			// update user in DB
+			const existingUser = await this.repository.FindUserById(userId);
+
+			//throw error if no user found with this ID
+			if (!existingUser) return await BadInputGraphQLError("User not found!");
+
+			// throw error if not same user authenticated
+			if (String(existingUser._id) !== String(userId))
+				return await BadInputGraphQLError("Not Authorized");
+
+			// Update User in DB
+			const updatedUser = await this.repository.UpdateUserById(
+				userId,
+				userData
+			);
+
+			return updatedUser;
+		} catch (error) {
+			consola.error(error);
+			return await BadInputGraphQLError("Something went wrong!");
+		}
+	}
+
+	// get suggessted user
+	async loadSuggesstedUsers(currentUserId) {
+		try {
+			console.log(!currentUserId);
+			// check for valid param
+			if (!currentUserId)
+				return await BadInputGraphQLError("UserId is required.");
+
+			// load suggessted users
+			const suggesstedUsers = await this.repository.GetSuggesstedUsers(
+				currentUserId
+			);
+
+			return suggesstedUsers;
+		} catch (error) {
+			consola.error(error);
+			return await BadInputGraphQLError("Something went wrong!");
+		}
+	}
 }
 
 module.exports = UserService;
