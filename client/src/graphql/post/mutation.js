@@ -20,4 +20,23 @@ const LIKE_OR_UNLIKE_POST = gql`
 	}
 `;
 
-export { DELETE_POST, LIKE_OR_UNLIKE_POST };
+const ADD_POST = gql`
+	mutation addPost($content: String!) {
+		addPost(content: $content) {
+			id
+			content
+			commentsCount
+			likesCount
+			isLiked
+			createdAt
+			author {
+				id
+				firstName
+				lastName
+				profileImage
+			}
+		}
+	}
+`;
+
+export { DELETE_POST, LIKE_OR_UNLIKE_POST, ADD_POST };
