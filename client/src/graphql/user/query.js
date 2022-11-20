@@ -12,11 +12,10 @@ const LOAD_USER = gql`
 			profileCover
 			followersCount
 			followingsCount
+			followStatus
 		}
 	}
 `;
-
-
 
 // load & auth current user
 const AUTH_USER = gql`
@@ -30,8 +29,24 @@ const AUTH_USER = gql`
 			profileCover
 			followersCount
 			followingsCount
+			followStatus
 		}
 	}
 `;
 
-export { LOAD_USER, AUTH_USER };
+// search users
+const SEARCH_USERS = gql`
+	query searchUsers($searchQuery: String!) {
+		searchUsers(searchQuery: $searchQuery) {
+			id
+			firstName
+			lastName
+			profileImage
+			followersCount
+			followingsCount
+			followStatus
+		}
+	}
+`;
+
+export { LOAD_USER, AUTH_USER, SEARCH_USERS };

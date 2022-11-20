@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import NavbarIcons from "./NavbarIcons";
-import SearchBar from "./SearchBar";
+import SearchBar from "./searchBar/SearchBar";
+
 import SideMenu from "./SideMenu";
 
 export default function Navbar() {

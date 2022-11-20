@@ -56,13 +56,13 @@ class UserRepository {
 	}
 
 	// find simmilar users by name
-	async FindSimilarUsers(query) {
+	async FindSimilarUsers(query, currentUserId) {
 		try {
 			const regex = new RegExp(query, "i");
-			const users = await UserModal.find({}, { password: 0 }).or([
-				{ firstName: { $regex: regex } },
-				{ lastName: { $regex: regex } },
-			]);
+			const users = await UserModal.find({}, { password: 0 })
+				.or([{ firstName: { $regex: regex } }, { lastName: { $regex: regex } }])
+				.ne("_id", mongoose.Types.ObjectId(currentUserId))
+				.limit(5);
 
 			return users;
 		} catch (error) {

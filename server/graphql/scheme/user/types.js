@@ -8,6 +8,7 @@ const userTypes = `
 		profileCover:String!
 		followersCount: Int!
 		followingsCount: Int!
+		followStatus: String!
 		
 	}
 

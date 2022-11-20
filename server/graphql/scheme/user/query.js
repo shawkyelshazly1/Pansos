@@ -20,7 +20,8 @@ const userQuery = {
 	// search users
 	searchUsers: async (_, { searchQuery }, context) => {
 		await isAuthenticated(context);
-		return await userService.searchUsers(searchQuery);
+		const { _id } = context.req.payload;
+		return await userService.searchUsers(searchQuery, _id);
 	},
 };
 

@@ -201,6 +201,25 @@ class FriendshipService {
 			return await BadInputGraphQLError("Something went wrong!");
 		}
 	}
+
+	// get user Follow status
+	async getUserFollowStatus(currentUserId, userId) {
+		try {
+			if (!userId || !currentUserId)
+				return await BadInputGraphQLError("UserId  is required!");
+
+			const existingFriendShip = await this.repository.getFriendship(
+				currentUserId,
+				userId
+			);
+
+			if (!existingFriendShip) return "notFollowed";
+			else return existingFriendShip.status;
+		} catch (error) {
+			consola.error(error);
+			return await BadInputGraphQLError("Something went wrong!");
+		}
+	}
 }
 
 module.exports = FriendshipService;

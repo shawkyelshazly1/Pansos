@@ -6,6 +6,7 @@ import PrivateRouter from "./pages/extras/PrivateRouter";
 import NotFound from "./pages/extras/NotFound";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Search from "./pages/Search";
 import Navbar from "./components/nav/Navbar";
 
 export default function RoutesProvider() {
@@ -25,6 +26,7 @@ export default function RoutesProvider() {
 										<Routes>
 											<Route path="/" element={<Home />} />
 											<Route path="/profile/:userId/*" element={<Profile />} />
+											<Route path="/search/:searchQuery" element={<Search />} />
 										</Routes>
 									</div>
 								</div>

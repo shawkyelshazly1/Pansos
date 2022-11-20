@@ -10,6 +10,7 @@ class FriendshipRepository {
 			let newFriendship = await new FriendshipModal(friendshipData);
 			newFriendship = await newFriendship.save();
 			newFriendship = await newFriendship.populate("target", "-password");
+			newFriendship = await newFriendship.populate("author", "-password");
 			return newFriendship;
 		} catch (error) {
 			consola.error(error);
@@ -27,7 +28,9 @@ class FriendshipRepository {
 				},
 				friendshipData,
 				{ new: true }
-			).populate("author", "-password");
+			)
+				.populate("author", "-password")
+				.populate("target", "-password");
 
 			return updatedFriendship;
 		} catch (error) {
@@ -42,7 +45,9 @@ class FriendshipRepository {
 			const deletedFriendship = await FriendshipModal.findOneAndDelete({
 				author: mongoose.Types.ObjectId(friendshipData.author),
 				target: mongoose.Types.ObjectId(friendshipData.target),
-			}).populate("target", "-password");
+			})
+				.populate("target", "-password")
+				.populate("author", "-password");
 
 			return deletedFriendship;
 		} catch (error) {

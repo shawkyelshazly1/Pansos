@@ -21,6 +21,7 @@ export default function Profile() {
 	const { data, refetch, loading } = useQuery(LOAD_USER, {
 		variables: { userId },
 		onError: (error) => {
+			console.log(error);
 			toast.error("Something Went Wrong!");
 			navigate("/404");
 		},

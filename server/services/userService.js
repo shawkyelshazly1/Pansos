@@ -97,14 +97,17 @@ class UserService {
 	}
 
 	//search for users
-	async searchUsers(searchQuery) {
+	async searchUsers(searchQuery, currentUserId) {
 		try {
 			// check for valid param
-			if (!searchQuery)
+			if (!searchQuery || !currentUserId)
 				return await BadInputGraphQLError("Search Query is required.");
 
 			// get serach results from DB
-			const searchResults = await this.repository.FindSimilarUsers(searchQuery);
+			const searchResults = await this.repository.FindSimilarUsers(
+				searchQuery,
+				currentUserId
+			);
 
 			return searchResults;
 		} catch (error) {

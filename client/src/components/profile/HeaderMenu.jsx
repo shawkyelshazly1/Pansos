@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import S from "underscore.string";
+import FollowButton from "./FollowButton";
+import { currentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function HeaderMenu({ loadedUser }) {
 	const location = useLocation();
 	const [selectedPage, setSelectedPage] = useState("timeline");
+
+	// load currentUser Context
+	const { currentUser } = useContext(currentUserContext);
 
 	useEffect(() => {
 		console.log(location.pathname.split("/"));
@@ -75,9 +80,13 @@ export default function HeaderMenu({ loadedUser }) {
 						Videos
 					</h1>
 				</Link>
-				<button className="font-semibold text-lg text-white bg-mainColor rounded-lg  px-4 py-2 ">
-					+ Follow
-				</button>
+				{currentUser.id !== loadedUser.id ? (
+					<FollowButton loadedUser={loadedUser} />
+				) : (
+					<button className="font-semibold text-lg text-white bg-[#3a8dc1] rounded-lg   px-4 py-2 mr-[-20px]">
+						Edit Profile
+					</button>
+				)}
 			</div>
 		</div>
 	);
