@@ -27,7 +27,7 @@ export default function RoutesProvider() {
 											<Route path="/" element={<Home />} />
 											<Route path="/profile/:userId/*" element={<Profile />} />
 											<Route path="/search/:searchQuery" element={<Search />} />
-											<Route path="/search/" element={<Search />} />
+											<Route path="/explore" element={<Search />} />
 										</Routes>
 									</div>
 								</div>
