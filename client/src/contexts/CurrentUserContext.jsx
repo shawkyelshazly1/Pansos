@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useApolloClient, useQuery } from "@apollo/client";
 import { AUTH_USER } from "../graphql/user/query";
 
 // create user context
@@ -10,6 +10,9 @@ export const CurrentUserProvider = ({ children }) => {
 	// initial status
 	const [currentUser, setCurrentUser] = useState("");
 	const [isAuthLoading, setIsAuthLoading] = useState(true);
+
+	// loading apollo client instance
+	const client = useApolloClient();
 
 	// query to load user
 	const { refetch } = useQuery(AUTH_USER, {
@@ -52,6 +55,7 @@ export const CurrentUserProvider = ({ children }) => {
 		localStorage.setItem("accessToken", "");
 		setCurrentUser(null);
 		setIsAuthLoading(false);
+		client.clearStore();
 	};
 
 	// context exposed stateValues

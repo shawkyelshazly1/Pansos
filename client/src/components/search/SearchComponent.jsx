@@ -18,7 +18,7 @@ export default function SearchComponent({ searchQuery }) {
 		return <h1>Couldn't find search results.</h1>;
 	console.log(data);
 	return (
-		<div className="w-[90%] px-8 grid grid-cols-4 gap-12 pb-4">
+		<div className="w-[90%] px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 pb-4">
 			{data.searchUsers.map((user) => (
 				<SearchResultCard key={user.id} user={user} />
 			))}
