@@ -5,7 +5,7 @@ import { MdOutlineOndemandVideo } from "react-icons/md";
 import NewPostModal from "./AddPostModal/NewPostModal";
 
 export default function NewPostForm() {
-	const [showModal, setShowModal] = useState(true);
+	const [showModal, setShowModal] = useState(false);
 
 	return (
 		<>
