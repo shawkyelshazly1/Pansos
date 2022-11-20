@@ -8,7 +8,12 @@ import moment from "moment";
 import { currentUserContext } from "../../../../contexts/CurrentUserContext";
 import PostOptionsMenu from "./PostOptionsMenu";
 
-export default function PostCard({ isOpened, toggleModal, post }) {
+export default function PostCard({
+	isOpened,
+	toggleModal,
+	post,
+	setSelectedPost,
+}) {
 	const { currentUser } = useContext(currentUserContext);
 
 	const list = ["media", ""];
@@ -48,8 +53,13 @@ export default function PostCard({ isOpened, toggleModal, post }) {
 			<p>{post.content}</p>
 			<hr />
 			<div className="flex flex-row justify-between gap-6">
-				<AddCommentSection />
-				<PostStats isOpened={isOpened} toggleModal={toggleModal} post={post} />
+				<AddCommentSection postId={post.id} />
+				<PostStats
+					isOpened={isOpened}
+					toggleModal={toggleModal}
+					post={post}
+					setSelectedPost={setSelectedPost}
+				/>
 			</div>
 		</div>
 	);

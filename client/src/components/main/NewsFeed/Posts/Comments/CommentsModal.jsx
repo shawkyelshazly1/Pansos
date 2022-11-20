@@ -2,8 +2,14 @@ import React, { useEffect } from "react";
 import CommentCard from "./CommentCard";
 import { GrFormClose } from "react-icons/gr";
 import AddCommentSection from "./AddCommentSection";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import { LOAD_POST_COMMENTS } from "../../../../../graphql/comment/query";
+import LoadingSpinner from "../../../../utils/LoadingSpinner";
+import { AiFillMessage } from "react-icons/ai";
+import toast from "react-hot-toast";
 
-export default function CommentsModal({ isOpened, toggleModal }) {
+export default function CommentsModal({ isOpened, toggleModal, postId }) {
+	// useEffect to handle clicking ESC to close modal
 	useEffect(() => {
 		let e = document.addEventListener("keydown", (e) => {
 			if (e.key === "Escape") {
@@ -11,6 +17,21 @@ export default function CommentsModal({ isOpened, toggleModal }) {
 			}
 		});
 	}, []);
+
+	useEffect(() => {
+		if (isOpened) {
+			loadComments();
+		}
+	}, [isOpened]);
+
+	// query to load post comments
+	const [loadComments, { data, loading }] = useLazyQuery(LOAD_POST_COMMENTS, {
+		variables: { postId },
+		onError: (_) => {
+			toast.error("Something went wrong!");
+			toggleModal(false);
+		},
+	});
 
 	return (
 		<div
@@ -21,7 +42,6 @@ export default function CommentsModal({ isOpened, toggleModal }) {
 			<div
 				className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-[999] modal-overlay"
 				onClick={(e) => {
-					console.log(e.target);
 					if (e.target.classList.contains("modal-overlay"))
 						toggleModal(!isOpened);
 				}}
@@ -35,19 +55,25 @@ export default function CommentsModal({ isOpened, toggleModal }) {
 						}}
 					/>
 					<h1 className="font-semibold text-2xl text-[#8a90b3]">COMMENTS</h1>
-					<div className="overflow-y-scroll flex flex-col gap-6">
-						<CommentCard />
-						<CommentCard />
-						<CommentCard />
-						<CommentCard />
-						<CommentCard />
-						<CommentCard />
-						<CommentCard />
-						<CommentCard />
-						<CommentCard />
-						<CommentCard />
+					<div className="overflow-y-scroll flex flex-col gap-6  flex-1">
+						{loading ? (
+							<LoadingSpinner />
+						) : data?.loadPostComments.length === 0 ? (
+							<div className="w-full h-full flex items-center justify-center flex-col gap-4">
+								<AiFillMessage size={90} className="text-secondaryColor" />
+								<h1 className="text-2xl font-semibold text-secondaryColor">
+									Be the first to comment.
+								</h1>
+							</div>
+						) : (
+							data?.loadPostComments.map((comment) => (
+								<CommentCard commentData={comment} key={comment.id} />
+							))
+						)}
 					</div>
-					<AddCommentSection />
+					<div className="h-[10%] flex">
+						<AddCommentSection postId={postId} />
+					</div>
 				</div>
 			</div>
 			<div className="bg-gray-500 absolute opacity-50 top-0 left-0 w-full h-full"></div>

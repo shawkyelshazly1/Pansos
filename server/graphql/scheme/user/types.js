@@ -4,7 +4,6 @@ const userTypes = `
 		firstName: String!
 		lastName: String!
 		email: String!
-		password: String!
 		profileImage: String!
 		profileCover:String!
 		followersCount: Int!

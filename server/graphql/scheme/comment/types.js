@@ -6,6 +6,7 @@ const commentTypes = `
 		content: String!
 		author: User!
 		createdAt: Date!
+		post:Post!
 		
 	}
 
