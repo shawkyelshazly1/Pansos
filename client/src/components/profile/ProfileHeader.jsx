@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EditProfileModal from "./EditProfileModal";
+import EditProfileModal from "./editProfileComponent/EditProfileModal";
 import HeaderMenu from "./HeaderMenu";
 
 export default function ProfileHeader({ loadedUser }) {

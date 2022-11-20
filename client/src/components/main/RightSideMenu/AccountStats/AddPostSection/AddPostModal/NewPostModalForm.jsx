@@ -51,7 +51,7 @@ export default function NewPostModalForm({ setCurrentStatus }) {
 			target=""
 			className="flex flex-col gap-4"
 			onSubmit={handleFormSubmission}
-			enctype="multipart/form-data"
+			encType="multipart/form-data"
 		>
 			<textarea
 				required

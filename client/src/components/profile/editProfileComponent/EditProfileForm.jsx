@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import S from "underscore.string";
-import { UPDATE_PROFILE_INFO } from "../../graphql/user/mutation";
+import { UPDATE_PROFILE_INFO } from "../../../graphql/user/mutation";
 
 export default function EditProfileForm({ user, toggleModal }) {
 	// main form state

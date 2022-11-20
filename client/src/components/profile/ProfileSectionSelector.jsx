@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Timeline from "./pageComponents/Timeline";
 import About from "./pageComponents/About";
-import Friends from "./pageComponents/Friends";
+import Friends from "./pageComponents/friendsComponent/Friends";
 import Photos from "./pageComponents/Photos";
 import Videos from "./pageComponents/Videos";
 import { useLocation } from "react-router";

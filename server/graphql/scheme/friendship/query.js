@@ -6,9 +6,9 @@ const friendshipService = new FriendshipService();
 // friendship graphql queries
 const friendshipQuery = {
 	// get user followers
-	getUserFollowers: async (_, __, context) => {
+	getUserFollowers: async (_, { userId }, context) => {
 		await isAuthenticated(context);
-		const { _id: userId } = context.req.payload;
+
 		return await friendshipService.getUserFollowers(userId);
 	},
 

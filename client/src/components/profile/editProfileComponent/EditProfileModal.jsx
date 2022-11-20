@@ -1,6 +1,5 @@
 import React from "react";
 import { GrFormClose } from "react-icons/gr";
-import NewPostModalSection from "../main/RightSideMenu/AccountStats/AddPostSection/AddPostModal/NewPostModalSection";
 import EditProfileForm from "./EditProfileForm";
 
 export default function EditProfileModal({ isOpened, toggleModal, user }) {

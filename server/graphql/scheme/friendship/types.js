@@ -9,7 +9,7 @@ const friendshipTypes = `
 	}
 
 	type Query {
-		getUserFollowers: [Friendship]!
+		getUserFollowers(userId: ID!): [Friendship]!
 		getUserFollowings: [Friendship]!
 		getPendingSentRquests: [Friendship]!
 		getPendingRecievedRquests: [Friendship]!

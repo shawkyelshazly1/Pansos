@@ -34,4 +34,34 @@ const DELETE_FOLLOW = gql`
 	}
 `;
 
-export { SEND_FOLLOW_REQUEST, DELETE_FOLLOW };
+const ACCEPT_REQUEST = gql`
+	mutation acceptrequest($userId: ID!) {
+		acceptFollowRequest(userId: $userId) {
+			id
+			author {
+				id
+				firstName
+				lastName
+				profileImage
+				followStatus
+			}
+		}
+	}
+`;
+
+const DECLINE_REQUEST = gql`
+	mutation declineRequest($userId: ID!) {
+		declineFollowRequest(userId: $userId) {
+			id
+			author {
+				id
+				firstName
+				lastName
+				profileImage
+				followStatus
+			}
+		}
+	}
+`;
+
+export { SEND_FOLLOW_REQUEST, DELETE_FOLLOW, ACCEPT_REQUEST, DECLINE_REQUEST };
