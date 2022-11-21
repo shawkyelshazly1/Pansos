@@ -9,7 +9,8 @@ const conversationTypes = `
 
 	type Query {
 		loadConversationMessages(conversationId: ID!): [Message]!
-		loadUserConversations(userId: ID!): [Conversation]!
+		loadUserConversations: [Conversation]!
+		loadSingleConversation(userId:ID!):Conversation!
 	}
 
 	type Mutation {

@@ -1,28 +1,90 @@
-import React from "react";
-import { useParams } from "react-router";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import React, { useContext } from "react";
+import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router";
+import { LOAD_SINGLE_CONVERSATION } from "../../../graphql/conversation/query";
+import { LOAD_USER_MINIMAL } from "../../../graphql/user/query";
 import ChatInput from "./ChatInput";
 import MessagesContainer from "./MessagesContainer";
+import { currentUserContext } from "../../../contexts/CurrentUserContext";
+
+import ChatContainerHeader from "./chatContainer/ChatContainerHeader";
+import { LOAD_CONVERSATION_MESSAGES } from "../../../graphql/message/query";
 
 export default function ChatContainer() {
 	const { userId } = useParams();
+	const navigate = useNavigate();
+
+	const { currentUser } = useContext(currentUserContext);
+
+	// load conversation messages on ID change
+	const { data, loading } = useQuery(LOAD_SINGLE_CONVERSATION, {
+		variables: { userId },
+		skip: !userId,
+		onError: (error) => {
+			if (!error.message === "Conversation not found!") {
+				toast.error("Something Went Wrong!");
+			} else {
+				// load user if no conversation found
+				loadUser({
+					variables: { userId },
+					onError: (_) => {
+						navigate("/message");
+					},
+					onCompleted: (data) => {
+						if (!data?.loadUser) {
+							navigate("/message");
+						}
+					},
+				});
+			}
+		},
+		onCompleted: ({ loadSingleConversation }) => {
+			// load conversation messages if found
+			loadConversationMessages({
+				variables: { conversationId: loadSingleConversation.id },
+			});
+		},
+	});
+
+	// load user if no conversation found
+	const [loadUser, { data: loadedUser, loading: loadingUser }] =
+		useLazyQuery(LOAD_USER_MINIMAL);
+
+	// load conversation messages if conversation found
+	const [
+		loadConversationMessages,
+		{ data: conversationMessages, loading: loadingConversationMessages },
+	] = useLazyQuery(LOAD_CONVERSATION_MESSAGES);
+
+	const otherParticipant = data?.loadSingleConversation.users.filter(
+		(user) => user.id !== currentUser.id
+	);
 
 	return (
 		<div className="flex flex-1 flex-col gap-4 bg-white shadow-postCardShadow h-full rounded-xl p-6">
-			<div className="flex flex-row gap-3 cursor-pointer items-center">
-				<img
-					className="w-12 rounded-full"
-					src="https://i.postimg.cc/9Mj9yQgY/jonespeace-1.webp"
-					alt=""
-				/>
-				<div className="lg:flex flex-col gap-1 pt-2 hidden ">
-					<h1 className="font-bold">Shawky Ahmed</h1>
+			{!userId ? (
+				<div className="h-full w-full  flex items-center justify-center">
+					<h1 className="text-2xl font-medium ">
+						Select a chat or start a new conversation
+					</h1>
 				</div>
-			</div>
-			<hr />
-			<div className="flex flex-col justify-between gap-2 h-full">
-				<MessagesContainer />
-				<ChatInput />
-			</div>
+			) : (
+				<>
+					{/* chat container header to display the other participant info */}
+					<ChatContainerHeader
+						loadedUser={loadedUser}
+						otherParticipant={otherParticipant}
+					/>
+					<hr />
+					<div className="flex flex-col justify-between gap-2 h-full">
+						<MessagesContainer
+							messages={conversationMessages?.loadConversationMessages || []}
+						/>
+						<ChatInput />
+					</div>
+				</>
+			)}
 		</div>
 	);
 }

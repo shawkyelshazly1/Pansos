@@ -4,6 +4,7 @@ const messageTypes = `
 		author: User!
 		conversation: Conversation!
 		createdAt: Date!
+		content:String!
 	}
 `;
 

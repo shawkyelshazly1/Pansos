@@ -18,6 +18,16 @@ const conversationQueries = {
 		const { _id } = context.req.payload;
 		return await conversationService.loadUserConversations(_id);
 	},
+
+	//load single conversation
+	loadSingleConversation: async (_, { userId }, context) => {
+		await isAuthenticated(context);
+		const { _id } = context.req.payload;
+		return await conversationService.loadSingleConversationByUsers([
+			_id,
+			userId,
+		]);
+	},
 };
 
 module.exports = conversationQueries;
