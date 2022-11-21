@@ -6,10 +6,9 @@ const postService = new PostService();
 // post graphql Mutation
 const postMutations = {
 	// add new post
-	addPost: async (_, { content, files }, context) => {
+	addPost: async (_, { content }, context) => {
 		await isAuthenticated(context);
 		const { _id: author } = context.req.payload;
-		console.log(files);
 		return await postService.createPost({ content, author });
 	},
 

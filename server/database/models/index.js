@@ -4,4 +4,6 @@ module.exports = {
 	PostLikeModal: require("./postLike"),
 	FriendshipModal: require("./friendship"),
 	CommentModal: require("./comment"),
+	ConversationModal: require("./conversation"),
+	MessageModal: require("./message"),
 };

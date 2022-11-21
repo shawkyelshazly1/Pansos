@@ -1,9 +1,16 @@
 const {
-	postQueries,
-	postMutations,
-	postTypes,
-	postResolvers,
-} = require("./scheme/post"),
+	conversationTypes,
+	conversationQueries,
+	conversationMutations,
+	conversationResolvers,
+} = require("./scheme/conversation");
+const { messageTypes } = require("./scheme/message");
+const {
+		postQueries,
+		postMutations,
+		postTypes,
+		postResolvers,
+	} = require("./scheme/post"),
 	{
 		postLikeQueries,
 		postLikeMutations,
@@ -26,8 +33,7 @@ const {
 		friendshipMutations,
 	} = require("./scheme/friendship"),
 	{ dateScalar } = require("./scheme/customScalars/dateScalar");
-	//
-	
+//
 
 const typeDefs = `
 	scalar Date
@@ -37,6 +43,8 @@ const typeDefs = `
 	${postLikeTypes}
 	${commentTypes}
 	${friendshipTypes}
+	${conversationTypes}
+	${messageTypes}
 `;
 
 const resolvers = {
@@ -46,6 +54,7 @@ const resolvers = {
 		...postLikeQueries,
 		...commentQueries,
 		...friendshipQueries,
+		...conversationQueries,
 	},
 	Mutation: {
 		...userMutations,
@@ -53,6 +62,7 @@ const resolvers = {
 		...postLikeMutations,
 		...commentMutations,
 		...friendshipMutations,
+		...conversationMutations,
 	},
 	User: {
 		...userResolvers,
@@ -60,8 +70,10 @@ const resolvers = {
 	Post: {
 		...postResolvers,
 	},
+	Conversation: {
+		...conversationResolvers,
+	},
 	Date: dateScalar,
-
 };
 
 module.exports = { typeDefs, resolvers };

@@ -149,7 +149,6 @@ class UserService {
 	// get suggessted user
 	async loadSuggesstedUsers(currentUserId) {
 		try {
-			console.log(!currentUserId);
 			// check for valid param
 			if (!currentUserId)
 				return await BadInputGraphQLError("UserId is required.");

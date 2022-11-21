@@ -5,4 +5,6 @@ module.exports = {
 	PostLikeRepository: require("./repositories/postLikeRepository"),
 	FriendshipRepository: require("./repositories/friendshipRepository"),
 	CommentRepository: require("./repositories/commentRepository"),
+	ConversationRepository: require("./repositories/conversationRepository"),
+	MessageRepository: require("./repositories/messageRepository"),
 };
