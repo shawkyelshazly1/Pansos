@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { IoNotifications } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { currentUserContext } from "../../contexts/CurrentUserContext";
+import NotificationComponent from "../notification/NotificationComponent";
 import LGMDDropdownMenu from "./LGMDDropdownMenu";
 import SMDropdownMenu from "./SMDropdownMenu";
 
@@ -11,12 +12,7 @@ export default function SideMenu() {
 
 	return (
 		<div className="flex flex-row gap-4 items-center">
-			<Link to={"/notifications"}>
-				<span className="bg-[#eff3fa] p-1 rounded-lg relative hidden lg:block md:block">
-					<IoNotifications size={30} color={"#192252"} />
-					<span className="rounded-full bg-[#eb5757] w-[10px] h-[10px] absolute top-[6%] right-[18%] border-[1px] border-white"></span>
-				</span>
-			</Link>
+			<NotificationComponent />
 
 			<Link to={`/profile/${currentUser.id}`}>
 				<img

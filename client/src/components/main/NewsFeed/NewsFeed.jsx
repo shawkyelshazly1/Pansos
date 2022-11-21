@@ -10,7 +10,7 @@ export default function NewsFeed() {
 	const { data, loading } = useQuery(LOAD_NEWSFEED);
 
 	return (
-		<div className="flex flex-col flex-1  gap-6 w-full max-h-[calc(100vh-120px)] overflow-y-scroll">
+		<div className="flex flex-col flex-1  gap-6 w-full max-h-[calc(100vh-120px)] overflow-y-scroll newsFeed-section">
 			{/* stories section */}
 			<StoriesSection />
 
