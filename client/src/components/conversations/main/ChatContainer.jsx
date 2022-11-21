@@ -1,8 +1,11 @@
 import React from "react";
+import { useParams } from "react-router";
 import ChatInput from "./ChatInput";
 import MessagesContainer from "./MessagesContainer";
 
 export default function ChatContainer() {
+	const { userId } = useParams();
+
 	return (
 		<div className="flex flex-1 flex-col gap-4 bg-white shadow-postCardShadow h-full rounded-xl p-6">
 			<div className="flex flex-row gap-3 cursor-pointer items-center">

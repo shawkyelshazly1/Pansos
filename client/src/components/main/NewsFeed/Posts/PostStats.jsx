@@ -7,10 +7,10 @@ import { FaShareSquare } from "react-icons/fa";
 import { LIKE_OR_UNLIKE_POST } from "../../../../graphql/post/mutation";
 
 export default function PostStats({
-	toggleModal,
+	toggleCommentsModal,
 	isOpened,
 	post,
-	setSelectedPost,
+	selectPost,
 }) {
 	// like or unlike post mutation
 	const [likeOrUnlikePost] = useMutation(LIKE_OR_UNLIKE_POST, {
@@ -37,8 +37,8 @@ export default function PostStats({
 			<div
 				className="flex flex-row gap-1 items-center cursor-pointer"
 				onClick={() => {
-					toggleModal(!isOpened);
-					setSelectedPost(post.id);
+					toggleCommentsModal(!isOpened);
+					selectPost();
 				}}
 			>
 				<AiFillMessage className="text-secondaryColor" size={25} />

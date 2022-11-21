@@ -34,7 +34,7 @@ export default function NavbarIcons() {
 	}, [location]);
 
 	return (
-		<div className="flex flex-row gap-6 items-center">
+		<div className="flex flex-row gap-6 items-center nav-icons">
 			<span
 				className={`p-1 ${
 					selectedIcon === "home" ? "bg-mainColor " : ""

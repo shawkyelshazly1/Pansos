@@ -1,9 +1,17 @@
 import React from "react";
 
-export default function ImageCard({ media }) {
+export default function ImageCard({ media, togglePostModal, selectPost }) {
 	return (
 		<div>
-			<img className="max-h-[600px] w-full " src={media} alt="" />
+			<img
+				onClick={() => {
+					togglePostModal(true);
+					selectPost();
+				}}
+				className="cursor-pointer max-h-[600px] w-full "
+				src={media}
+				alt=""
+			/>
 		</div>
 	);
 }

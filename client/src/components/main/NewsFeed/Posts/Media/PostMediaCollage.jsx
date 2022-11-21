@@ -3,7 +3,11 @@ import Masonry from "react-masonry-css";
 import ImageCard from "./ImageCard";
 import ImageCardWithOverlay from "./ImageCardWithOverlay";
 
-export default function PostMediaCollage({ media }) {
+export default function PostMediaCollage({
+	media,
+	togglePostModal,
+	selectPost,
+}) {
 	return (
 		<>
 			{media.length < 5 ? (
@@ -13,7 +17,12 @@ export default function PostMediaCollage({ media }) {
 					columnClassName="my-masonry-grid_column"
 				>
 					{media.map((media, i) => (
-						<ImageCard media={media} key={i} />
+						<ImageCard
+							togglePostModal={togglePostModal}
+							selectPost={selectPost}
+							media={media}
+							key={i}
+						/>
 					))}
 				</Masonry>
 			) : (
@@ -23,10 +32,19 @@ export default function PostMediaCollage({ media }) {
 					columnClassName="my-masonry-grid_column"
 				>
 					{media.slice(0, 3).map((media, i) => (
-						<ImageCard media={media} key={i} />
+						<ImageCard
+							togglePostModal={togglePostModal}
+							selectPost={selectPost}
+							media={media}
+							key={i}
+						/>
 					))}
 
-					<ImageCardWithOverlay media={media} />
+					<ImageCardWithOverlay
+						togglePostModal={togglePostModal}
+						selectPost={selectPost}
+						media={media}
+					/>
 				</Masonry>
 			)}
 		</>

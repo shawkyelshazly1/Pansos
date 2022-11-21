@@ -14,7 +14,7 @@ export default function SearchBar() {
 	const [searchUsers, { data, loading, error }] = useLazyQuery(SEARCH_USERS);
 
 	return (
-		<div className=" hidden lg:flex flex-col w-1/4 relative items-center justify-center focus-within:w-2/5">
+		<div className=" hidden lg:flex flex-col w-1/4 relative items-center justify-center focus-within:w-2/5 transition-width duration-300 ease-in-out">
 			<input
 				type="text"
 				className="w-full focus:outline-none bg-bgColor py-2 px-6 rounded-lg focus:rounded-b-none"
@@ -22,7 +22,12 @@ export default function SearchBar() {
 				onChange={(e) => {
 					setSearchQuery(e.target.value.trim());
 					if (e.target.value.trim() != "") {
-						searchUsers({ variables: { searchQuery: e.target.value.trim() } });
+						const timer = setTimeout(() => {
+							searchUsers({
+								variables: { searchQuery: e.target.value.trim() },
+							});
+							clearTimeout(timer);
+						}, 700);
 					}
 				}}
 				onFocus={() => {
@@ -30,7 +35,13 @@ export default function SearchBar() {
 				}}
 				onBlur={(e) => {
 					if (!e.currentTarget.contains(e.relatedTarget)) {
-						if (e.relatedTarget === null) setShowModal(false);
+						if (
+							e.relatedTarget === null ||
+							e.relatedTarget?.parentElement.parentElement.classList.contains(
+								"nav-icons"
+							)
+						)
+							setShowModal(false);
 					}
 				}}
 				onKeyDown={(e) => {

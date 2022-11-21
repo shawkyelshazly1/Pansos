@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import AddCommentSection from "./Comments/AddCommentSection";
 import PostMediaCollage from "./Media/PostMediaCollage";
@@ -7,14 +7,21 @@ import S from "underscore.string";
 import moment from "moment";
 import { currentUserContext } from "../../../../contexts/CurrentUserContext";
 import PostOptionsMenu from "./PostOptionsMenu";
+import PostModal from "./PostModal/PostModal";
+import { CurrentAppContext } from "../../../../contexts/AppContext";
 
 export default function PostCard({
 	isOpened,
-	toggleModal,
+	toggleCommentsModal,
+	togglePostModal,
 	post,
-	setSelectedPost,
 }) {
 	const { currentUser } = useContext(currentUserContext);
+	const { setSelectedPost } = useContext(CurrentAppContext);
+
+	const selectPost = () => {
+		setSelectedPost(post.id);
+	};
 
 	return (
 		<div className="flex flex-col gap-4 bg-white  rounded-2xl py-6 px-5 shadow-postCardShadow">
@@ -44,16 +51,25 @@ export default function PostCard({
 					)}
 				</div>
 			</div>
-			{post.media.length > 0 ? <PostMediaCollage media={post.media} /> : <></>}
-			<p>{post.content}</p>
+			<p className="text-lg">{post.content}</p>
+			{post.media.length > 0 ? (
+				<PostMediaCollage
+					selectPost={selectPost}
+					togglePostModal={togglePostModal}
+					media={post.media}
+				/>
+			) : (
+				<></>
+			)}
+
 			<hr />
 			<div className="flex flex-row justify-between gap-6">
 				<AddCommentSection postId={post.id} />
 				<PostStats
 					isOpened={isOpened}
-					toggleModal={toggleModal}
+					toggleCommentsModal={toggleCommentsModal}
 					post={post}
-					setSelectedPost={setSelectedPost}
+					selectPost={selectPost}
 				/>
 			</div>
 		</div>

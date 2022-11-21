@@ -16,7 +16,7 @@ export default function SearchBarModal({
 				{!isLoading && !result ? (
 					<h1>Start typing to search for users.</h1>
 				) : isLoading ? (
-					<h1>Loading results...</h1>
+					<></>
 				) : (
 					result.map((user) => (
 						<SearchResultCard

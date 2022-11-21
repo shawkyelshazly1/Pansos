@@ -9,6 +9,7 @@ import {
 	createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { CurrentAppProvider } from "./contexts/AppContext";
 
 function App() {
 	// basic http link
@@ -39,7 +40,9 @@ function App() {
 		<div className="App">
 			<ApolloProvider client={client}>
 				<CurrentUserProvider>
-					<RoutesProvider />
+					<CurrentAppProvider>
+						<RoutesProvider />
+					</CurrentAppProvider>
 				</CurrentUserProvider>
 			</ApolloProvider>
 		</div>

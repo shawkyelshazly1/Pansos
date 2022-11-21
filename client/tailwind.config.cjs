@@ -6,6 +6,9 @@ module.exports = {
 			center: true,
 		},
 		extend: {
+			transitionProperty: {
+				width: "width",
+			},
 			fontFamily: {
 				roboto: ["Roboto", "sans-serif"],
 				lobster: ["Lobster", "cursive"],

@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import S from "underscore.string";
 import FollowButton from "./FollowButton";
 import { currentUserContext } from "../../contexts/CurrentUserContext";
+import { TbMessages } from "react-icons/tb";
 
 export default function HeaderMenu({ loadedUser, toggleModal }) {
 	const location = useLocation();
@@ -53,7 +54,11 @@ export default function HeaderMenu({ loadedUser, toggleModal }) {
 				</Link>
 			</div>
 			<div className="flex flex-row gap-4 flex-1 justify-center">
-				<div className="flex flex-col gap-1 items-center lg:ml-10">
+				<div
+					className={`flex flex-col gap-1 items-center lg:ml-10   ${
+						currentUser.id !== loadedUser.id ? "lg:pl-[103px]" : ""
+					}`}
+				>
 					<h1 className="text-2xl text-[#192252] font-semibold hover:text-mainColor">
 						{S(loadedUser.firstName + " " + loadedUser.lastName)
 							.titleize()
@@ -82,7 +87,12 @@ export default function HeaderMenu({ loadedUser, toggleModal }) {
 					</h1>
 				</Link>
 				{currentUser.id !== loadedUser.id ? (
-					<FollowButton loadedUser={loadedUser} />
+					<>
+						<FollowButton loadedUser={loadedUser} />
+						<button className="flex flex-row items-center  font-semibold text-lg text-white bg-[#3a8dc1] rounded-lg px-4 py-2 ">
+							<TbMessages size={30} />
+						</button>
+					</>
 				) : (
 					<button
 						onClick={(e) => {

@@ -20,6 +20,26 @@ const LOAD_NEWSFEED = gql`
 	}
 `;
 
+const LOAD_POST = gql`
+	query getSinglePost($postId: ID!) {
+		getPostById(postId: $postId) {
+			id
+			content
+			commentsCount
+			likesCount
+			isLiked
+			createdAt
+			media
+			author {
+				id
+				firstName
+				lastName
+				profileImage
+			}
+		}
+	}
+`;
+
 // load user posts
 const LOAD_USER_POSTS = gql`
 	query getUserPosts($userId: ID!) {
@@ -41,4 +61,4 @@ const LOAD_USER_POSTS = gql`
 	}
 `;
 
-export { LOAD_NEWSFEED, LOAD_USER_POSTS };
+export { LOAD_NEWSFEED, LOAD_USER_POSTS, LOAD_POST };

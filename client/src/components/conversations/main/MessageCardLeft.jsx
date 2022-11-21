@@ -2,7 +2,7 @@ import React from "react";
 
 export default function MessageCardLeft() {
 	return (
-		<div className="flex flex-row gap-4 items-end lg:max-w-[40%]">
+		<div className="flex flex-row gap-4 items-end lg:max-w-[40%] max-w-[70%]">
 			<img
 				className="w-8 rounded-full"
 				src="https://i.postimg.cc/9Mj9yQgY/jonespeace-1.webp"

@@ -37,7 +37,7 @@ export default function CommentsModal({ isOpened, toggleModal, postId }) {
 		<div
 			className={` ${
 				!isOpened ? "hidden" : ""
-			}  w-full h-full  items-center flex justify-center z-[999] `}
+			}  w-full h-full  items-center flex justify-center z-[9999] `}
 		>
 			<div
 				className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-[999] modal-overlay"

@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PostCard from "./PostCard";
 import CommentsModal from "./Comments/CommentsModal";
 import NewPostSectionMobile from "../../RightSideMenu/AccountStats/AddPostSection/NewPostSectionMobile";
+import PostModal from "./PostModal/PostModal";
+import { CurrentAppContext } from "../../../../contexts/AppContext";
 
 export default function PostsSection({ posts }) {
 	const [showCommentsModal, setShowCommentsModal] = useState(false);
-	const [selectedPost, setSelectedPost] = useState("");
-	// #FIXME: fix rerender issue on modal open and close
+	const [showModal, setShowModal] = useState(false);
+	const { selectedPost } = useContext(CurrentAppContext);
+
 	return (
 		<div className=" flex flex-col  gap-6">
 			{/* form to add posts on mobile devices */}
@@ -21,16 +24,23 @@ export default function PostsSection({ posts }) {
 					post={post}
 					key={post.id}
 					isOpened={showCommentsModal}
-					toggleModal={setShowCommentsModal}
-					setSelectedPost={setSelectedPost}
+					toggleCommentsModal={setShowCommentsModal}
+					togglePostModal={setShowModal}
 				/>
 			))}
 
-			<CommentsModal
-				isOpened={showCommentsModal}
-				toggleModal={setShowCommentsModal}
-				postId={selectedPost}
-			/>
+			{selectedPost ? (
+				<>
+					<CommentsModal
+						isOpened={showCommentsModal}
+						toggleModal={setShowCommentsModal}
+						postId={selectedPost}
+					/>
+					<PostModal isOpened={showModal} toggleModal={setShowModal} />
+				</>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 }

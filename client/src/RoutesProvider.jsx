@@ -30,6 +30,10 @@ export default function RoutesProvider() {
 											<Route path="/search/:searchQuery" element={<Search />} />
 											<Route path="/explore" element={<Search />} />
 											<Route path="/message" element={<Conversations />} />
+											<Route
+												path="/message/:userId"
+												element={<Conversations />}
+											/>
 										</Routes>
 									</div>
 								</div>
