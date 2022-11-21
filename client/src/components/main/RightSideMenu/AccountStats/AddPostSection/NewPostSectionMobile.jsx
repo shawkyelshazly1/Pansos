@@ -17,22 +17,4 @@ export default function NewPostSectionMobile() {
 		</div>
 	);
 
-	// return<div>
-	// if (currentStatus === "idle")
-	// 	return <NewPostForm setCurrentStatus={setCurrentStatus} />;
-	// else if (currentStatus === "completed") {
-	// 	const timer = setTimeout(() => {
-	// 		setCurrentStatus("idle");
-	// 		clearTimeout(timer);
-	// 	}, 3000);
-	// 	return (
-	// 		<Player
-	// 			autoplay
-	// 			loop
-	// 			src="https://assets10.lottiefiles.com/packages/lf20_iuonzj99.json"
-	// 			style={{ height: "200px", width: "200px" }}
-	// 		></Player>
-	// 	);
-	// }
-	// 	</div>
 }

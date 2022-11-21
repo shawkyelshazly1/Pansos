@@ -3,19 +3,17 @@ import Masonry from "react-masonry-css";
 import ImageCard from "./ImageCard";
 import ImageCardWithOverlay from "./ImageCardWithOverlay";
 
-export default function PostMediaCollage() {
-	let images = Math.floor(Math.random() * 10);
-
+export default function PostMediaCollage({ media }) {
 	return (
 		<>
-			{images < 5 ? (
+			{media.length < 5 ? (
 				<Masonry
 					breakpointCols={2}
 					className="my-masonry-grid"
 					columnClassName="my-masonry-grid_column"
 				>
-					{Array.from({ length: images }, (_, i) => (
-						<ImageCard />
+					{media.map((media, i) => (
+						<ImageCard media={media} key={i} />
 					))}
 				</Masonry>
 			) : (
@@ -24,10 +22,11 @@ export default function PostMediaCollage() {
 					className="my-masonry-grid"
 					columnClassName="my-masonry-grid_column"
 				>
-					{Array.from({ length: 3 }, (_, i) => (
-						<ImageCard />
+					{media.slice(0, 3).map((media, i) => (
+						<ImageCard media={media} key={i} />
 					))}
-					<ImageCardWithOverlay />
+
+					<ImageCardWithOverlay media={media} />
 				</Masonry>
 			)}
 		</>

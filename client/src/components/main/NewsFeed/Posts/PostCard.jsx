@@ -16,7 +16,6 @@ export default function PostCard({
 }) {
 	const { currentUser } = useContext(currentUserContext);
 
-	const list = ["media", ""];
 	return (
 		<div className="flex flex-col gap-4 bg-white  rounded-2xl py-6 px-5 shadow-postCardShadow">
 			<div className="flex flex-row items-center justify-between w-full">
@@ -45,11 +44,7 @@ export default function PostCard({
 					)}
 				</div>
 			</div>
-			{/* {list[Math.floor(Math.random() * list.length)] === "media" ? (
-				<PostMediaCollage />
-			) : (
-				<></>
-			)} */}
+			{post.media.length > 0 ? <PostMediaCollage media={post.media} /> : <></>}
 			<p>{post.content}</p>
 			<hr />
 			<div className="flex flex-row justify-between gap-6">

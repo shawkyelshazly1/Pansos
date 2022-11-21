@@ -21,8 +21,8 @@ const LIKE_OR_UNLIKE_POST = gql`
 `;
 
 const ADD_POST = gql`
-	mutation addPost($content: String!) {
-		addPost(content: $content) {
+	mutation addPost($content: String!, $media: [String]) {
+		addPost(content: $content, media: $media) {
 			id
 			content
 			commentsCount

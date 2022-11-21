@@ -9,6 +9,7 @@ const LOAD_NEWSFEED = gql`
 			likesCount
 			isLiked
 			createdAt
+			media
 			author {
 				id
 				firstName
@@ -29,6 +30,7 @@ const LOAD_USER_POSTS = gql`
 			likesCount
 			commentsCount
 			createdAt
+			media
 			author {
 				id
 				firstName

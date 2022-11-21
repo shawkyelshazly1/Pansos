@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
-
-import NewPostModalSection from "./NewPostModalSection";
+import NewPostFormSection from "./NewPostFormSection";
 
 export default function NewPostModal({ isOpened, toggleModal }) {
 	// useEffect to handle clicking ESC to close modal
@@ -40,7 +39,7 @@ export default function NewPostModal({ isOpened, toggleModal }) {
 						</h1>
 
 						<div className="w-full h-full">
-							<NewPostModalSection toggleModal={toggleModal} />
+							<NewPostFormSection toggleModal={toggleModal} />
 						</div>
 					</div>
 				</div>

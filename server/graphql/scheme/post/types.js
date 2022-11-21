@@ -8,6 +8,7 @@ const postTypes = `
 		likesCount: Int!
 		isLiked: Boolean!
 		createdAt: Date!
+		media:[String]
 	}
 
 	type Query {
@@ -17,7 +18,7 @@ const postTypes = `
 	}
 
 	type Mutation {
-		addPost(content: String!): Post!
+		addPost(content: String!,media:[String]): Post!
 		deletePost(postId: ID!): Post!
 	}
 `;
