@@ -5,7 +5,7 @@ import RightSideMenu from "../components/main/RightSideMenu/RightSideMenu";
 
 export default function Home() {
 	return (
-		<div className="flex flex-row w-full h-full justify-between gap-6">
+		<div className="flex flex-row w-full h-full justify-between gap-6 ">
 			{/* Left side menu */}
 			<LeftSideMenu />
 

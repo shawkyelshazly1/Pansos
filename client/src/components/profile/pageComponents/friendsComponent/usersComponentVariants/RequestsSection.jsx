@@ -17,7 +17,7 @@ export default function RequestsSection({ selectedComponent }) {
 
 	if (loading) return <LoadingSpinner />;
 	return (
-		<div className="grid grid-cols-3 gap-6">
+		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6">
 			{data.getPendingRecievedRquests.map((request) => (
 				<UserCardRequest key={request.id} user={request.author} />
 			))}

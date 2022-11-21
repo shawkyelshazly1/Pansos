@@ -30,6 +30,16 @@ export default function UserCardMenu({ user }) {
 		onCompleted: (_) => {
 			toast.success("User UnFollowed Successfully.");
 		},
+		update: (cache, { data }) => {
+			if (!data) return;
+			// normalize relation ship to use it with cache
+			const normalized = cache.identify({
+				id: data.deleteSentRequest.id,
+				__typename: "Friendship",
+			});
+			cache.evict({ id: normalized });
+			cache.gc();
+		},
 	});
 
 	return (

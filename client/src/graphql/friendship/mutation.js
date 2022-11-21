@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 const SEND_FOLLOW_REQUEST = gql`
 	mutation sendFollowRequest($userId: ID!) {
 		sendFollowRequest(userId: $userId) {
+			id
 			target {
 				id
 				followStatus
@@ -20,6 +21,7 @@ const SEND_FOLLOW_REQUEST = gql`
 const DELETE_FOLLOW = gql`
 	mutation deleteSentRequest($userId: ID!) {
 		deleteSentRequest(userId: $userId) {
+			id
 			target {
 				id
 				followStatus
@@ -44,6 +46,10 @@ const ACCEPT_REQUEST = gql`
 				lastName
 				profileImage
 				followStatus
+			}
+			target {
+				id
+				followersCount
 			}
 		}
 	}

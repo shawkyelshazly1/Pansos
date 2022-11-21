@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Search from "./pages/Search";
 import Navbar from "./components/nav/Navbar";
+import Conversations from "./pages/Conversations";
 
 export default function RoutesProvider() {
 	return (
@@ -28,6 +29,7 @@ export default function RoutesProvider() {
 											<Route path="/profile/:userId/*" element={<Profile />} />
 											<Route path="/search/:searchQuery" element={<Search />} />
 											<Route path="/explore" element={<Search />} />
+											<Route path="/message" element={<Conversations />} />
 										</Routes>
 									</div>
 								</div>
