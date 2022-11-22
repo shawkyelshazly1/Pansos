@@ -4,7 +4,11 @@ const messageTypes = `
 		author: User!
 		conversation: Conversation
 		createdAt: Date!
-		content:String!
+		content: String!
+	}
+
+	type Mutation {
+		markMessagesRead(conversationId: ID!): Boolean
 	}
 `;
 

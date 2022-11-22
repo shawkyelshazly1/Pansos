@@ -1,7 +1,7 @@
 import { useLazyQuery, useQuery } from "@apollo/client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import toast from "react-hot-toast";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { LOAD_SINGLE_CONVERSATION } from "../../../graphql/conversation/query";
 import { LOAD_USER_MINIMAL } from "../../../graphql/user/query";
 import ChatInput from "./ChatInput";
@@ -10,6 +10,8 @@ import { currentUserContext } from "../../../contexts/CurrentUserContext";
 
 import ChatContainerHeader from "./chatContainer/ChatContainerHeader";
 import { LOAD_CONVERSATION_MESSAGES } from "../../../graphql/message/query";
+import { registerEvents } from "../../../socketIo/events";
+import { CurrentAppContext } from "../../../contexts/AppContext";
 
 export default function ChatContainer() {
 	const { userId } = useParams();
@@ -17,12 +19,17 @@ export default function ChatContainer() {
 
 	const { currentUser } = useContext(currentUserContext);
 
+	useEffect(() => {
+		refetch();
+	}, [userId]);
+
 	// load conversation messages on ID change
-	const { data, loading } = useQuery(LOAD_SINGLE_CONVERSATION, {
+	const { data, loading, refetch } = useQuery(LOAD_SINGLE_CONVERSATION, {
 		variables: { userId },
 		skip: !userId,
 		onError: (error) => {
 			if (!error.message === "Conversation not found!") {
+				console.log("here");
 				toast.error("Something Went Wrong!");
 			} else {
 				// load user if no conversation found
@@ -43,6 +50,7 @@ export default function ChatContainer() {
 			// load conversation messages if found
 			loadConversationMessages({
 				variables: { conversationId: loadSingleConversation.id },
+				fetchPolicy: "cache-and-network",
 			});
 		},
 	});
@@ -59,7 +67,7 @@ export default function ChatContainer() {
 
 	const otherParticipant = data?.loadSingleConversation.users.filter(
 		(user) => user.id !== currentUser.id
-	);
+	)[0];
 
 	return (
 		<div className="flex flex-1 flex-col gap-4 bg-white shadow-postCardShadow h-full rounded-xl p-6">
@@ -81,7 +89,7 @@ export default function ChatContainer() {
 						<MessagesContainer
 							messages={conversationMessages?.loadConversationMessages || []}
 						/>
-						<ChatInput />
+						<ChatInput recipient={otherParticipant || loadedUser?.loadUser} />
 					</div>
 				</>
 			)}

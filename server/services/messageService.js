@@ -78,6 +78,32 @@ class MessageService {
 			return await BadInputGraphQLError("Something went wrong!");
 		}
 	}
+
+	// load conversation messages
+	async loadConversationUnreadMessages(conversationId) {
+		try {
+			// validate input correct
+			if (!conversationId)
+				return await BadInputGraphQLError("Conversation Id is required.");
+
+			// load conversation
+			const existingConversation =
+				await this.conversationRepository.GetConversationById(conversationId);
+
+			// return error if no conversation matching the ID
+			if (!existingConversation)
+				return await BadInputGraphQLError("Conversation not found!");
+
+			// load conversation messages from DB
+			const conversationMessages =
+				await this.repository.getConversationUnreadMessages(conversationId);
+
+			return conversationMessages.length;
+		} catch (error) {
+			consola.error(error);
+			return await BadInputGraphQLError("Something went wrong!");
+		}
+	}
 }
 
 module.exports = MessageService;

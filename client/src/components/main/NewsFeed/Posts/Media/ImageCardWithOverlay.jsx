@@ -18,7 +18,7 @@ export default function ImageCardWithOverlay({
 				<div className=" bg-gray-800 opacity-60 w-full h-full absolute "></div>
 			</div>
 			<img
-				className=" max-h-[600px] w-full object-cover"
+				className=" max-h-[600px] w-full object-cover "
 				src={media[3]}
 				alt=""
 			/>

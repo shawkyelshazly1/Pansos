@@ -14,7 +14,7 @@ export default function ChatContainerHeader({ loadedUser, otherParticipant }) {
 					}
 					alt=""
 				/>
-				<div className="lg:flex flex-col gap-1 pt-2 hidden ">
+				<div className="flex flex-col gap-1 pt-2 ">
 					<h1 className="font-bold">
 						{loadedUser?.loadUser
 							? S(

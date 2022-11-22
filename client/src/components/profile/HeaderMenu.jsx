@@ -13,7 +13,6 @@ export default function HeaderMenu({ loadedUser, toggleModal }) {
 	const { currentUser } = useContext(currentUserContext);
 
 	useEffect(() => {
-		console.log(location.pathname.split("/"));
 		if (location.pathname.split("/")[1] === "profile")
 			location.pathname.split("/")[3] === "" ||
 			location.pathname.split("/")[3] === undefined

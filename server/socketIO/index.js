@@ -12,12 +12,11 @@ const initSocketIO = (server) => {
 
 	// listen to client connection
 	ioServer.on("connection", (socket) => {
-		console.log(socket.handshake.auth.userId);
 		socket.join(socket.handshake.auth.userId);
-
+	
 		// configure all events
-		configureMessageEvents(socket);
-		configureDisconnectEevents(socket);
+		configureMessageEvents(socket, ioServer);
+		configureDisconnectEevents(socket, ioServer);
 	});
 
 	// use the user ID in socket as attribute
@@ -35,11 +34,11 @@ const initSocketIO = (server) => {
 };
 
 // configure disconnect events
-const configureDisconnectEevents = (socket) => {
+const configureDisconnectEevents = (socket, ioServer) => {
 	// on user disconnection
 	socket.on("disconnect", () => {
-		socket.leave(socket.userId);
 		consola.info("📴 user disconnected");
+
 	});
 };
 

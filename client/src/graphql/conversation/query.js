@@ -19,6 +19,7 @@ const LOAD_USER_CONVERSATIONS = gql`
 				lastName
 				profileImage
 			}
+			unreadMessagesCount
 		}
 	}
 `;
@@ -33,6 +34,7 @@ const LOAD_SINGLE_CONVERSATION = gql`
 				lastName
 				profileImage
 			}
+			unreadMessagesCount
 		}
 	}
 `;

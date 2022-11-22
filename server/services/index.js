@@ -6,4 +6,5 @@ module.exports = {
 	FriendshipService: require("./friendshipService"),
 	ConversationService: require("./conversationService"),
 	MessageService: require("./messageService"),
+	MessageStatusService: require("./messageStatusService"),
 };

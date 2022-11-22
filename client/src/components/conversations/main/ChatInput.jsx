@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { IoMdSend } from "react-icons/io";
+import { ChatAppContext } from "../../../contexts/ChatContext";
+import { sendMessage } from "../../../socketIo/events";
 
-export default function ChatInput() {
+export default function ChatInput({ recipient }) {
 	// form state
 	const [content, setContent] = useState("");
+	const { IOsocket } = useContext(ChatAppContext);
 
 	// handle input Change
 	const handleInputChange = (e) => {
@@ -15,7 +18,13 @@ export default function ChatInput() {
 	const handleFormSubmission = (e) => {
 		e.preventDefault();
 		if (content.trim() !== "") {
-			console.log(content);
+			let messageData = {
+				content: content.trim(),
+				recipient: recipient.id,
+			};
+
+			sendMessage(IOsocket, messageData);
+
 			setContent("");
 		}
 	};

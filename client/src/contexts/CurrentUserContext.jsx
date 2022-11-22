@@ -1,6 +1,7 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useApolloClient, useQuery } from "@apollo/client";
 import { AUTH_USER } from "../graphql/user/query";
+import { CurrentAppContext } from "./AppContext";
 
 // create user context
 export const currentUserContext = createContext(null);
@@ -19,7 +20,7 @@ export const CurrentUserProvider = ({ children }) => {
 		onError: (error) => {
 			logoutUser();
 		},
-		onCompleted: ({ authUser }) => {
+		onCompleted: async ({ authUser }) => {
 			setIsAuthLoading(false);
 			setCurrentUser(authUser);
 		},
@@ -64,6 +65,8 @@ export const CurrentUserProvider = ({ children }) => {
 		isAuthLoading,
 		setCurrentUser,
 		logoutUser,
+
+		checkAuth,
 	};
 
 	return (

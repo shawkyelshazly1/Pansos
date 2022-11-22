@@ -5,6 +5,7 @@ const conversationTypes = `
 		lastMessage: Message!
 		createdAt: Date!
 		messages: [Message]!
+		unreadMessagesCount:Int!
 	}
 
 	type Query {

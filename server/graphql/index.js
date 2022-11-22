@@ -4,7 +4,11 @@ const {
 	conversationMutations,
 	conversationResolvers,
 } = require("./scheme/conversation");
-const { messageTypes, messageResolvers } = require("./scheme/message");
+const {
+	messageTypes,
+	messageResolvers,
+	messageMutations,
+} = require("./scheme/message");
 const {
 		postQueries,
 		postMutations,
@@ -63,6 +67,7 @@ const resolvers = {
 		...commentMutations,
 		...friendshipMutations,
 		...conversationMutations,
+		...messageMutations,
 	},
 	User: {
 		...userResolvers,
