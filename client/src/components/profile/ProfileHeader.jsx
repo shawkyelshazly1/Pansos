@@ -3,7 +3,7 @@ import EditProfileModal from "./editProfileComponent/EditProfileModal";
 import HeaderMenu from "./HeaderMenu";
 
 export default function ProfileHeader({ loadedUser }) {
-	const [showModal, setShowModal] = useState(true);
+	const [showModal, setShowModal] = useState(false);
 
 	return (
 		<div className=" w-[90%] flex flex-col gap-4 bg-white  px-8  rounded-xl shadow-postCardShadow py-6  ">
