@@ -19,8 +19,6 @@ export default function MessagesContainer({ messages }) {
 		addNewMessage,
 	} = useContext(ChatAppContext);
 
-
-
 	useEffect(() => {
 		setLoadedConversationMessages([...messages]);
 	}, [messages]);

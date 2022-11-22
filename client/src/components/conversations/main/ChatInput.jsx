@@ -4,7 +4,7 @@ import { IoMdSend } from "react-icons/io";
 import { ChatAppContext } from "../../../contexts/ChatContext";
 import { sendMessage } from "../../../socketIo/events";
 
-export default function ChatInput({ recipient }) {
+export default function ChatInput({ recipient, loadConversation, newUser }) {
 	// form state
 	const [content, setContent] = useState("");
 	const { IOsocket } = useContext(ChatAppContext);
@@ -24,7 +24,9 @@ export default function ChatInput({ recipient }) {
 			};
 
 			sendMessage(IOsocket, messageData);
-
+			if (newUser) {
+				loadConversation();
+			}
 			setContent("");
 		}
 	};

@@ -48,7 +48,7 @@ export default function ChatContainer() {
 		},
 		onCompleted: ({ loadSingleConversation }) => {
 			// load conversation messages if found
-			loadConversationMessages({
+			fetchConversationMessages({
 				variables: { conversationId: loadSingleConversation.id },
 				fetchPolicy: "cache-and-network",
 			});
@@ -61,7 +61,7 @@ export default function ChatContainer() {
 
 	// load conversation messages if conversation found
 	const [
-		loadConversationMessages,
+		fetchConversationMessages,
 		{ data: conversationMessages, loading: loadingConversationMessages },
 	] = useLazyQuery(LOAD_CONVERSATION_MESSAGES);
 
@@ -89,7 +89,11 @@ export default function ChatContainer() {
 						<MessagesContainer
 							messages={conversationMessages?.loadConversationMessages || []}
 						/>
-						<ChatInput recipient={otherParticipant || loadedUser?.loadUser} />
+						<ChatInput
+							newUser={loadedUser?.loadUser}
+							recipient={otherParticipant || loadedUser?.loadUser}
+							loadConversation={refetch}
+						/>
 					</div>
 				</>
 			)}
