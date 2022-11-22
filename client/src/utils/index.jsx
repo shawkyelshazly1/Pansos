@@ -48,7 +48,6 @@ export const adjustMessageObjectIdFields = (messageData) => {
 };
 
 export const showMessageNotification = (messageData) => {
-	
 	toast.custom(
 		(t) => (
 			<div
@@ -60,7 +59,6 @@ export const showMessageNotification = (messageData) => {
 					className="flex-1 w-0 p-4 cursor-pointer"
 					onClick={() => {
 						window.location = `/message/${messageData.author._id}`;
-						
 					}}
 				>
 					<div className="flex items-start">
