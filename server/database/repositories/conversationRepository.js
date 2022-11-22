@@ -24,8 +24,9 @@ class ConversationRespository {
 				users: { $in: [mongoose.Types.ObjectId(userId)] },
 			})
 				.populate("users", "-password")
-				.populate("lastMessage")
+				.populate({ path: "lastMessage", populate: { path: "author" } })
 				.sort({ lastMessage: -1 });
+
 
 			return userConversations;
 		} catch (error) {

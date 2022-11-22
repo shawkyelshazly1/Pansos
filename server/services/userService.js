@@ -87,7 +87,8 @@ class UserService {
 			const existingUser = await this.repository.FindUserById(userId);
 
 			// return error if not found
-			if (!existingUser) return await BadInputGraphQLError("User not found!");
+			if (!existingUser || existingUser.error)
+				return await BadInputGraphQLError("User not found!");
 			// else return user
 			else return existingUser;
 		} catch (error) {

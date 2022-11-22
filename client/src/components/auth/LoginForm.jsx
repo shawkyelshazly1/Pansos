@@ -4,15 +4,15 @@ import FormInput from "./FormInput";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../graphql/user/mutation";
 import toast from "react-hot-toast";
-import LoadingSpinner from "../utils/LoadingSpinner";
 import { currentUserContext } from "../../contexts/CurrentUserContext";
+import { connectSocketIo } from "../../socketIo/connection";
 
 export default function LoginForm() {
 	//navigate hook
 	const navigate = useNavigate();
 
 	// useContext
-	const { setCurrentUser } = useContext(currentUserContext);
+	const { setCurrentUser, checkAuth } = useContext(currentUserContext);
 
 	//form state
 	const [formData, setFormData] = useState({ email: "", password: "" });
@@ -24,9 +24,10 @@ export default function LoginForm() {
 				position: "bottom-center",
 			});
 		},
-		onCompleted: ({ loginUser }) => {
+		onCompleted: async ({ loginUser }) => {
 			localStorage.setItem("accessToken", loginUser.accessToken);
 			setCurrentUser(loginUser.user);
+			connectSocketIo(loginUser.user.id);
 			toast.success("Logged In!");
 			navigate("/");
 		},

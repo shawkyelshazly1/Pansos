@@ -9,6 +9,7 @@ class MessageRepository {
 			let newMessage = await new MessageModal(messageData);
 			newMessage = await newMessage.save();
 			newMessage = await newMessage.populate("author", "-password");
+			newMessage = await newMessage.populate("conversation");
 
 			return newMessage;
 		} catch (error) {
@@ -22,6 +23,23 @@ class MessageRepository {
 		try {
 			const conversationMessages = await MessageModal.find({
 				conversation: conversationId,
+			})
+				.populate("author", "-password")
+				.sort({ createdAt: -1 });
+
+			return conversationMessages;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
+
+	// load unread conversation messages
+	async getConversationUnreadMessages(conversationId) {
+		try {
+			const conversationMessages = await MessageModal.find({
+				conversation: conversationId,
+				status: "unread",
 			})
 				.populate("author", "-password")
 				.sort({ createdAt: -1 });

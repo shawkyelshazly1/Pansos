@@ -28,7 +28,9 @@
 		"graphql-upload": "^16.0.2",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.7.2",
-		"morgan": "^1.10.0"
+		"morgan": "^1.10.0",
+		"socket.io": "^4.5.3",
+		"uuidv4": "^6.2.13"
 	},
 	"devDependencies": {
 		"@types/graphql-upload": "^8.0.12",

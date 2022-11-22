@@ -10,6 +10,8 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { CurrentAppProvider } from "./contexts/AppContext";
+import { useEffect } from "react";
+import { ChatAppProvier } from "./contexts/ChatContext";
 
 function App() {
 	// basic http link
@@ -41,7 +43,9 @@ function App() {
 			<ApolloProvider client={client}>
 				<CurrentUserProvider>
 					<CurrentAppProvider>
-						<RoutesProvider />
+						<ChatAppProvier>
+							<RoutesProvider />
+						</ChatAppProvier>
 					</CurrentAppProvider>
 				</CurrentUserProvider>
 			</ApolloProvider>

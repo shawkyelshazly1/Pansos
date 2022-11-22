@@ -8,6 +8,7 @@ const messageSchema = mongoose.Schema(
 			ref: "Conversation",
 			required: true,
 		},
+		content: { type: String, required: true, trim: true },
 	},
 	{ timestamps: true }
 );

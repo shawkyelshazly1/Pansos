@@ -5,11 +5,13 @@ const conversationTypes = `
 		lastMessage: Message!
 		createdAt: Date!
 		messages: [Message]!
+		unreadMessagesCount:Int!
 	}
 
 	type Query {
 		loadConversationMessages(conversationId: ID!): [Message]!
-		loadUserConversations(userId: ID!): [Conversation]!
+		loadUserConversations: [Conversation]!
+		loadSingleConversation(userId:ID!):Conversation!
 	}
 
 	type Mutation {

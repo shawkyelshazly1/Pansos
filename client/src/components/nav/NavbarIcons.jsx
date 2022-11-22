@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiFillHome, AiFillMessage } from "react-icons/ai";
 import { FaCompass } from "react-icons/fa";
 import { TiGroup } from "react-icons/ti";
 import { Link, useLocation } from "react-router-dom";
+import { ChatAppContext } from "../../contexts/ChatContext";
 
 export default function NavbarIcons() {
+	const { unreadConversationsCount } = useContext(ChatAppContext);
+
 	const location = useLocation();
 
 	// selected state
@@ -66,7 +69,7 @@ export default function NavbarIcons() {
 			<span
 				className={`p-1 ${
 					selectedIcon === "message" ? "bg-mainColor " : ""
-				}  rounded-lg cursor-pointer`}
+				}  rounded-lg cursor-pointer relative`}
 			>
 				<Link to={"/message"}>
 					<AiFillMessage
@@ -76,6 +79,17 @@ export default function NavbarIcons() {
 						} `}
 					/>
 				</Link>
+				{unreadConversationsCount && selectedIcon === "message" ? (
+					<span className="absolute top-[-8px] font-medium right-[-8px] rounded-full bg-[#c5d0e6] text-white w-5 h-5 text-sm flex items-center justify-center">
+						{unreadConversationsCount}
+					</span>
+				) : unreadConversationsCount && selectedIcon !== "message" ? (
+					<span className="absolute top-[-4px] font-medium right-[-4px] rounded-full bg-mainColor text-white w-5 h-5 text-sm flex items-center justify-center">
+						{unreadConversationsCount}
+					</span>
+				) : (
+					<></>
+				)}
 			</span>
 			<span
 				className={`p-1 ${

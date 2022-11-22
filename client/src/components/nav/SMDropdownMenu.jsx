@@ -3,10 +3,13 @@ import { Menu } from "@headlessui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { currentUserContext } from "../../contexts/CurrentUserContext";
+import { CurrentAppContext } from "../../contexts/AppContext";
+import { ChatAppContext } from "../../contexts/ChatContext";
 
 export default function SMDropdownMenu() {
 	//logout user from context
 	const { logoutUser, currentUser } = useContext(currentUserContext);
+	const { IOsocket } = useContext(ChatAppContext);
 
 	return (
 		//  small screen menu
@@ -46,6 +49,7 @@ export default function SMDropdownMenu() {
 							className={`${active && "text-mainColor"} cursor-pointer`}
 							onClick={() => {
 								logoutUser();
+								IOsocket.disconnect();
 							}}
 						>
 							Logout

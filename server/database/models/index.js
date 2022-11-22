@@ -6,4 +6,5 @@ module.exports = {
 	CommentModal: require("./comment"),
 	ConversationModal: require("./conversation"),
 	MessageModal: require("./message"),
+	MessageStatusModal: require("./messageStatus"),
 };

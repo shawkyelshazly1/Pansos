@@ -63,4 +63,22 @@ const LOAD_SUGGGESSTED_USERS = gql`
 	}
 `;
 
-export { LOAD_USER, AUTH_USER, SEARCH_USERS, LOAD_SUGGGESSTED_USERS };
+// load user profile
+const LOAD_USER_MINIMAL = gql`
+	query loadUser($userId: ID!) {
+		loadUser(userId: $userId) {
+			id
+			firstName
+			lastName
+			profileImage
+		}
+	}
+`;
+
+export {
+	LOAD_USER,
+	AUTH_USER,
+	SEARCH_USERS,
+	LOAD_SUGGGESSTED_USERS,
+	LOAD_USER_MINIMAL,
+};

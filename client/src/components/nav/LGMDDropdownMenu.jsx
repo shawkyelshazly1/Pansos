@@ -4,11 +4,12 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import { currentUserContext } from "../../contexts/CurrentUserContext";
 import s from "underscore.string";
+import { ChatAppContext } from "../../contexts/ChatContext";
 
 export default function LGMDDropdownMenu() {
 	// currentUserContext
 	const { logoutUser, currentUser } = useContext(currentUserContext);
-	
+	const { IOsocket } = useContext(ChatAppContext);
 	return (
 		// large and medium screen menu
 		<Menu
@@ -40,6 +41,7 @@ export default function LGMDDropdownMenu() {
 							className={`${active && "text-mainColor"} cursor-pointer`}
 							onClick={() => {
 								logoutUser();
+								IOsocket.disconnect();
 							}}
 						>
 							Logout

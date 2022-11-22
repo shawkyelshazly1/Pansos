@@ -6,6 +6,7 @@ const express = require("express"),
 	{ expressMiddleware } = require("@apollo/server/express4"),
 	{ initiDBConnection } = require("./database"),
 	{ typeDefs, resolvers } = require("./graphql");
+const { initSocketIO } = require("./socketIO");
 
 // set env variables config
 require("dotenv").config();
@@ -32,8 +33,6 @@ require("dotenv").config();
 	// start apollo server
 	await server.start();
 
-
-
 	// setting the route to query graphql
 	app.use(
 		"/graphql",
@@ -43,7 +42,10 @@ require("dotenv").config();
 	);
 
 	// starting express server
-	app.listen(process.env.PORT || 5000, () => {
+	const httpServer = app.listen(process.env.PORT || 5000, () => {
 		consola.success(`🚀 Server started on port: ${process.env.PORT || 5000}`);
 	});
+
+	// init socket io connection
+	initSocketIO(httpServer);
 })();

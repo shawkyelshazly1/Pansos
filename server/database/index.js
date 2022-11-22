@@ -7,4 +7,5 @@ module.exports = {
 	CommentRepository: require("./repositories/commentRepository"),
 	ConversationRepository: require("./repositories/conversationRepository"),
 	MessageRepository: require("./repositories/messageRepository"),
+	MessageStatusRepository: require("./repositories/messageStatusRepository"),
 };

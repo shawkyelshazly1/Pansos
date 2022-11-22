@@ -13,7 +13,6 @@ export default function HeaderMenu({ loadedUser, toggleModal }) {
 	const { currentUser } = useContext(currentUserContext);
 
 	useEffect(() => {
-		console.log(location.pathname.split("/"));
 		if (location.pathname.split("/")[1] === "profile")
 			location.pathname.split("/")[3] === "" ||
 			location.pathname.split("/")[3] === undefined
@@ -89,9 +88,11 @@ export default function HeaderMenu({ loadedUser, toggleModal }) {
 				{currentUser.id !== loadedUser.id ? (
 					<>
 						<FollowButton loadedUser={loadedUser} />
-						<button className="flex flex-row items-center  font-semibold text-lg text-white bg-[#3a8dc1] rounded-lg px-4 py-2 ">
-							<TbMessages size={30} />
-						</button>
+						<Link to={`/message/${loadedUser.id}`}>
+							<button className="flex flex-row items-center  font-semibold text-lg text-white bg-[#3a8dc1] rounded-lg px-4 py-2 ">
+								<TbMessages size={30} />
+							</button>
+						</Link>
 					</>
 				) : (
 					<button
