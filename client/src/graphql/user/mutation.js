@@ -43,8 +43,18 @@ const REGISTER_USER = gql`
 `;
 
 const UPDATE_PROFILE_INFO = gql`
-	mutation updateProfileInfo($firstName: String!, $lastName: String!) {
-		updateProfileInfo(firstName: $firstName, lastName: $lastName) {
+	mutation updateProfileInfo(
+		$firstName: String!
+		$lastName: String!
+		$profileImage: String
+		$profileCover: String
+	) {
+		updateProfileInfo(
+			firstName: $firstName
+			lastName: $lastName
+			profileImage: $profileImage
+			profileCover: $profileCover
+		) {
 			id
 			firstName
 			lastName

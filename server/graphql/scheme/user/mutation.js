@@ -21,10 +21,10 @@ const userMutation = {
 	},
 
 	// update user profileCover
-	updateProfileInfo: async (_, { firstName, lastName }, context) => {
+	updateProfileInfo: async (_, userData, context) => {
 		await isAuthenticated(context);
 		const { _id } = context.req.payload;
-		return await userService.updateProfileInfo(_id, { firstName, lastName });
+		return await userService.updateProfileInfo(_id, userData);
 	},
 };
 
