@@ -7,4 +7,5 @@ module.exports = {
 	ConversationService: require("./conversationService"),
 	MessageService: require("./messageService"),
 	MessageStatusService: require("./messageStatusService"),
+	MediaService: require("./mediaService"),
 };

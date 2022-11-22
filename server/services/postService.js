@@ -1,9 +1,9 @@
 const consola = require("consola");
 const { PostRepository } = require("../database");
-const {
-	BadInputGraphQLError,
-	NotAuthorizedGraphQLError,
-} = require("../utils/error.js");
+const { BadInputGraphQLError } = require("../utils/error.js"),
+	MediaService = require("./mediaService");
+
+const mediaService = new MediaService();
 
 // class to interact with user service
 class PostService {
@@ -19,6 +19,12 @@ class PostService {
 			// validate if all inputs are valid
 			if (!content || !author)
 				return await BadInputGraphQLError("Post data is required!");
+
+			//upload media if exists
+			if (postData.media && postData.media.length > 0) {
+				let newMedia = await mediaService.addNewMedia(postData.media);
+				postData.media = newMedia;
+			}
 
 			// create new post in DB
 			const newPost = await this.repository.CreatePost(postData);

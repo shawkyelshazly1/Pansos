@@ -4,6 +4,7 @@ const {
 	conversationMutations,
 	conversationResolvers,
 } = require("./scheme/conversation");
+const { mediaTypes } = require("./scheme/media");
 const {
 	messageTypes,
 	messageResolvers,
@@ -49,6 +50,7 @@ const typeDefs = `
 	${friendshipTypes}
 	${conversationTypes}
 	${messageTypes}
+	${mediaTypes}
 `;
 
 const resolvers = {

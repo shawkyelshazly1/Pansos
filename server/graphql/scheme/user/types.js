@@ -4,8 +4,8 @@ const userTypes = `
 		firstName: String!
 		lastName: String!
 		email: String!
-		profileImage: String!
-		profileCover: String!
+		profileImage: Media!
+		profileCover: Media!
 		followersCount: Int!
 		followingsCount: Int!
 		followStatus: String!

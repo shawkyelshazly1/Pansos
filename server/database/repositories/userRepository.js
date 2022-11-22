@@ -8,7 +8,11 @@ class UserRepository {
 	async CreateUser(userData) {
 		try {
 			const newUser = await new UserModal(userData);
-			return await newUser.save();
+
+			newUser = await newUser.save();
+			newUser = await newUser.populate("media");
+
+			return newUser;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };
@@ -21,7 +25,7 @@ class UserRepository {
 			const existingUser = await UserModal.findById(
 				mongoose.Types.ObjectId(userId),
 				{ password: 0 }
-			);
+			).populate("media");
 			return existingUser;
 		} catch (error) {
 			consola.error(error);
@@ -32,7 +36,9 @@ class UserRepository {
 	// find user by email
 	async FindUserByEmail(userEmail) {
 		try {
-			const existingUser = await UserModal.findOne({ email: userEmail });
+			const existingUser = await UserModal.findOne({
+				email: userEmail,
+			}).populate("media");
 			return existingUser;
 		} catch (error) {
 			consola.error(error);
@@ -47,7 +53,7 @@ class UserRepository {
 				{ _id: mongoose.Types.ObjectId(userId) },
 				userData,
 				{ new: true }
-			);
+			).populate("media");
 			return updatedUser;
 		} catch (error) {
 			consola.error(error);
@@ -62,7 +68,8 @@ class UserRepository {
 			const users = await UserModal.find({}, { password: 0 })
 				.or([{ firstName: { $regex: regex } }, { lastName: { $regex: regex } }])
 				.ne("_id", mongoose.Types.ObjectId(currentUserId))
-				.limit(5);
+				.limit(5)
+				.populate("media");
 
 			return users;
 		} catch (error) {
@@ -82,13 +89,11 @@ class UserRepository {
 				},
 				{ target: 1 }
 			)
+
 				.distinct("target")
 				.lean();
 
 			// load suggessted not followed users
-			// const suggesstedUsers = await UserModal.find({
-			// 	_id: { $nin: userFollowings },
-			// });
 
 			let suggesstedUsers = await UserModal.aggregate([
 				{
@@ -99,7 +104,7 @@ class UserRepository {
 					},
 				},
 				{ $sample: { size: 20 } },
-			]);
+			]).populate("media");
 
 			suggesstedUsers = suggesstedUsers.map((user) => {
 				const { _id, ...updatedUser } = user;

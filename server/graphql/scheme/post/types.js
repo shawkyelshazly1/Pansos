@@ -8,7 +8,7 @@ const postTypes = `
 		likesCount: Int!
 		isLiked: Boolean!
 		createdAt: Date!
-		media:[String]
+		media:[Media]
 	}
 
 	type Query {

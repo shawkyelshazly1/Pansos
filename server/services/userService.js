@@ -2,7 +2,10 @@ const { UserRepository } = require("../database"),
 	{ hashPassword, generateAccessToken } = require("../utils/auth.js"),
 	consola = require("consola"),
 	bcryptjs = require("bcryptjs"),
-	{ BadInputGraphQLError } = require("../utils/error.js");
+	{ BadInputGraphQLError } = require("../utils/error.js"),
+	MediaService = require("./mediaService");
+
+const mediaService = new MediaService();
 
 // class to interact with user service
 class UserService {
@@ -133,6 +136,17 @@ class UserService {
 			// throw error if not same user authenticated
 			if (String(existingUser._id) !== String(userId))
 				return await BadInputGraphQLError("Not Authorized");
+
+			// create media object and save id in user Data
+			if (userData.profileImage) {
+				const media = await mediaService.addNewMedia(userData.profileImage)[0];
+				userData.profileImage = media._id;
+			}
+
+			if (userData.profileCover) {
+				const media = await mediaService.addNewMedia(userData.profileCover)[0];
+				userData.profileCover = media._id;
+			}
 
 			// Update User in DB
 			const updatedUser = await this.repository.UpdateUserById(
