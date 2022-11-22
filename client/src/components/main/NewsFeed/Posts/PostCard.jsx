@@ -29,7 +29,7 @@ export default function PostCard({
 				<Link to={`/profile/${post.author.id}`}>
 					<div className="flex flex-row  gap-4">
 						<img
-							className="w-16 rounded-lg object-cover "
+							className="w-16 h-16 rounded-lg object-cover "
 							src={post.author.profileImage}
 							alt=""
 						/>
