@@ -43,7 +43,7 @@ class ConversationService {
 			const userConversations = await this.repository.GetUserConversations(
 				userId
 			);
-
+			
 			return userConversations;
 		} catch (error) {
 			consola.error(error);

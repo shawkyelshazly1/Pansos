@@ -2,7 +2,7 @@ const messageTypes = `
 	type Message {
 		id: ID!
 		author: User!
-		conversation: Conversation!
+		conversation: Conversation
 		createdAt: Date!
 		content:String!
 	}

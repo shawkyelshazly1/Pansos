@@ -4,7 +4,7 @@ const {
 	conversationMutations,
 	conversationResolvers,
 } = require("./scheme/conversation");
-const { messageTypes } = require("./scheme/message");
+const { messageTypes, messageResolvers } = require("./scheme/message");
 const {
 		postQueries,
 		postMutations,
@@ -73,6 +73,7 @@ const resolvers = {
 	Conversation: {
 		...conversationResolvers,
 	},
+
 	Date: dateScalar,
 };
 

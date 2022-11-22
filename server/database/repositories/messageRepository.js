@@ -9,6 +9,7 @@ class MessageRepository {
 			let newMessage = await new MessageModal(messageData);
 			newMessage = await newMessage.save();
 			newMessage = await newMessage.populate("author", "-password");
+			newMessage = await newMessage.populate("conversation");
 
 			return newMessage;
 		} catch (error) {

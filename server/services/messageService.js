@@ -16,18 +16,28 @@ class MessageService {
 			if (!messageData)
 				return await BadInputGraphQLError("Message data is required.");
 
-			// load conversation
-			const existingConversation =
-				await this.conversationRepository.GetConversationById(
-					messageData.conversation
-				);
+			// fin conversation try with usersIds
+			let existingConversation =
+				await this.conversationRepository.GetConversationByUsersIds([
+					messageData.author,
+					messageData.recipient,
+				]);
 
-			// return error if no conversation matching the ID
-			if (!existingConversation)
-				return await BadInputGraphQLError("Conversation not found!");
+			// if no conversation create new one
+			if (!existingConversation) {
+				existingConversation =
+					await this.conversationRepository.CreateConversation([
+						messageData.author,
+						messageData.recipient,
+					]);
+			}
 
 			// create new message
-			const newMessage = await this.repository.CreateNewMessage(messageData);
+			const newMessage = await this.repository.CreateNewMessage({
+				author: messageData.author,
+				content: messageData.content,
+				conversation: existingConversation._id,
+			});
 
 			//update conversation last message
 			const conversation =
@@ -52,9 +62,7 @@ class MessageService {
 
 			// load conversation
 			const existingConversation =
-				await this.conversationRepository.GetConversationById(
-					messageData.conversation
-				);
+				await this.conversationRepository.GetConversationById(conversationId);
 
 			// return error if no conversation matching the ID
 			if (!existingConversation)
