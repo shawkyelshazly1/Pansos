@@ -52,6 +52,21 @@ class MediaRepository {
 			return { error: "Something Went Wrong!" };
 		}
 	}
+
+	// load media photos for user sorted by date
+	async LoadUserPhotos(userId) {
+		try {
+			let userPhotos = await MediaModal.find({
+				user: mongoose.Types.ObjectId(userId),
+				type: "photo",
+			}).sort({ createdAt: "desc" });
+
+			return userPhotos;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
 }
 
 module.exports = MediaRepository;

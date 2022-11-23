@@ -6,6 +6,10 @@ const mediaTypes = `
 		user: User
 		post: Post
 	}
+
+	type Query{
+		getUserPhotos(userId:ID!):[Media]!
+	}
 `;
 
 module.exports = mediaTypes;

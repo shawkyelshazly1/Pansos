@@ -4,7 +4,7 @@ const {
 	conversationMutations,
 	conversationResolvers,
 } = require("./scheme/conversation");
-const { mediaTypes } = require("./scheme/media");
+const { mediaTypes, mediaQueries } = require("./scheme/media");
 const {
 	messageTypes,
 	messageResolvers,
@@ -61,6 +61,7 @@ const resolvers = {
 		...commentQueries,
 		...friendshipQueries,
 		...conversationQueries,
+		...mediaQueries,
 	},
 	Mutation: {
 		...userMutations,

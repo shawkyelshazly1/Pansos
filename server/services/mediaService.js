@@ -1,4 +1,5 @@
 const MediaRepository = require("../database/repositories/mediaRepository");
+const { BadInputGraphQLError } = require("../utils/error");
 
 // class to interact with media repository on DB
 
@@ -44,6 +45,19 @@ class MediaService {
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };
+		}
+	}
+
+	// get user photos
+	async getUserPhotos(userId) {
+		try {
+			if (!userId) return await BadInputGraphQLError("UserId is required");
+
+			const userPhotos = await this.repository.LoadUserPhotos(userId);
+			return userPhotos;
+		} catch (error) {
+			consola.error(error);
+			return await BadInputGraphQLError("Something went wrong!");
 		}
 	}
 }
