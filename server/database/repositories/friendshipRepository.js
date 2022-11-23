@@ -42,7 +42,9 @@ class FriendshipRepository {
 			const deletedFriendship = await FriendshipModal.findOneAndDelete({
 				author: mongoose.Types.ObjectId(friendshipData.author),
 				target: mongoose.Types.ObjectId(friendshipData.target),
-			});
+			})
+				.populate("author", "-password")
+				.populate("target", "-password");
 
 			return deletedFriendship;
 		} catch (error) {

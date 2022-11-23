@@ -18,7 +18,6 @@ class PostRepository {
 			let newPost = await new PostModal(postData);
 			newPost = await newPost.save();
 
-
 			return newPost;
 		} catch (error) {
 			consola.error(error);
@@ -31,8 +30,7 @@ class PostRepository {
 		try {
 			const existingPost = await PostModal.findById(
 				mongoose.Types.ObjectId(postId)
-			)
-
+			);
 
 			return existingPost;
 		} catch (error) {
@@ -46,9 +44,7 @@ class PostRepository {
 		try {
 			const userPosts = await PostModal.find({
 				author: mongoose.Types.ObjectId(userId),
-			})
-
-				.sort({ createdAt: "desc" });
+			}).sort({ createdAt: "desc" });
 
 			return userPosts;
 		} catch (error) {
@@ -79,8 +75,7 @@ class PostRepository {
 						author: mongoose.Types.ObjectId(userId),
 					},
 				],
-			})
-				.sort({ createdAt: "desc" })
+			}).sort({ createdAt: "desc" });
 
 			return posts;
 		} catch (error) {
@@ -97,7 +92,8 @@ class PostRepository {
 			const deletedPost = await PostModal.findByIdAndDelete(
 				mongoose.Types.ObjectId(postId)
 			)
-
+				.populate("media")
+				.populate("author", "-password");
 
 			// delete all post likes and comments
 			await PostLikeModal.deleteMany({
