@@ -9,12 +9,18 @@ const LOAD_NEWSFEED = gql`
 			likesCount
 			isLiked
 			createdAt
-			media
+			media {
+				url
+				type
+			}
 			author {
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage{
+				url
+				type
+			}
 			}
 		}
 	}
@@ -29,12 +35,18 @@ const LOAD_POST = gql`
 			likesCount
 			isLiked
 			createdAt
-			media
+			media {
+				url
+				type
+			}
 			author {
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage{
+				url
+				type
+			}
 			}
 		}
 	}
@@ -50,12 +62,18 @@ const LOAD_USER_POSTS = gql`
 			likesCount
 			commentsCount
 			createdAt
-			media
+			media {
+				url
+				type
+			}
 			author {
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage {
+					url
+					type
+				}
 			}
 		}
 	}

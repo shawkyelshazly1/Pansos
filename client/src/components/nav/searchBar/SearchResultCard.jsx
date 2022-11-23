@@ -14,7 +14,7 @@ export default function SearchResultCard({ user, toggleModal }) {
 				<div className="w-12">
 					<img
 						className="rounded-xl object-cover"
-						src={user.profileImage}
+						src={user.profileImage.url}
 						alt=""
 					/>
 				</div>

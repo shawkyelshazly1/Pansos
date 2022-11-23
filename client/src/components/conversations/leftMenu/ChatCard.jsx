@@ -37,7 +37,7 @@ export default function ChatCard({ conversation }) {
 			>
 				<img
 					className="max-w-[4rem] max-h-[4rem] rounded-full object-cover"
-					src={otherParticipant.profileImage}
+					src={otherParticipant.profileImage.url}
 					alt=""
 				/>
 				<div className="lg:flex flex-col gap-1 pt-2 hidden flex-1">

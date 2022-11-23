@@ -10,7 +10,10 @@ const LOAD_CONVERSATION_MESSAGES = gql`
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage{
+				url
+				type
+			}
 			}
 		}
 	}

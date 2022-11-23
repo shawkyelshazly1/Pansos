@@ -78,7 +78,7 @@ export default function EditProfileForm({ user, toggleModal }) {
 					)}
 					<img
 						className="rounded-full object-cover w-40 h-40"
-						src={media?.previewSrc || user.profileImage}
+						src={media?.previewSrc || user.profileImage.url}
 						alt=""
 					/>
 				</div>

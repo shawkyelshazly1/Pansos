@@ -12,13 +12,13 @@ export default function AccountStatsSection() {
 			<div className="relative  flex flex-col">
 				<img
 					className="w-full h-36 rounded-lg object-cover"
-					src={currentUser.profileCover}
+					src={currentUser.profileCover.url}
 					alt=""
 				/>
 				<div className="flex absolute flex-row gap-4 items-end left-[8%] bottom-[-50%]">
 					<img
 						className="w-[6rem] h-[6rem] rounded-lg object-cover "
-						src={currentUser.profileImage}
+						src={currentUser.profileImage.url}
 						alt=""
 					/>
 					<div className="flex flex-col gap-1 py-1">

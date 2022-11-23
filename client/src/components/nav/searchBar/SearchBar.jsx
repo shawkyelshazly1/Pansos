@@ -27,7 +27,7 @@ export default function SearchBar() {
 								variables: { searchQuery: e.target.value.trim() },
 							});
 							clearTimeout(timer);
-						}, 700);
+						}, 400);
 					}
 				}}
 				onFocus={() => {

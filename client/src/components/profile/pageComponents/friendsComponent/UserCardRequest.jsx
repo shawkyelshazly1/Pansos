@@ -55,7 +55,7 @@ export default function UserCardRequest({ user }) {
 		<div className="flex flex-row gap-4 justify-between border-[1px] rounded-lg p-2">
 			<Link to={`/profile/${user.id}`}>
 				<div className="flex flex-row gap-4">
-					<img className="w-24 rounded-lg" src={user.profileImage} alt="" />
+					<img className="w-24 rounded-lg" src={user.profileImage.url} alt="" />
 					<h1 className="text-lg text-[#192252] mt-2 font-semibold hover:text-mainColor">
 						{S(user.firstName + " " + user.lastName)
 							.titleize()

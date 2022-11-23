@@ -17,7 +17,7 @@ export default function SideMenu() {
 			<Link to={`/profile/${currentUser.id}`}>
 				<img
 					className="  w-[38px] h-[38px] border-2 p-[1px] border-[#c23100] rounded-md hidden lg:block md:block"
-					src={currentUser.profileImage}
+					src={currentUser.profileImage.url}
 					alt=""
 				/>
 			</Link>

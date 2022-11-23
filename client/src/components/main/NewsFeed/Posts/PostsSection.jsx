@@ -4,8 +4,10 @@ import CommentsModal from "./Comments/CommentsModal";
 import NewPostSectionMobile from "../../RightSideMenu/AccountStats/AddPostSection/NewPostSectionMobile";
 import PostModal from "./PostModal/PostModal";
 import { CurrentAppContext } from "../../../../contexts/AppContext";
+import { useLocation } from "react-router";
 
 export default function PostsSection({ posts }) {
+	const location = useLocation();
 	const [showCommentsModal, setShowCommentsModal] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const { selectedPost } = useContext(CurrentAppContext);
@@ -13,12 +15,17 @@ export default function PostsSection({ posts }) {
 	return (
 		<div className=" flex flex-col  gap-6">
 			{/* form to add posts on mobile devices */}
-			<div className=" flex-col bg-white rounded-2xl py-6 px-5 gap-2 items-center w-full flex xl:hidden ">
-				<h1 className="text-[#848fac] font-medium self-start mb-2">
-					ADD NEW POST
-				</h1>
-				<NewPostSectionMobile />
-			</div>
+			{location.pathname === "/" ? (
+				<div className=" flex-col bg-white rounded-2xl py-6 px-5 gap-2 items-center w-full flex xl:hidden ">
+					<h1 className="text-[#848fac] font-medium self-start mb-2">
+						ADD NEW POST
+					</h1>
+					<NewPostSectionMobile />
+				</div>
+			) : (
+				<></>
+			)}
+
 			{posts.map((post) => (
 				<PostCard
 					post={post}

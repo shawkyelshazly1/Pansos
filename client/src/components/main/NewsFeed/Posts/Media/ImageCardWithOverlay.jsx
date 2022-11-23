@@ -19,7 +19,7 @@ export default function ImageCardWithOverlay({
 			</div>
 			<img
 				className=" max-h-[600px] w-full object-cover "
-				src={media[3]}
+				src={media[3].url}
 				alt=""
 			/>
 		</div>

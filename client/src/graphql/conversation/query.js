@@ -17,7 +17,10 @@ const LOAD_USER_CONVERSATIONS = gql`
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage{
+				url
+				type
+			}
 			}
 			unreadMessagesCount
 		}
@@ -32,7 +35,10 @@ const LOAD_SINGLE_CONVERSATION = gql`
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage{
+				url
+				type
+			}
 			}
 			unreadMessagesCount
 		}

@@ -10,8 +10,14 @@ const LOGIN_USER = gql`
 				firstName
 				lastName
 				email
-				profileImage
-				profileCover
+				profileImage {
+					url
+					type
+				}
+				profileCover {
+					url
+					type
+				}
 				followersCount
 				followingsCount
 			}
@@ -58,8 +64,14 @@ const UPDATE_PROFILE_INFO = gql`
 			id
 			firstName
 			lastName
-			profileCover
-			profileImage
+			profileCover {
+				url
+				type
+			}
+			profileImage {
+				url
+				type
+			}
 			followersCount
 			followingsCount
 		}

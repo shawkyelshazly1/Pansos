@@ -10,7 +10,10 @@ const ADD_COMMENT = gql`
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage {
+					url
+					type
+				}
 			}
 			post {
 				id

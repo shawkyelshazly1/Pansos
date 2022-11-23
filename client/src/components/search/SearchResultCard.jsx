@@ -13,7 +13,7 @@ export default function SearchResultCard({ user }) {
 			>
 				<img
 					className="w-40 object-cover rounded-xl"
-					src={user.profileImage}
+					src={user.profileImage.url}
 					alt=""
 				/>
 				<h1 className="font-medium text-xl ">

@@ -65,7 +65,7 @@ export const showMessageNotification = (messageData) => {
 						<div className="flex-shrink-0 pt-0.5">
 							<img
 								className="h-10 w-10 rounded-full"
-								src={messageData.author.profileImage}
+								src={messageData.author.profileImage.url}
 							/>
 						</div>
 						<div className="ml-3 flex-1">

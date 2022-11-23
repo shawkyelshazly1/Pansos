@@ -12,7 +12,7 @@ export default function PostModalCommentCard({ comment }) {
 			<Link className="max-w-[2rem]" to={`/profile/${comment.author.id}`}>
 				<img
 					className=" rounded-full"
-					src={comment.author.profileImage}
+					src={comment.author.profileImage.url}
 					alt=""
 				/>
 			</Link>

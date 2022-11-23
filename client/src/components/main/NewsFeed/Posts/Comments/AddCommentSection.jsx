@@ -32,7 +32,7 @@ export default function AddCommentSection({ postId }) {
 			<Link to={`/profile/${currentUser.id}`}>
 				<img
 					className="w-10 h-10 rounded-lg "
-					src={currentUser.profileImage}
+					src={currentUser.profileImage.url}
 					alt=""
 				/>
 			</Link>

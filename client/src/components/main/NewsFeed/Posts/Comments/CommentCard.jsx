@@ -15,7 +15,7 @@ export default function CommentCard({ commentData }) {
 						<div className="w-14 h-14">
 							<img
 								className="w-14 h-14 rounded-xl object-cover "
-								src={commentData.author.profileImage}
+								src={commentData.author.profileImage.url}
 								alt=""
 							/>
 						</div>

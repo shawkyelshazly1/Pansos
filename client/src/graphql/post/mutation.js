@@ -33,7 +33,10 @@ const ADD_POST = gql`
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage{
+				url
+				type
+			}
 			}
 		}
 	}

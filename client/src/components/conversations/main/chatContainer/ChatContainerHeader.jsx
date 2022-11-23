@@ -9,8 +9,8 @@ export default function ChatContainerHeader({ loadedUser, otherParticipant }) {
 					className="w-12 rounded-full"
 					src={
 						loadedUser?.loadUser
-							? loadedUser?.loadUser.profileImage
-							: otherParticipant?.profileImage
+							? loadedUser?.loadUser.profileImage.url
+							: otherParticipant?.profileImage.url
 					}
 					alt=""
 				/>

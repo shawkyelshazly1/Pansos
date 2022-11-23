@@ -67,7 +67,6 @@ export const ChatAppProvier = ({ children }) => {
 	// update last message while in conversation
 	const updateLastMessage = (newMsg, unreadMessages = 0) => {
 		if (userConversations.length < 1) {
-			console.log("here");
 			if (!mockConversations.includes(newMsg.conversation._id)) {
 				setMockConversations([...mockConversations, newMsg.conversation._id]);
 				setUnreadConversationsCount(unreadConversationsCount + 1);
@@ -112,13 +111,21 @@ export const ChatAppProvier = ({ children }) => {
 	// use effect for messages
 	useEffect(() => {
 		IOsocket.off("new_msg").on("new_msg", (messageData) => {
-			if (messageData.conversation.users.includes(selectedConversation)) {
+			if (
+				messageData.conversation.users.some(
+					(user) => user._id.toString() === selectedConversation
+				)
+			) {
 				addNewMessage(messageData);
 			} else if (selectedConversation) {
 				// update message returned IDs fields
 				let newMessage = adjustMessageObjectIdFields(messageData);
 				// update last message and unread count for conversation
-				if (newMessage.conversation.users.includes(selectedConversation)) {
+				if (
+					messageData.conversation.users.some(
+						(user) => user._id.toString() === selectedConversation
+					)
+				) {
 					// update conversations' last Message
 					updateLastMessage(newMessage);
 				} else {

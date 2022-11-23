@@ -31,7 +31,7 @@ export default function PostModaMediaViewer({ post }) {
 				}}
 			/>
 			<div className="flex-1 items-center justify-center flex">
-				<img src={post.media[current]} alt="" />
+				<img src={post.media[current].url} alt="" />
 			</div>
 			<BsFillArrowRightCircleFill
 				className="text-white cursor-pointer"

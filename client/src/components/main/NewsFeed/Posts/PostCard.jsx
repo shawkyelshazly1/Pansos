@@ -30,7 +30,7 @@ export default function PostCard({
 					<div className="flex flex-row  gap-4">
 						<img
 							className="w-16 h-16 rounded-lg object-cover "
-							src={post.author.profileImage}
+							src={post.author.profileImage.url}
 							alt=""
 						/>
 						<h1 className="font-medium pt-2">

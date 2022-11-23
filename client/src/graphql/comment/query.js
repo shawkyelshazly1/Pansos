@@ -10,7 +10,10 @@ const LOAD_POST_COMMENTS = gql`
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage{
+				url
+				type
+			}
 			}
 		}
 	}

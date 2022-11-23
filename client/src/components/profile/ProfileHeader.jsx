@@ -10,13 +10,13 @@ export default function ProfileHeader({ loadedUser }) {
 			<div className="relative items-center flex justify-center w-full ">
 				<img
 					className=" object-cover  rounded-xl w-full min-h-[200px] max-h-[350px]"
-					src={loadedUser.profileCover}
+					src={loadedUser.profileCover.url}
 					alt=""
 				/>
 				<div className="absolute bottom-[-2rem]  border-4 rounded-full border-white">
 					<img
 						className="rounded-full w-24 h-24 lg:w-36 lg:h-36 object-cover"
-						src={loadedUser.profileImage}
+						src={loadedUser.profileImage.url}
 						alt=""
 					/>
 				</div>

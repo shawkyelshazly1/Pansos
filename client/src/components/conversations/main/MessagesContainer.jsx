@@ -12,12 +12,8 @@ export default function MessagesContainer({ messages }) {
 	const { currentUser } = useContext(currentUserContext);
 
 	const { userId } = useParams();
-	const {
-		IOsocket,
-		loadedConversationMessages,
-		setLoadedConversationMessages,
-		addNewMessage,
-	} = useContext(ChatAppContext);
+	const { loadedConversationMessages, setLoadedConversationMessages } =
+		useContext(ChatAppContext);
 
 	useEffect(() => {
 		setLoadedConversationMessages([...messages]);

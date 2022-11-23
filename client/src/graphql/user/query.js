@@ -8,8 +8,14 @@ const LOAD_USER = gql`
 			firstName
 			lastName
 			email
-			profileImage
-			profileCover
+			profileImage {
+				url
+				type
+			}
+			profileCover {
+				url
+				type
+			}
 			followersCount
 			followingsCount
 			followStatus
@@ -25,8 +31,14 @@ const AUTH_USER = gql`
 			firstName
 			lastName
 			email
-			profileImage
-			profileCover
+			profileImage {
+				url
+				type
+			}
+			profileCover {
+				url
+				type
+			}
 			followersCount
 			followingsCount
 			followStatus
@@ -41,7 +53,10 @@ const SEARCH_USERS = gql`
 			id
 			firstName
 			lastName
-			profileImage
+			profileImage {
+				url
+				type
+			}
 			followersCount
 			followingsCount
 			followStatus
@@ -53,7 +68,10 @@ const LOAD_SUGGGESSTED_USERS = gql`
 	query getSuggesstedUsers {
 		getSuggesstedUsers {
 			id
-			profileImage
+			profileImage {
+				url
+				type
+			}
 			followingsCount
 			followersCount
 			followStatus
@@ -70,7 +88,10 @@ const LOAD_USER_MINIMAL = gql`
 			id
 			firstName
 			lastName
-			profileImage
+			profileImage {
+				url
+				type
+			}
 		}
 	}
 `;

@@ -12,7 +12,7 @@ export default function PostModalInfo({ post }) {
 				<Link to={`/profile/${post.author.id}`}>
 					<img
 						className="w-14 rounded-full"
-						src={post.author.profileImage}
+						src={post.author.profileImage.url}
 						alt=""
 					/>
 				</Link>

@@ -9,7 +9,10 @@ const GET_USER_FOLLOWERS = gql`
 				followStatus
 				firstName
 				lastName
-				profileImage
+				profileImage{
+				url
+				type
+			}
 			}
 		}
 	}
@@ -23,7 +26,10 @@ const GET_USER_FOLLOWINGS = gql`
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage{
+				url
+				type
+			}
 				followStatus
 			}
 		}
@@ -38,7 +44,10 @@ const GET_PENDING_RECIEVED_REQEUSTS = gql`
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage{
+				url
+				type
+			}
 			}
 		}
 	}
