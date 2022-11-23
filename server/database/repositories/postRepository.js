@@ -40,6 +40,7 @@ class PostRepository {
 	}
 
 	// get user posts
+	// #TODO: add union to shared posts table
 	async GetUserPostsById(userId) {
 		try {
 			const userPosts = await PostModal.find({
@@ -54,6 +55,7 @@ class PostRepository {
 	}
 
 	// create news feed
+	// #TODO: add union to shared posts table
 	async GetUserNewsFeed(userId) {
 		try {
 			const userFollowings = await FriendshipModal.find(

@@ -11,10 +11,11 @@ const postTypes = `
 		media:[Media]
 	}
 
+
 	type Query {
 		getPostById(postId: ID!): Post!
-		getUserPosts(userId: ID!): [Post]!
-		getUserNewsfeed: [Post]!
+		getUserPosts(userId: ID!): [PostItem]!
+		getUserNewsfeed: [PostItem]!
 	}
 
 	type Mutation {

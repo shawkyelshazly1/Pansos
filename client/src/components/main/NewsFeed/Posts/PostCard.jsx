@@ -7,7 +7,7 @@ import S from "underscore.string";
 import moment from "moment";
 import { currentUserContext } from "../../../../contexts/CurrentUserContext";
 import PostOptionsMenu from "./PostOptionsMenu";
-import PostModal from "./PostModal/PostModal";
+
 import { CurrentAppContext } from "../../../../contexts/AppContext";
 
 export default function PostCard({

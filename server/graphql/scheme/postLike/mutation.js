@@ -7,10 +7,10 @@ const postLikeService = new PostLikeService();
 // postlike graphql mutaitons
 const postLikeMutations = {
 	// like or unlike post
-	LikeOrUnlikePost: async (_, { postId }, context) => {
+	LikeOrUnlikePost: async (_, { postId, postType }, context) => {
 		await isAuthenticated(context);
 		const { _id: userId } = context.req.payload;
-		return await postLikeService.likeOrUnlikePost(userId, postId);
+		return await postLikeService.likeOrUnlikePost(userId, postId, postType);
 	},
 };
 

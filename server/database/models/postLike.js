@@ -4,7 +4,7 @@ const postLikeSchema = mongoose.Schema(
 	{
 		post: {
 			type: mongoose.Types.ObjectId,
-			ref: "Post",
+			refPath: "postType",
 			required: true,
 			autopopulate: true,
 		},
@@ -13,6 +13,11 @@ const postLikeSchema = mongoose.Schema(
 			ref: "User",
 			required: true,
 			autopopulate: true,
+		},
+		postType: {
+			type: String,
+			required: true,
+			enum: ["Post", "SharedPost"],
 		},
 	},
 	{ timestamps: true }

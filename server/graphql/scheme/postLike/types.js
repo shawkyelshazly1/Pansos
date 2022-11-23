@@ -4,11 +4,12 @@ const postLikeTypes = `
 	type PostLike {
 		id: ID!
 		author: User!
-		post: Post!
+		post: PostItem!
 	}
 
+
 	type Mutation {
-		LikeOrUnlikePost(postId: ID!): PostLike!
+		LikeOrUnlikePost(postId: ID!,postType:String!): PostLike!
 	}
 `;
 

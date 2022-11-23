@@ -5,6 +5,8 @@ import {
 } from "react-icons/bs";
 
 export default function PostModaMediaViewer({ post }) {
+	if (post.media.length < 1) return;
+
 	const [current, setcurrent] = useState(0);
 	let length = post.media.length;
 

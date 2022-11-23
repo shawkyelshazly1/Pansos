@@ -12,10 +12,10 @@ class CommentService {
 	// add comment
 	async addComment(userId, commentData) {
 		try {
-			const { post, content } = commentData;
+			const { post, content, postType } = commentData;
 
 			// validate input correct
-			if (!userId || !post || !content)
+			if (!userId || !post || !content || !postType)
 				return await BadInputGraphQLError("Commment data is required!");
 
 			// create new comment in DB

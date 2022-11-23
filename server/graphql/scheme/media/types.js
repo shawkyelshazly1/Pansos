@@ -4,8 +4,9 @@ const mediaTypes = `
 		url: String!
 		type: String!
 		user: User
-		post: Post
+		post: PostItem
 	}
+
 
 	type Query{
 		getUserPhotos(userId:ID!):[Media]!

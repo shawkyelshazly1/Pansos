@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const ADD_COMMENT = gql`
-	mutation addComment($postId: ID!, $content: String!) {
-		addComment(postId: $postId, content: $content) {
+	mutation addComment($postId: ID!, $content: String!, $postType: String!) {
+		addComment(postId: $postId, content: $content, postType: $postType) {
 			id
 			content
 			createdAt
@@ -16,8 +16,15 @@ const ADD_COMMENT = gql`
 				}
 			}
 			post {
-				id
-				commentsCount
+				__typename
+				... on Post {
+					id
+					commentsCount
+				}
+				... on SharedPost {
+					id
+					commentsCount
+				}
 			}
 		}
 	}
@@ -28,8 +35,15 @@ const DELETE_COMMENT = gql`
 		deleteComment(commentId: $commentId) {
 			id
 			post {
-				id
-				commentsCount
+				__typename
+				... on Post {
+					id
+					commentsCount
+				}
+				... on SharedPost {
+					id
+					commentsCount
+				}
 			}
 		}
 	}

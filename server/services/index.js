@@ -8,4 +8,5 @@ module.exports = {
 	MessageService: require("./messageService"),
 	MessageStatusService: require("./messageStatusService"),
 	MediaService: require("./mediaService"),
+	SharedPostService: require("./sharedPostService"),
 };

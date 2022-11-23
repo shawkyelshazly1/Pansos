@@ -38,10 +38,17 @@ const {
 		friendshipMutations,
 	} = require("./scheme/friendship"),
 	{ dateScalar } = require("./scheme/customScalars/dateScalar");
+const {
+	sharedPostTypes,
+	sharedPostQueries,
+	sharedPostMutations,
+	sharedPostResolvers,
+} = require("./scheme/sharedPost");
 //
 
 const typeDefs = `
 	scalar Date
+	union PostItem = Post | SharedPost
 
 	${userTypes}
 	${postTypes}
@@ -51,6 +58,7 @@ const typeDefs = `
 	${conversationTypes}
 	${messageTypes}
 	${mediaTypes}
+	${sharedPostTypes}
 `;
 
 const resolvers = {
@@ -62,6 +70,7 @@ const resolvers = {
 		...friendshipQueries,
 		...conversationQueries,
 		...mediaQueries,
+		...sharedPostQueries,
 	},
 	Mutation: {
 		...userMutations,
@@ -71,6 +80,7 @@ const resolvers = {
 		...friendshipMutations,
 		...conversationMutations,
 		...messageMutations,
+		...sharedPostMutations,
 	},
 	User: {
 		...userResolvers,
@@ -80,6 +90,15 @@ const resolvers = {
 	},
 	Conversation: {
 		...conversationResolvers,
+	},
+	SharedPost: {
+		...sharedPostResolvers,
+	},
+	PostItem: {
+		__resolveType(obj) {
+			if (obj.is_shared) return "SharedPost";
+			return "Post";
+		},
 	},
 
 	Date: dateScalar,

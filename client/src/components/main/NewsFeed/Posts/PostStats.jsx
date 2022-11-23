@@ -14,7 +14,7 @@ export default function PostStats({
 }) {
 	// like or unlike post mutation
 	const [likeOrUnlikePost] = useMutation(LIKE_OR_UNLIKE_POST, {
-		variables: { postId: post.id },
+		variables: { postId: post.id, postType: "Post" },
 		onError: (_) => {
 			toast.error("Something went wrong!");
 		},

@@ -4,7 +4,7 @@ const commentService = new CommentService();
 const postLikeService = new PostLikeService();
 
 // post graphql resolvers
-const postResolvers = {
+const sharedPostResolvers = {
 	// get comments count resolver
 	async commentsCount(parent) {
 		return await commentService.getPostCommentsCount(parent._id);
@@ -27,4 +27,4 @@ const postResolvers = {
 	},
 };
 
-module.exports = postResolvers;
+module.exports = sharedPostResolvers;

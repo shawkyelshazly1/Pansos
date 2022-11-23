@@ -24,6 +24,7 @@ class PostLikeRepository {
 			const deletedPostLike = await PostLikeModal.findOneAndDelete({
 				post: mongoose.Types.ObjectId(postLikeData.post),
 				author: mongoose.Types.ObjectId(postLikeData.author),
+				postType: postLikeData.postType,
 			})
 				.populate("post")
 				.populate("author", "-password");

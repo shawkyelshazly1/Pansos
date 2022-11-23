@@ -11,7 +11,7 @@ export default function AddCommentSection({ postId }) {
 
 	// add comment mutation
 	const [addComment] = useMutation(ADD_COMMENT, {
-		variables: { postId, content },
+		variables: { postId, content, postType: "Post" },
 		update: (cache, { data }) => {
 			cache.modify({
 				fields: {

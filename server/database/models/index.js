@@ -8,4 +8,5 @@ module.exports = {
 	MessageModal: require("./message"),
 	MessageStatusModal: require("./messageStatus"),
 	MediaModal: require("./media"),
+	SharedPostModal: require("./sharedPost"),
 };

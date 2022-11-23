@@ -6,9 +6,11 @@ const commentTypes = `
 		content: String!
 		author: User!
 		createdAt: Date!
-		post:Post!
+		post:PostItem!
 		
 	}
+
+
 
 	type Query {
 		loadPostComments(postId: ID!): [Comment]!
@@ -16,7 +18,7 @@ const commentTypes = `
 	}
 
 	type Mutation {
-		addComment(postId: ID!, content: String!): Comment!
+		addComment(postId: ID!, content: String!, postType:String!): Comment!
 		deleteComment(commentId: ID!): Comment!
 	}
 `;

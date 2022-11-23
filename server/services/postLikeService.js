@@ -10,10 +10,10 @@ class PostLikeService {
 	}
 
 	// like or unlike post
-	async likeOrUnlikePost(userId, postId) {
+	async likeOrUnlikePost(userId, postId, postType) {
 		try {
 			//validate if input is valid
-			if (!userId || !postId)
+			if (!userId || !postId || !postType)
 				return await BadInputGraphQLError("PostLike data is required!");
 
 			// check if post liked already or not
@@ -27,6 +27,7 @@ class PostLikeService {
 				const postLike = await this.repository.CreatePostLike({
 					post: postId,
 					author: userId,
+					postType,
 				});
 				return postLike;
 			}
@@ -35,6 +36,7 @@ class PostLikeService {
 				const deletedPostLike = await this.repository.DeletePostLike({
 					post: postId,
 					author: userId,
+					postType,
 				});
 
 				return deletedPostLike;

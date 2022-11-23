@@ -10,9 +10,14 @@ const commentSchema = mongoose.Schema(
 		},
 		post: {
 			type: mongoose.Types.ObjectId,
-			ref: "Post",
+			refPath: "postType",
 			required: true,
 			autopopulate: true,
+		},
+		postType: {
+			type: String,
+			required: true,
+			enum: ["Post", "SharedPost"],
 		},
 		content: { type: String, trim: true, required: true },
 	},

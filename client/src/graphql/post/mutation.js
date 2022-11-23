@@ -9,12 +9,20 @@ const DELETE_POST = gql`
 `;
 
 const LIKE_OR_UNLIKE_POST = gql`
-	mutation likeOrUnlikePost($postId: ID!) {
-		LikeOrUnlikePost(postId: $postId) {
+	mutation likeOrUnlikePost($postId: ID!, $postType: String!) {
+		LikeOrUnlikePost(postId: $postId, postType: $postType) {
 			post {
-				id
-				likesCount
-				isLiked
+				__typename
+				... on Post {
+					id
+					likesCount
+					isLiked
+				}
+				... on SharedPost {
+					id
+					likesCount
+					isLiked
+				}
 			}
 		}
 	}
@@ -33,10 +41,10 @@ const ADD_POST = gql`
 				id
 				firstName
 				lastName
-				profileImage{
-				url
-				type
-			}
+				profileImage {
+					url
+					type
+				}
 			}
 		}
 	}
