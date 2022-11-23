@@ -49,7 +49,15 @@ class PostRepository {
 				author: mongoose.Types.ObjectId(userId),
 			}).sort({ createdAt: "desc" });
 
-			return userPosts;
+			const userSharedPosts = await SharedPostModal.find({
+				author: mongoose.Types.ObjectId(userId),
+			}).sort({ createdAt: "desc" });
+
+			let allPosts = [...userPosts, ...userSharedPosts];
+
+			allPosts = _.orderBy(allPosts, ["createdAt"], ["desc"]);
+
+			return allPosts;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };
