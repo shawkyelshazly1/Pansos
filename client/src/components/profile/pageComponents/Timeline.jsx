@@ -24,6 +24,8 @@ export default function Timeline() {
 		refetch({ userId });
 	}, [userId]);
 
+	console.log(data);
+
 	return (
 		<div className=" w-[90%] flex flex-row gap-6  ">
 			{loading ? (

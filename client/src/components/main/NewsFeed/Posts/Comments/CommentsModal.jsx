@@ -8,7 +8,7 @@ import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import { AiFillMessage } from "react-icons/ai";
 import toast from "react-hot-toast";
 
-export default function CommentsModal({ isOpened, toggleModal, postId }) {
+export default function CommentsModal({ isOpened, toggleModal, post }) {
 	// useEffect to handle clicking ESC to close modal
 	useEffect(() => {
 		let e = document.addEventListener("keydown", (e) => {
@@ -26,7 +26,7 @@ export default function CommentsModal({ isOpened, toggleModal, postId }) {
 
 	// query to load post comments
 	const [loadComments, { data, loading }] = useLazyQuery(LOAD_POST_COMMENTS, {
-		variables: { postId },
+		variables: { postId: post.id },
 		onError: (_) => {
 			toast.error("Something went wrong!");
 			toggleModal(false);
@@ -72,7 +72,7 @@ export default function CommentsModal({ isOpened, toggleModal, postId }) {
 						)}
 					</div>
 					<div className="h-[10%] flex">
-						<AddCommentSection postId={postId} />
+						<AddCommentSection post={post} />
 					</div>
 				</div>
 			</div>

@@ -5,6 +5,7 @@ import NewPostSectionMobile from "../../RightSideMenu/AccountStats/AddPostSectio
 import PostModal from "./PostModal/PostModal";
 import { CurrentAppContext } from "../../../../contexts/AppContext";
 import { useLocation } from "react-router";
+import SharedPostCard from "./SharedPostCard";
 
 export default function PostsSection({ posts }) {
 	const location = useLocation();
@@ -26,22 +27,32 @@ export default function PostsSection({ posts }) {
 				<></>
 			)}
 
-			{posts.map((post) => (
-				<PostCard
-					post={post}
-					key={post.id}
-					isOpened={showCommentsModal}
-					toggleCommentsModal={setShowCommentsModal}
-					togglePostModal={setShowModal}
-				/>
-			))}
+			{posts.map((post) => {
+				return !post.is_shared ? (
+					<PostCard
+						post={post}
+						key={post.id}
+						isOpened={showCommentsModal}
+						toggleCommentsModal={setShowCommentsModal}
+						togglePostModal={setShowModal}
+					/>
+				) : (
+					<SharedPostCard
+						post={post}
+						key={post.id}
+						isOpened={showCommentsModal}
+						toggleCommentsModal={setShowCommentsModal}
+						togglePostModal={setShowModal}
+					/>
+				);
+			})}
 
 			{selectedPost ? (
 				<>
 					<CommentsModal
 						isOpened={showCommentsModal}
 						toggleModal={setShowCommentsModal}
-						postId={selectedPost}
+						post={selectedPost}
 					/>
 					<PostModal isOpened={showModal} toggleModal={setShowModal} />
 				</>

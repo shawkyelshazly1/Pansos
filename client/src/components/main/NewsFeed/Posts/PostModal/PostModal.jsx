@@ -16,7 +16,7 @@ export default function PostModal({ isOpened, toggleModal }) {
 	const location = useLocation();
 
 	const { selectedPost } = useContext(CurrentAppContext);
-
+	console.log(selectedPost);
 	// useEffect to handle clicking ESC to close modal
 	useEffect(() => {
 		let e = document.addEventListener("keydown", (e) => {
@@ -33,13 +33,19 @@ export default function PostModal({ isOpened, toggleModal }) {
 		const { data } = useQuery(LOAD_NEWSFEED, {
 			fetchPolicy: "cache-only",
 		});
-		post = data.getUserNewsfeed.filter((post) => post.id === selectedPost)[0];
+		post = post?.is_shared
+			? data.getUserNewsfeed.filter((post) => post.id === selectedPost.id)[0]
+					.post
+			: data.getUserNewsfeed.filter((post) => post.id === selectedPost.id)[0];
 	} else if (currentPath === "profile") {
 		const { data } = useQuery(LOAD_USER_POSTS, {
 			variables: { userId: location.pathname.split("/")[2] },
 			fetchPolicy: "cache-only",
 		});
-		post = data.getUserPosts.filter((post) => post.id === selectedPost)[0];
+
+		post = post?.is_shared
+			? data.getUserPosts.filter((post) => post.id === selectedPost.id)[0].post
+			: data.getUserPosts.filter((post) => post.id === selectedPost.id)[0];
 	}
 
 	if (!post) return;
@@ -77,8 +83,8 @@ export default function PostModal({ isOpened, toggleModal }) {
 							</strong>
 						</h1>
 					</Link>
-					<PostModaMediaViewer post={post} />
-					<PostModalInfo post={post} />
+					<PostModaMediaViewer post={post.is_shared ? post.post : post} />
+					<PostModalInfo post={post.is_shared ? post.post : post} />
 				</div>
 			</div>
 			<div className="bg-gray-500 absolute opacity-50 top-0 left-0 w-full h-full"></div>

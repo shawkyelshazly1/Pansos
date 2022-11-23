@@ -44,7 +44,10 @@ const ACCEPT_REQUEST = gql`
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage {
+					type
+					url
+				}
 				followStatus
 			}
 			target {
@@ -63,7 +66,10 @@ const DECLINE_REQUEST = gql`
 				id
 				firstName
 				lastName
-				profileImage
+				profileImage {
+					type
+					url
+				}
 				followStatus
 			}
 		}

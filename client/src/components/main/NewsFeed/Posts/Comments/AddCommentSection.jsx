@@ -5,13 +5,17 @@ import { currentUserContext } from "../../../../../contexts/CurrentUserContext";
 import { ADD_COMMENT } from "../../../../../graphql/comment/mutation";
 import { LOAD_POST_COMMENTS } from "../../../../../graphql/comment/query";
 
-export default function AddCommentSection({ postId }) {
+export default function AddCommentSection({ post }) {
 	const [content, setcontent] = useState("");
 	const { currentUser } = useContext(currentUserContext);
 
 	// add comment mutation
 	const [addComment] = useMutation(ADD_COMMENT, {
-		variables: { postId, content, postType: "Post" },
+		variables: {
+			postId: post.id,
+			content,
+			postType: post.is_shared ? "SharedPost" : "Post",
+		},
 		update: (cache, { data }) => {
 			cache.modify({
 				fields: {

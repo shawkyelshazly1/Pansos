@@ -28,6 +28,7 @@ const LOAD_NEWSFEED = gql`
 			}
 			... on SharedPost {
 				id
+				is_shared
 				post {
 					id
 					content
@@ -44,13 +45,17 @@ const LOAD_NEWSFEED = gql`
 							type
 						}
 					}
+					commentsCount
+					likesCount
+					isLiked
+					createdAt
 				}
 				sharedPostContent: content
 				commentsCount
 				likesCount
 				isLiked
 				createdAt
-				sharedPostauthor: author {
+				sharedPostAuthor: author {
 					id
 					firstName
 					lastName
@@ -117,6 +122,9 @@ const LOAD_SHARED_POST = gql`
 					type
 					url
 				}
+				commentsCount
+				likesCount
+				isLiked
 				createdAt
 				author {
 					id
@@ -160,6 +168,7 @@ const LOAD_USER_POSTS = gql`
 			}
 			... on SharedPost {
 				id
+				is_shared
 				post {
 					id
 					content
@@ -176,13 +185,17 @@ const LOAD_USER_POSTS = gql`
 							type
 						}
 					}
+					commentsCount
+					likesCount
+					isLiked
+					createdAt
 				}
 				sharedPostContent: content
 				commentsCount
 				likesCount
 				isLiked
 				createdAt
-				sharedPostauthor: author {
+				sharedPostAuthor: author {
 					id
 					firstName
 					lastName

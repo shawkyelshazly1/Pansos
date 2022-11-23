@@ -31,7 +31,7 @@ export default function PostModalComments({ post }) {
 				))}
 			</div>
 			<div className="h-[10%] flex">
-				<AddCommentSection postId={post.id} />
+				<AddCommentSection post={post} />
 			</div>
 		</div>
 	);

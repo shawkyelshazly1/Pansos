@@ -9,8 +9,10 @@ import { currentUserContext } from "../../../../contexts/CurrentUserContext";
 import PostOptionsMenu from "./PostOptionsMenu";
 
 import { CurrentAppContext } from "../../../../contexts/AppContext";
+import PostCard from "./PostCard";
+import InnerPostShared from "./InnerPostShared";
 
-export default function PostCard({
+export default function SharedPostCard({
 	isOpened,
 	toggleCommentsModal,
 	togglePostModal,
@@ -26,15 +28,19 @@ export default function PostCard({
 	return (
 		<div className="flex flex-col gap-4 bg-white  rounded-2xl py-6 px-5 shadow-postCardShadow">
 			<div className="flex flex-row items-center justify-between w-full">
-				<Link to={`/profile/${post.author.id}`}>
+				<Link to={`/profile/${post.sharedPostAuthor.id}`}>
 					<div className="flex flex-row  gap-4">
 						<img
 							className="w-16 h-16 rounded-lg object-cover "
-							src={post.author.profileImage.url}
+							src={post.sharedPostAuthor.profileImage.url}
 							alt=""
 						/>
 						<h1 className="font-medium pt-2">
-							{S(post.author.firstName + " " + post.author.lastName)
+							{S(
+								post.sharedPostAuthor.firstName +
+									" " +
+									post.sharedPostAuthor.lastName
+							)
 								.titleize()
 								.value()}
 						</h1>
@@ -44,24 +50,21 @@ export default function PostCard({
 					<span className="text-[#8494c1] text-sm">
 						{moment(post.createdAt).fromNow()}
 					</span>
-					{currentUser.id !== post.author.id ? (
+					{currentUser.id !== post.sharedPostAuthor.id ? (
 						<></>
 					) : (
 						<PostOptionsMenu postId={post.id} />
 					)}
 				</div>
 			</div>
-			<p className="text-lg">{post.content}</p>
-			{post.media.length > 0 ? (
-				<PostMediaCollage
-					selectPost={selectPost}
-					togglePostModal={togglePostModal}
-					media={post.media}
-				/>
-			) : (
-				<></>
-			)}
-
+			<p className="text-lg">{post.sharedPostContent}</p>
+			<InnerPostShared
+				post={post}
+				key={post.post.id}
+				isOpened={isOpened}
+				toggleCommentsModal={toggleCommentsModal}
+				togglePostModal={togglePostModal}
+			/>
 			<hr />
 			<div className="flex flex-row justify-between gap-6">
 				<AddCommentSection post={post} />

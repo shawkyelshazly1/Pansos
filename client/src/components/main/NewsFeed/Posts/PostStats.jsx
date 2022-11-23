@@ -1,10 +1,15 @@
 import { useMutation } from "@apollo/client";
 import { Player } from "@lottiefiles/react-lottie-player";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillHeart, AiFillMessage } from "react-icons/ai";
 import { FaShareSquare } from "react-icons/fa";
-import { LIKE_OR_UNLIKE_POST } from "../../../../graphql/post/mutation";
+import {
+	LIKE_OR_UNLIKE_POST,
+	SHARE_POST,
+} from "../../../../graphql/post/mutation";
+import { currentUserContext } from "../../../../contexts/CurrentUserContext";
+import PostShareOptions from "./PostShareOptions";
 
 export default function PostStats({
 	toggleCommentsModal,
@@ -12,9 +17,14 @@ export default function PostStats({
 	post,
 	selectPost,
 }) {
+	const { currentUser } = useContext(currentUserContext);
+
 	// like or unlike post mutation
 	const [likeOrUnlikePost] = useMutation(LIKE_OR_UNLIKE_POST, {
-		variables: { postId: post.id, postType: "Post" },
+		variables: {
+			postId: post.id,
+			postType: post.is_shared ? "SharedPost" : "Post",
+		},
 		onError: (_) => {
 			toast.error("Something went wrong!");
 		},
@@ -44,9 +54,14 @@ export default function PostStats({
 				<AiFillMessage className="text-secondaryColor" size={25} />
 				{post.commentsCount}
 			</div>
-			<div className="flex flex-row gap-1 items-center cursor-pointer">
-				<FaShareSquare className="text-secondaryColor" size={25} />
-			</div>
+
+			{currentUser.id !== post.author?.id ? (
+				<div className="flex flex-col gap-1 items-center cursor-pointer justify-center w-full">
+					<PostShareOptions post={post} />
+				</div>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 }

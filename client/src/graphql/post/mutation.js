@@ -28,6 +28,47 @@ const LIKE_OR_UNLIKE_POST = gql`
 	}
 `;
 
+const SHARE_POST = gql`
+	mutation addSharedPost($post: ID!, $content: String) {
+		addSharedPost(post: $post, content: $content) {
+			id
+			content
+			commentsCount
+			likesCount
+			is_shared
+			isLiked
+			createdAt
+			author {
+				id
+				firstName
+				lastName
+				profileImage {
+					type
+					url
+				}
+			}
+			post {
+				id
+				content
+				media {
+					url
+					type
+				}
+				createdAt
+				author {
+					id
+					firstName
+					lastName
+					profileImage {
+						type
+						url
+					}
+				}
+			}
+		}
+	}
+`;
+
 const ADD_POST = gql`
 	mutation addPost($content: String!, $media: [String]) {
 		addPost(content: $content, media: $media) {
@@ -50,4 +91,4 @@ const ADD_POST = gql`
 	}
 `;
 
-export { DELETE_POST, LIKE_OR_UNLIKE_POST, ADD_POST };
+export { DELETE_POST, LIKE_OR_UNLIKE_POST, ADD_POST, SHARE_POST };
