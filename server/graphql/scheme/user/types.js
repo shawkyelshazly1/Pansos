@@ -4,8 +4,8 @@ const userTypes = `
 		firstName: String!
 		lastName: String!
 		email: String!
-		profileImage: String!
-		profileCover: String!
+		profileImage: Media!
+		profileCover: Media!
 		followersCount: Int!
 		followingsCount: Int!
 		followStatus: String!
@@ -32,7 +32,7 @@ const userTypes = `
 			confirmPassword: String!
 		): User!
 		loginUser(email: String!, password: String!): LoginResponse!
-		updateProfileInfo(firstName: String!, lastName: String!): User!
+		updateProfileInfo(firstName: String!, lastName: String!,profileImage:String,profileCover:String): User!
 	}
 `;
 

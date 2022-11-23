@@ -2,8 +2,11 @@ import { useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
+import { IoIosCloseCircle } from "react-icons/io";
 import S from "underscore.string";
 import { UPDATE_PROFILE_INFO } from "../../../graphql/user/mutation";
+import { getUploadaedMediaUrls } from "../../../utils";
+import LoadingCircleSpinner from "../../utils/LoadingCircleSpinner";
 
 export default function EditProfileForm({ user, toggleModal }) {
 	// main form state
@@ -12,9 +15,11 @@ export default function EditProfileForm({ user, toggleModal }) {
 		lastName: user.lastName,
 	});
 
+	const [media, setMedia] = useState(null);
+	const [uploadingMedia, setUploadingMedia] = useState(false);
+
 	// update profile mutation
-	const [updateProfile] = useMutation(UPDATE_PROFILE_INFO, {
-		variables: { ...formData },
+	const [updateProfile, { loading }] = useMutation(UPDATE_PROFILE_INFO, {
 		onError: (error) => {
 			toast.error(error.message);
 		},
@@ -30,30 +35,68 @@ export default function EditProfileForm({ user, toggleModal }) {
 	};
 
 	// handle form Submission
-	const handleFormSubmission = (e) => {
+	const handleFormSubmission = async (e) => {
 		e.preventDefault();
 		if (formData.firstName !== "" && formData.lastName !== "") {
-			updateProfile();
+			if (media?.file) {
+				setUploadingMedia(true);
+				await getUploadaedMediaUrls([media]).then((res) => {
+					updateProfile({ variables: { ...formData, profileImage: res[0] } });
+				});
+			} else {
+				updateProfile({ variables: { ...formData } });
+			}
+			setUploadingMedia(false);
+			setMedia({});
 		}
 	};
 
+	const addMediaAndPreview = (file) => {
+		let previewSrc = URL.createObjectURL(file);
+		setMedia({ file, previewSrc });
+	};
+
+	if (loading || uploadingMedia) return <LoadingCircleSpinner />;
 	return (
 		<form
 			onSubmit={handleFormSubmission}
 			action=""
 			className="flex flex-col w-full items-center gap-8"
 		>
-			<div className="w-40 border-4 border-mainColor rounded-full relative">
-				<img
-					className="rounded-full"
-					src="https://i.postimg.cc/9Mj9yQgY/jonespeace-1.webp"
-					alt=""
-				/>
-				{/*  #TODO: add functionality to update photo */}
-				<FaEdit
-					className="absolute right-1 text-black bottom-1 cursor-pointer"
-					size={25}
-				/>
+			<div className=" border-4 border-mainColor rounded-full relative">
+				<div className="relative">
+					{media?.previewSrc ? (
+						<IoIosCloseCircle
+							onClick={() => {
+								setMedia(null);
+							}}
+							className="absolute right-1 top-2 cursor-pointer"
+							size={30}
+						/>
+					) : (
+						<></>
+					)}
+					<img
+						className="rounded-full object-cover w-40 h-40"
+						src={media?.previewSrc || user.profileImage}
+						alt=""
+					/>
+				</div>
+
+				<span className="cursor-pointer flex absolute bottom-1 right-2 overflow-hidden items-center justify-center w-fit">
+					<FaEdit className=" text-black cursor-pointer" size={25} />
+
+					<input
+						className="cursor-pointer absolute top-0 right-0 block opacity-0"
+						type="file"
+						accept=".jpg,.jpeg,.png"
+						name="photoUpload"
+						id="photoUpload"
+						onInput={(e) => {
+							addMediaAndPreview(e.target.files[0]);
+						}}
+					/>
+				</span>
 			</div>
 			<div className="flex flex-row justify-between w-full gap-8">
 				<div className="flex flex-col w-full gap-1">

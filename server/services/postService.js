@@ -1,9 +1,10 @@
 const consola = require("consola");
 const { PostRepository } = require("../database");
-const {
-	BadInputGraphQLError,
-	NotAuthorizedGraphQLError,
-} = require("../utils/error.js");
+const { BadInputGraphQLError } = require("../utils/error.js"),
+	MediaService = require("./mediaService");
+
+const mediaService = new MediaService();
+const mongoose = require("mongoose");
 
 // class to interact with user service
 class PostService {
@@ -19,6 +20,17 @@ class PostService {
 			// validate if all inputs are valid
 			if (!content || !author)
 				return await BadInputGraphQLError("Post data is required!");
+
+			//upload media if exists
+			if (postData.media && postData.media.length > 0) {
+				let mediaData = postData.media.map((media) => ({
+					url: media,
+					type: "photo",
+					user: mongoose.Types.ObjectId(author),
+				}));
+				let newMedia = await mediaService.addNewMedia(mediaData);
+				postData.media = newMedia;
+			}
 
 			// create new post in DB
 			const newPost = await this.repository.CreatePost(postData);

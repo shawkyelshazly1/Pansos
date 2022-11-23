@@ -51,7 +51,7 @@ class MessageStatusService {
 				return await BadInputGraphQLError(
 					"Conversation & User Ids are required."
 				);
-			console.log("here");
+			
 			const updatedMessagesStatus =
 				await this.repository.UpdateMessageStatusIsRead(conversationId, userId);
 
@@ -69,7 +69,7 @@ class MessageStatusService {
 				return await BadInputGraphQLError(
 					"Conversation, Message & User Ids are required."
 				);
-			console.log("here");
+			
 			const updatedMessagesStatus =
 				await this.repository.UpdateMessageStatusIsUnRead(
 					conversationId,

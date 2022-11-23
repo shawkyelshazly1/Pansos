@@ -2,7 +2,11 @@ const { UserRepository } = require("../database"),
 	{ hashPassword, generateAccessToken } = require("../utils/auth.js"),
 	consola = require("consola"),
 	bcryptjs = require("bcryptjs"),
-	{ BadInputGraphQLError } = require("../utils/error.js");
+	{ BadInputGraphQLError } = require("../utils/error.js"),
+	MediaService = require("./mediaService");
+
+const mediaService = new MediaService();
+const mongoose = require("mongoose");
 
 // class to interact with user service
 class UserService {
@@ -134,6 +138,26 @@ class UserService {
 			if (String(existingUser._id) !== String(userId))
 				return await BadInputGraphQLError("Not Authorized");
 
+			// create media object and save id in user Data
+			if (userData.profileImage) {
+				const media = await mediaService.addNewMedia({
+					url: userData.profileImage,
+					type: "photo",
+					user: mongoose.Types.ObjectId(userId),
+				});
+
+				userData.profileImage = media[0]._id;
+			}
+
+			if (userData.profileCover) {
+				const media = await mediaService.addNewMedia({
+					url: userData.profileCover,
+					type: "photo",
+					user: mongoose.Types.ObjectId(userId),
+				});
+				userData.profileCover = media[0]._id;
+			}
+
 			// Update User in DB
 			const updatedUser = await this.repository.UpdateUserById(
 				userId,
@@ -158,7 +182,6 @@ class UserService {
 			const suggesstedUsers = await this.repository.GetSuggesstedUsers(
 				currentUserId
 			);
-
 			return suggesstedUsers;
 		} catch (error) {
 			consola.error(error);

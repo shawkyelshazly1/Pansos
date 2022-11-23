@@ -7,8 +7,11 @@ class UserRepository {
 	// create new user in DB
 	async CreateUser(userData) {
 		try {
-			const newUser = await new UserModal(userData);
-			return await newUser.save();
+			let newUser = await new UserModal(userData);
+
+			newUser = await newUser.save();
+
+			return newUser;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };
@@ -22,6 +25,7 @@ class UserRepository {
 				mongoose.Types.ObjectId(userId),
 				{ password: 0 }
 			);
+
 			return existingUser;
 		} catch (error) {
 			consola.error(error);
@@ -32,7 +36,10 @@ class UserRepository {
 	// find user by email
 	async FindUserByEmail(userEmail) {
 		try {
-			const existingUser = await UserModal.findOne({ email: userEmail });
+			const existingUser = await UserModal.findOne({
+				email: userEmail,
+			});
+
 			return existingUser;
 		} catch (error) {
 			consola.error(error);
@@ -48,6 +55,7 @@ class UserRepository {
 				userData,
 				{ new: true }
 			);
+
 			return updatedUser;
 		} catch (error) {
 			consola.error(error);
@@ -82,13 +90,11 @@ class UserRepository {
 				},
 				{ target: 1 }
 			)
+
 				.distinct("target")
 				.lean();
 
 			// load suggessted not followed users
-			// const suggesstedUsers = await UserModal.find({
-			// 	_id: { $nin: userFollowings },
-			// });
 
 			let suggesstedUsers = await UserModal.aggregate([
 				{
@@ -98,6 +104,24 @@ class UserRepository {
 						},
 					},
 				},
+				{
+					$lookup: {
+						from: "media",
+						localField: "profileImage",
+						foreignField: "_id",
+						as: "profileImage",
+					},
+				},
+				{ $unwind: "$profileImage" },
+				{
+					$lookup: {
+						from: "media",
+						localField: "profileCover",
+						foreignField: "_id",
+						as: "profileCover",
+					},
+				},
+				{ $unwind: "$profileCover" },
 				{ $sample: { size: 20 } },
 			]);
 

@@ -1,21 +1,23 @@
+const MediaService = require("../../services/mediaService");
 const {
 		PostModal,
 		PostLikeModal,
 		CommentModal,
 		FriendshipModal,
+		MediaModal,
 	} = require("../models"),
 	mongoose = require("mongoose"),
 	consola = require("consola");
 
 // repository class to interact with DB
-
+const mediaService = new MediaService();
 class PostRepository {
 	// create new post
 	async CreatePost(postData) {
 		try {
 			let newPost = await new PostModal(postData);
 			newPost = await newPost.save();
-			newPost = await newPost.populate("author", "-password");
+
 
 			return newPost;
 		} catch (error) {
@@ -29,7 +31,8 @@ class PostRepository {
 		try {
 			const existingPost = await PostModal.findById(
 				mongoose.Types.ObjectId(postId)
-			).populate("author", "-password");
+			)
+
 
 			return existingPost;
 		} catch (error) {
@@ -44,7 +47,7 @@ class PostRepository {
 			const userPosts = await PostModal.find({
 				author: mongoose.Types.ObjectId(userId),
 			})
-				.populate("author", "-password")
+
 				.sort({ createdAt: "desc" });
 
 			return userPosts;
@@ -78,7 +81,7 @@ class PostRepository {
 				],
 			})
 				.sort({ createdAt: "desc" })
-				.populate("author", "-password");
+
 			return posts;
 		} catch (error) {
 			consola.error(error);
@@ -93,7 +96,8 @@ class PostRepository {
 		try {
 			const deletedPost = await PostModal.findByIdAndDelete(
 				mongoose.Types.ObjectId(postId)
-			).populate("author", "-password");
+			)
+
 
 			// delete all post likes and comments
 			await PostLikeModal.deleteMany({
@@ -103,6 +107,8 @@ class PostRepository {
 			await CommentModal.deleteMany({
 				post: mongoose.Types.ObjectId(postId),
 			});
+
+			await mediaService.deleteMedia(deletedPost.media);
 
 			return deletedPost;
 		} catch (error) {
