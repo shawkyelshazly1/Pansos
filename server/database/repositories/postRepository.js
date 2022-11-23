@@ -1,10 +1,12 @@
 const MediaService = require("../../services/mediaService");
+const _ = require("lodash");
 const {
 		PostModal,
 		PostLikeModal,
 		CommentModal,
 		FriendshipModal,
 		MediaModal,
+		SharedPostModal,
 	} = require("../models"),
 	mongoose = require("mongoose"),
 	consola = require("consola");
@@ -79,7 +81,22 @@ class PostRepository {
 				],
 			}).sort({ createdAt: "desc" });
 
-			return posts;
+			const sharedPosts = await SharedPostModal.find({
+				$or: [
+					{
+						author: { $in: userFollowings },
+					},
+					{
+						author: mongoose.Types.ObjectId(userId),
+					},
+				],
+			}).sort({ createdAt: "desc" });
+
+			let allPosts = [...posts, ...sharedPosts];
+
+			allPosts = _.orderBy(allPosts, ["createdAt"], ["desc"]);
+
+			return allPosts;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };
