@@ -6,6 +6,7 @@ const { UserRepository } = require("../database"),
 	MediaService = require("./mediaService");
 
 const mediaService = new MediaService();
+const mongoose = require("mongoose");
 
 // class to interact with user service
 class UserService {
@@ -139,13 +140,22 @@ class UserService {
 
 			// create media object and save id in user Data
 			if (userData.profileImage) {
-				const media = await mediaService.addNewMedia(userData.profileImage)[0];
-				userData.profileImage = media._id;
+				const media = await mediaService.addNewMedia({
+					url: userData.profileImage,
+					type: "photo",
+					user: mongoose.Types.ObjectId(userId),
+				});
+
+				userData.profileImage = media[0]._id;
 			}
 
 			if (userData.profileCover) {
-				const media = await mediaService.addNewMedia(userData.profileCover)[0];
-				userData.profileCover = media._id;
+				const media = await mediaService.addNewMedia({
+					url: userData.profileCover,
+					type: "photo",
+					user: mongoose.Types.ObjectId(userId),
+				});
+				userData.profileCover = media[0]._id;
 			}
 
 			// Update User in DB
@@ -172,7 +182,7 @@ class UserService {
 			const suggesstedUsers = await this.repository.GetSuggesstedUsers(
 				currentUserId
 			);
-
+			console.log(suggesstedUsers);
 			return suggesstedUsers;
 		} catch (error) {
 			consola.error(error);

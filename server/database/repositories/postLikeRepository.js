@@ -10,8 +10,7 @@ class PostLikeRepository {
 			let newPostLike = await new PostLikeModal(postLikeData);
 
 			newPostLike = await newPostLike.save();
-			newPostLike = await newPostLike.populate("author", "-password");
-			newPostLike = await newPostLike.populate("post");
+
 			return newPostLike;
 		} catch (error) {
 			consola.error(error);
@@ -26,8 +25,8 @@ class PostLikeRepository {
 				post: mongoose.Types.ObjectId(postLikeData.post),
 				author: mongoose.Types.ObjectId(postLikeData.author),
 			})
-				.populate("author", "-password")
-				.populate("post");
+				.populate("post")
+				.populate("author", "-password");
 
 			return deletedPostLike;
 		} catch (error) {

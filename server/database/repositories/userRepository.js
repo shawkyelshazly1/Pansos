@@ -7,10 +7,9 @@ class UserRepository {
 	// create new user in DB
 	async CreateUser(userData) {
 		try {
-			const newUser = await new UserModal(userData);
+			let newUser = await new UserModal(userData);
 
 			newUser = await newUser.save();
-			newUser = await newUser.populate("media");
 
 			return newUser;
 		} catch (error) {
@@ -25,7 +24,8 @@ class UserRepository {
 			const existingUser = await UserModal.findById(
 				mongoose.Types.ObjectId(userId),
 				{ password: 0 }
-			).populate("media");
+			);
+
 			return existingUser;
 		} catch (error) {
 			consola.error(error);
@@ -38,7 +38,9 @@ class UserRepository {
 		try {
 			const existingUser = await UserModal.findOne({
 				email: userEmail,
-			}).populate("media");
+			});
+
+			console.log(existingUser);
 			return existingUser;
 		} catch (error) {
 			consola.error(error);
@@ -53,7 +55,8 @@ class UserRepository {
 				{ _id: mongoose.Types.ObjectId(userId) },
 				userData,
 				{ new: true }
-			).populate("media");
+			);
+
 			return updatedUser;
 		} catch (error) {
 			consola.error(error);
@@ -68,8 +71,7 @@ class UserRepository {
 			const users = await UserModal.find({}, { password: 0 })
 				.or([{ firstName: { $regex: regex } }, { lastName: { $regex: regex } }])
 				.ne("_id", mongoose.Types.ObjectId(currentUserId))
-				.limit(5)
-				.populate("media");
+				.limit(5);
 
 			return users;
 		} catch (error) {
@@ -103,8 +105,26 @@ class UserRepository {
 						},
 					},
 				},
+				{
+					$lookup: {
+						from: "media",
+						localField: "profileImage",
+						foreignField: "_id",
+						as: "profileImage",
+					},
+				},
+				{ $unwind: "$profileImage" },
+				{
+					$lookup: {
+						from: "media",
+						localField: "profileCover",
+						foreignField: "_id",
+						as: "profileCover",
+					},
+				},
+				{ $unwind: "$profileCover" },
 				{ $sample: { size: 20 } },
-			]).populate("media");
+			]);
 
 			suggesstedUsers = suggesstedUsers.map((user) => {
 				const { _id, ...updatedUser } = user;

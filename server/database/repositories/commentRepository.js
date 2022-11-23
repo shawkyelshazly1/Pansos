@@ -9,9 +9,6 @@ class CommentRepository {
 		try {
 			let newComment = await new CommentModal(commentData);
 			newComment = await newComment.save();
-			newComment = await newComment.populate("author", "-password");
-			newComment = await newComment.populate("post");
-
 			return newComment;
 		} catch (error) {
 			consola.error(error);
@@ -24,7 +21,9 @@ class CommentRepository {
 		try {
 			const deletedComment = await CommentModal.findByIdAndDelete(
 				mongoose.Types.ObjectId(commentId)
-			).populate("post");
+			)
+				.populate("author", "-password")
+				.populate("post");
 
 			return deletedComment;
 		} catch (error) {
@@ -38,9 +37,7 @@ class CommentRepository {
 		try {
 			const existingComment = await CommentModal.findById(
 				mongoose.Types.ObjectId(commentId)
-			)
-				.populate("author", "-password")
-				.populate("post");
+			);
 
 			return existingComment;
 		} catch (error) {
@@ -54,9 +51,7 @@ class CommentRepository {
 		try {
 			const postComments = await CommentModal.find({
 				post: mongoose.Types.ObjectId(postId),
-			})
-				.populate("author", "-password")
-				.sort({ createdAt: "desc" });
+			}).sort({ createdAt: "desc" });
 
 			return postComments;
 		} catch (error) {

@@ -9,7 +9,6 @@ class ConversationRespository {
 		try {
 			let newConversation = await new ConversationModal({ users: usersIds });
 			newConversation = await newConversation.save();
-			newConversation = await newConversation.populate("users", "-password");
 			return newConversation;
 		} catch (error) {
 			consola.error(error);
@@ -23,10 +22,8 @@ class ConversationRespository {
 			const userConversations = await ConversationModal.find({
 				users: { $in: [mongoose.Types.ObjectId(userId)] },
 			})
-				.populate("users", "-password")
-				.populate({ path: "lastMessage", populate: { path: "author" } })
+				
 				.sort({ lastMessage: -1 });
-
 
 			return userConversations;
 		} catch (error) {
@@ -41,8 +38,7 @@ class ConversationRespository {
 			const existingConversation = await ConversationModal.findById(
 				conversationId
 			)
-				.populate("users", "-password")
-				.populate("lastMessage");
+				
 
 			return existingConversation;
 		} catch (error) {
@@ -58,8 +54,7 @@ class ConversationRespository {
 			const existingConversation = await ConversationModal.findOne({
 				users: { $all: Ids },
 			})
-				.populate("users", "-password")
-				.populate("lastMessage");
+				
 
 			return existingConversation;
 		} catch (error) {
@@ -76,8 +71,7 @@ class ConversationRespository {
 				{ lastMessage: lastMessageId },
 				{ new: true }
 			)
-				.populate("users", "-password")
-				.populate("lastMessage");
+				
 
 			return updatedConversation;
 		} catch (error) {

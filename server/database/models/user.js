@@ -9,15 +9,18 @@ const userSchema = mongoose.Schema(
 		profileImage: {
 			type: mongoose.Types.ObjectId,
 			ref: "Media",
-			default: mongoose.Types.ObjectId("637d4894f241c18035c6f03f"),
+			default: mongoose.Types.ObjectId("637d564595eedd4b185b2cde"),
+			autopopulate: true,
 		},
 		profileCover: {
 			type: mongoose.Types.ObjectId,
 			ref: "Media",
-			default: mongoose.Types.ObjectId("637d4b62957a89bbc15bfa40"),
+			default: mongoose.Types.ObjectId("637d563d95eedd4b185b2cdd"),
+			autopopulate: true,
 		},
 	},
 	{ timestamps: true }
 );
+userSchema.plugin(require("mongoose-autopopulate"));
 
 module.exports = mongoose.model("User", userSchema);

@@ -8,8 +8,6 @@ class MessageRepository {
 		try {
 			let newMessage = await new MessageModal(messageData);
 			newMessage = await newMessage.save();
-			newMessage = await newMessage.populate("author", "-password");
-			newMessage = await newMessage.populate("conversation");
 
 			return newMessage;
 		} catch (error) {
@@ -24,7 +22,7 @@ class MessageRepository {
 			const conversationMessages = await MessageModal.find({
 				conversation: conversationId,
 			})
-				.populate("author", "-password")
+			
 				.sort({ createdAt: -1 });
 
 			return conversationMessages;
@@ -41,7 +39,7 @@ class MessageRepository {
 				conversation: conversationId,
 				status: "unread",
 			})
-				.populate("author", "-password")
+		
 				.sort({ createdAt: -1 });
 
 			return conversationMessages;

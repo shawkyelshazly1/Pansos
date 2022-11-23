@@ -16,8 +16,9 @@ class MediaService {
 	async addNewMedia(mediaData) {
 		try {
 			// check if one or multiple
-			if (Array.isArray(mediaData)) {
+			if (!Array.isArray(mediaData)) {
 				let addedMedia = await this.repository.CreateMedia(mediaData);
+
 				return [addedMedia];
 			} else {
 				let addedMedia = await this.repository.CreateMultipleMedia(mediaData);
@@ -33,7 +34,7 @@ class MediaService {
 	async deleteMedia(mediaId) {
 		try {
 			// check if one or multiple
-			if (Array.isArray(mediaId)) {
+			if (!Array.isArray(mediaId)) {
 				let deletedMedia = await this.repository.DeleteMedia(mediaId);
 				return [deletedMedia];
 			} else {

@@ -9,8 +9,7 @@ class FriendshipRepository {
 		try {
 			let newFriendship = await new FriendshipModal(friendshipData);
 			newFriendship = await newFriendship.save();
-			newFriendship = await newFriendship.populate("target", "-password");
-			newFriendship = await newFriendship.populate("author", "-password");
+
 			return newFriendship;
 		} catch (error) {
 			consola.error(error);
@@ -28,9 +27,7 @@ class FriendshipRepository {
 				},
 				friendshipData,
 				{ new: true }
-			)
-				.populate("author", "-password")
-				.populate("target", "-password");
+			);
 
 			return updatedFriendship;
 		} catch (error) {
@@ -45,9 +42,7 @@ class FriendshipRepository {
 			const deletedFriendship = await FriendshipModal.findOneAndDelete({
 				author: mongoose.Types.ObjectId(friendshipData.author),
 				target: mongoose.Types.ObjectId(friendshipData.target),
-			})
-				.populate("target", "-password")
-				.populate("author", "-password");
+			});
 
 			return deletedFriendship;
 		} catch (error) {
@@ -62,7 +57,7 @@ class FriendshipRepository {
 			const userFriendships = await FriendshipModal.find({
 				author: mongoose.Types.ObjectId(userId),
 				status: "approved",
-			}).populate("target", "-password");
+			});
 
 			return userFriendships;
 		} catch (error) {
@@ -78,7 +73,7 @@ class FriendshipRepository {
 			const userFriendships = await FriendshipModal.find({
 				target: mongoose.Types.ObjectId(userId),
 				status: "approved",
-			}).populate("author", "-password");
+			});
 
 			return userFriendships;
 		} catch (error) {
@@ -93,7 +88,7 @@ class FriendshipRepository {
 			const userPendingFriendships = await FriendshipModal.find({
 				target: mongoose.Types.ObjectId(userId),
 				status: "pending",
-			}).populate("author", "-password");
+			});
 
 			return userPendingFriendships;
 		} catch (error) {
@@ -108,7 +103,7 @@ class FriendshipRepository {
 			const userPendingFriendships = await FriendshipModal.find({
 				author: mongoose.Types.ObjectId(userId),
 				status: "pending",
-			}).populate("target", "-password");
+			});
 
 			return userPendingFriendships;
 		} catch (error) {
@@ -123,9 +118,7 @@ class FriendshipRepository {
 			const existingFriendship = await FriendshipModal.findOne({
 				author,
 				target,
-			})
-				.populate("author", "-password")
-				.populate("target", "-password");
+			});
 
 			return existingFriendship;
 		} catch (error) {

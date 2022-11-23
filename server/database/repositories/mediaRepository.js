@@ -19,7 +19,9 @@ class MediaRepository {
 	// delete media by Id
 	async DeleteMedia(mediaId) {
 		try {
-			const deletedMedia = await MediaModal.findByIdAndDelete(mongoose.t);
+			const deletedMedia = await MediaModal.findByIdAndDelete(
+				mongoose.Types.ObjectId(mediaId)
+			);
 			return deletedMedia;
 		} catch (error) {
 			consola.error(error);

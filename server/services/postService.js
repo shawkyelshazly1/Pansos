@@ -4,6 +4,7 @@ const { BadInputGraphQLError } = require("../utils/error.js"),
 	MediaService = require("./mediaService");
 
 const mediaService = new MediaService();
+const mongoose = require("mongoose");
 
 // class to interact with user service
 class PostService {
@@ -22,7 +23,12 @@ class PostService {
 
 			//upload media if exists
 			if (postData.media && postData.media.length > 0) {
-				let newMedia = await mediaService.addNewMedia(postData.media);
+				let mediaData = postData.media.map((media) => ({
+					url: media,
+					type: "photo",
+					user: mongoose.Types.ObjectId(author),
+				}));
+				let newMedia = await mediaService.addNewMedia(mediaData);
 				postData.media = newMedia;
 			}
 
