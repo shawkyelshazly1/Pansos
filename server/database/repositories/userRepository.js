@@ -40,7 +40,6 @@ class UserRepository {
 				email: userEmail,
 			});
 
-			console.log(existingUser);
 			return existingUser;
 		} catch (error) {
 			consola.error(error);

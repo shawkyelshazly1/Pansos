@@ -17,14 +17,14 @@ const configureMessageEvents = (socket, ioServer) => {
 			});
 
 			let otherParticipant = newMessage.conversation.users.filter(
-				(user) => user.toString() !== socket.handshake.auth.userId
+				(user) => user._id.toString() !== socket.handshake.auth.userId
 			)[0];
 
 			// checking if user online or not to set messages as unread if not online
-			if (ioServer.sockets.adapter.rooms.get(otherParticipant.toString())) {
+			if (ioServer.sockets.adapter.rooms.get(otherParticipant._id.toString())) {
 				// add message status as read
 				await messageStatusService.addMessageStatus({
-					recipient: otherParticipant,
+					recipient: otherParticipant._id,
 					message: newMessage._id,
 					conversation: newMessage.conversation._id,
 					is_read: true,
@@ -32,7 +32,7 @@ const configureMessageEvents = (socket, ioServer) => {
 			} else {
 				// add message status as read
 				await messageStatusService.addMessageStatus({
-					recipient: otherParticipant,
+					recipient: otherParticipant._id,
 					message: newMessage._id,
 					conversation: newMessage.conversation._id,
 					is_read: false,
@@ -47,7 +47,7 @@ const configureMessageEvents = (socket, ioServer) => {
 
 			//send message back to users
 			newMessage.conversation.users.forEach((user) => {
-				ioServer.in(user.toString()).emit("new_msg", newMessage);
+				ioServer.in(user._id.toString()).emit("new_msg", newMessage);
 			});
 		} catch (error) {
 			consola.error(error);

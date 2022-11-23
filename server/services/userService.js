@@ -182,7 +182,6 @@ class UserService {
 			const suggesstedUsers = await this.repository.GetSuggesstedUsers(
 				currentUserId
 			);
-			console.log(suggesstedUsers);
 			return suggesstedUsers;
 		} catch (error) {
 			consola.error(error);
