@@ -26,6 +26,7 @@
 		"fix-esm": "^1.0.1",
 		"graphql": "^16.6.0",
 		"graphql-upload": "^16.0.2",
+		"ioredis": "^5.2.4",
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.21",
 		"mongoose": "^6.7.2",

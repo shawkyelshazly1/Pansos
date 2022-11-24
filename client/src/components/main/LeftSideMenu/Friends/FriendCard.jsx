@@ -1,25 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import S from "underscore.string";
+import moment from "moment";
 
-export default function FriendCard() {
-	let test = ["online", ""];
-	const status = test[Math.floor(Math.random() * test.length)];
+export default function FriendCard({ user }) {
 	return (
 		<div className="flex felx-row gap-3 items-center cursor-pointer justify-between">
-			<Link to={"/profile/1223456"}>
+			<Link to={`/profile/${user._id}`}>
 				<div className="flex flex-row gap-3 items-center">
 					<img
 						className="w-10 rounded-lg object-cover"
-						src="https://i.postimg.cc/4yc4NfPr/hacker-team-esport-logo-177315-79-1.webp"
+						src={user.profileImage.url}
 						alt=""
 					/>
-					<h1 className="text-[#53596d] font-medium">Ahmed Mohamed</h1>
+					<h1 className="text-[#53596d] font-medium">
+						{S(user.firstName + " " + user.lastName)
+							.titleize()
+							.value()}
+					</h1>
 				</div>
 			</Link>
-			{status === "online" ? (
+			{user.status === "online" ? (
 				<span className="bg-[#27ae60] w-[10px] h-[10px] rounded-full"></span>
 			) : (
-				<p className="text-xs text-[#53596d] font-medium">8 min</p>
+				<p className="text-xs text-[#53596d] font-medium">
+					{moment(user.lastSeen).fromNow(true)}
+				</p>
 			)}
 		</div>
 	);

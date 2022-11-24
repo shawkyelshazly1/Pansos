@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { ChatAppContext } from "../../../../contexts/ChatContext";
 import FriendCard from "./FriendCard";
 
 export default function FriendsSection() {
+	const { IOsocket } = useContext(ChatAppContext);
+	const [onlineUsers, setOnlineUsers] = useState([]);
+
+	// use effect to listen to online users event
+	useEffect(() => {
+		IOsocket.off("online-users").on("online-users", (data) => {
+			setOnlineUsers(data);
+		});
+	});
+
 	return (
 		<div className="flex flex-col bg-white rounded-2xl py-6 px-5 gap-6">
 			<div className="flex flex-row justify-between items-center">
@@ -10,27 +21,9 @@ export default function FriendsSection() {
 				<BiDotsHorizontalRounded size={25} />
 			</div>
 			<div className="flex flex-col gap-[19px]">
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
-				<FriendCard />
+				{onlineUsers.map((user) => (
+					<FriendCard key={user._id} user={user} />
+				))}
 			</div>
 		</div>
 	);

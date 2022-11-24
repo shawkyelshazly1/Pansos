@@ -6,7 +6,8 @@ const express = require("express"),
 	{ expressMiddleware } = require("@apollo/server/express4"),
 	{ initiDBConnection } = require("./database"),
 	{ typeDefs, resolvers } = require("./graphql");
-const { initSocketIO } = require("./socketIO");
+const { initSocketIO } = require("./socketIO"),
+	Redis = require("ioredis");
 
 // set env variables config
 require("dotenv").config();
@@ -23,6 +24,9 @@ require("dotenv").config();
 
 	// starting DB connection
 	initiDBConnection();
+
+	// setup redis client
+	const redis = new Redis();
 
 	// create apollo server
 	const server = new ApolloServer({
@@ -47,5 +51,5 @@ require("dotenv").config();
 	});
 
 	// init socket io connection
-	initSocketIO(httpServer);
+	initSocketIO(httpServer, redis);
 })();
