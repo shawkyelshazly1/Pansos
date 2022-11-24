@@ -9,7 +9,7 @@ export default function FriendCard({ user }) {
 			<Link to={`/profile/${user._id}`}>
 				<div className="flex flex-row gap-3 items-center">
 					<img
-						className="w-10 rounded-lg object-cover"
+						className="w-10 h-10 rounded-lg object-cover"
 						src={user.profileImage.url}
 						alt=""
 					/>

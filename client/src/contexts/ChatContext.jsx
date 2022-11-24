@@ -16,6 +16,7 @@ export const ChatAppProvier = ({ children }) => {
 	const [mockConversations, setMockConversations] = useState([]);
 	const [selectedConversation, setSelectedConversation] = useState(null);
 	const [unreadConversationsCount, setUnreadConversationsCount] = useState(0);
+	const [onlineUsers, setOnlineUsers] = useState([]);
 	const { currentUser } = useContext(currentUserContext);
 
 	const client = useApolloClient();
@@ -29,6 +30,13 @@ export const ChatAppProvier = ({ children }) => {
 			socket.disconnect();
 		};
 	}, [IOsocket, currentUser]);
+
+	// use effect to listen to online users event
+	useEffect(() => {
+		IOsocket.off("online-users").on("online-users", (data) => {
+			setOnlineUsers(data);
+		});
+	});
 
 	// attache new Message handler
 	const addNewMessage = (messageData) => {
@@ -166,6 +174,8 @@ export const ChatAppProvier = ({ children }) => {
 		setSelectedConversation,
 		markConversationAsRead,
 		unreadConversationsCount,
+		setOnlineUsers,
+		onlineUsers,
 	};
 
 	return (

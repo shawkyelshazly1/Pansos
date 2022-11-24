@@ -4,15 +4,8 @@ import { ChatAppContext } from "../../../../contexts/ChatContext";
 import FriendCard from "./FriendCard";
 
 export default function FriendsSection() {
-	const { IOsocket } = useContext(ChatAppContext);
-	const [onlineUsers, setOnlineUsers] = useState([]);
-
-	// use effect to listen to online users event
-	useEffect(() => {
-		IOsocket.off("online-users").on("online-users", (data) => {
-			setOnlineUsers(data);
-		});
-	});
+	const {onlineUsers } = useContext(ChatAppContext);
+	
 
 	return (
 		<div className="flex flex-col bg-white rounded-2xl py-6 px-5 gap-6">

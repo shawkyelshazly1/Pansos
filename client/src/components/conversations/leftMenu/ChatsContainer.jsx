@@ -28,7 +28,6 @@ export default function ChatsContainer() {
 		setSelectedConversation(userId);
 	}, [userId]);
 
-
 	return (
 		<div className="flex bg-white h-full lg:w-[23%] w-fit rounded-xl shadow-postCardShadow lg:p-6">
 			<div className="flex flex-col gap-4 w-full">

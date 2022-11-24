@@ -7,10 +7,11 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { MARK_MESSAGES_READ } from "../../../graphql/conversation/mutation";
 import { ChatAppContext } from "../../../contexts/ChatContext";
+import _ from "lodash";
 
 export default function ChatCard({ conversation }) {
 	const { currentUser } = useContext(currentUserContext);
-	const { markConversationAsRead } = useContext(ChatAppContext);
+	const { markConversationAsRead, onlineUsers } = useContext(ChatAppContext);
 
 	const { userId } = useParams();
 
@@ -35,11 +36,22 @@ export default function ChatCard({ conversation }) {
 					}
 				}}
 			>
-				<img
-					className="max-w-[4rem] max-h-[4rem] rounded-full object-cover"
-					src={otherParticipant.profileImage.url}
-					alt=""
-				/>
+				<div className="relative">
+					<img
+						className="max-w-[4rem] max-h-[4rem] rounded-full object-cover"
+						src={otherParticipant.profileImage.url}
+						alt=""
+					/>
+
+					{_.find(onlineUsers, {
+						userId: otherParticipant.id,
+						status: "online",
+					}) ? (
+						<span className="w-4 h-4 rounded-full bg-green-500 bottom-0 right-[2px] absolute border-2 border-white "></span>
+					) : (
+						<></>
+					)}
+				</div>
 				<div className="lg:flex flex-col gap-1 pt-2 hidden flex-1">
 					<h1 className="font-bold">
 						{S(otherParticipant.firstName + " " + otherParticipant.lastName)
