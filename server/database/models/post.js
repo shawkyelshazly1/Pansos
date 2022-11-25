@@ -17,6 +17,12 @@ const postSchema = mongoose.Schema(
 				autopopulate: true,
 			},
 		],
+		group: {
+			type: mongoose.Types.ObjectId,
+			trim: true,
+			ref: "Group",
+			autopopulate: true,
+		},
 	},
 	{ timestamps: true }
 );

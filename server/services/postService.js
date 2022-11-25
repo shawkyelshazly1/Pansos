@@ -1,5 +1,5 @@
 const consola = require("consola");
-const { PostRepository } = require("../database");
+const { PostRepository, GroupRepository } = require("../database");
 const { BadInputGraphQLError } = require("../utils/error.js"),
 	MediaService = require("./mediaService");
 
@@ -11,6 +11,7 @@ class PostService {
 	// constructor to use DB repository interface
 	constructor() {
 		this.repository = new PostRepository();
+		this.groupRepository = new GroupRepository();
 	}
 
 	// create post
@@ -112,6 +113,23 @@ class PostService {
 			consola.error(error);
 			return await BadInputGraphQLError("Something went wrong!");
 		}
+	}
+
+	// load group posts
+	async loadGroupPosts(groupId) {
+		try {
+			// validate input correct
+			if (!groupId) return await BadInputGraphQLError("GroupId is required!");
+
+			// load group to validate
+			const existingGroup = await this.groupRepository.GetGroupById(groupId);
+
+			if (!existingGroup) return await BadInputGraphQLError("Group Not Found!");
+
+			const groupPosts = await this.repository.GetGroupPostsById(groupId);
+
+			return groupPosts;
+		} catch (error) {}
 	}
 }
 

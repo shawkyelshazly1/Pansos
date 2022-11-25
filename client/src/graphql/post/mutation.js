@@ -70,8 +70,8 @@ const SHARE_POST = gql`
 `;
 
 const ADD_POST = gql`
-	mutation addPost($content: String!, $media: [String]) {
-		addPost(content: $content, media: $media) {
+	mutation addPost($content: String!, $media: [String], $group: ID) {
+		addPost(content: $content, media: $media, group: $group) {
 			id
 			content
 			commentsCount

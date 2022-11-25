@@ -11,7 +11,7 @@ export default function PostModalInfo({ post }) {
 			<div className="flex flex-row gap-3 w-full">
 				<Link to={`/profile/${post.author.id}`}>
 					<img
-						className="w-14 rounded-full"
+						className="w-14 h-14 rounded-full"
 						src={post.author.profileImage.url}
 						alt=""
 					/>

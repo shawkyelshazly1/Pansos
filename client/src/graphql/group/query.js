@@ -1,5 +1,20 @@
 import { gql } from "@apollo/client";
 
+const LOAD_USER_GROUPS = gql`
+	query loadUserGroups($userId: ID!) {
+		loadUserGroups(userId: $userId) {
+			id
+			photo {
+				url
+			}
+			name
+			groupType
+			groupMembersCount
+			membershipStatus
+		}
+	}
+`;
+
 const LOAD_SUGGESSTED_GROUPS = gql`
 	query loadSuggesstedGroups {
 		loadSuggesstedGroups {
@@ -66,4 +81,9 @@ const LOAD_JOIN_REQUESTS = gql`
 	}
 `;
 
-export { LOAD_SUGGESSTED_GROUPS, LOAD_GROUP, LOAD_JOIN_REQUESTS };
+export {
+	LOAD_SUGGESSTED_GROUPS,
+	LOAD_GROUP,
+	LOAD_JOIN_REQUESTS,
+	LOAD_USER_GROUPS,
+};

@@ -209,4 +209,78 @@ const LOAD_USER_POSTS = gql`
 	}
 `;
 
-export { LOAD_NEWSFEED, LOAD_USER_POSTS, LOAD_POST, LOAD_SHARED_POST };
+const LOAD_GROUP_POSTS = gql`
+	query loadGroupPosts($groupId: ID!) {
+		loadGroupPosts(groupId: $groupId) {
+			__typename
+			... on Post {
+				id
+				content
+				commentsCount
+				likesCount
+				isLiked
+				createdAt
+				media {
+					url
+					type
+				}
+				author {
+					id
+					firstName
+					lastName
+					profileImage {
+						url
+						type
+					}
+				}
+			}
+			... on SharedPost {
+				id
+				is_shared
+				post {
+					id
+					content
+					media {
+						url
+						type
+					}
+					author {
+						id
+						firstName
+						lastName
+						profileImage {
+							url
+							type
+						}
+					}
+					commentsCount
+					likesCount
+					isLiked
+					createdAt
+				}
+				sharedPostContent: content
+				commentsCount
+				likesCount
+				isLiked
+				createdAt
+				sharedPostAuthor: author {
+					id
+					firstName
+					lastName
+					profileImage {
+						url
+						type
+					}
+				}
+			}
+		}
+	}
+`;
+
+export {
+	LOAD_NEWSFEED,
+	LOAD_USER_POSTS,
+	LOAD_POST,
+	LOAD_SHARED_POST,
+	LOAD_GROUP_POSTS,
+};

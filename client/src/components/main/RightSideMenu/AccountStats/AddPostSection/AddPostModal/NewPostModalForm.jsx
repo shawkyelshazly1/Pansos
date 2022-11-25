@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BsImageFill } from "react-icons/bs";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import { useMutation } from "@apollo/client";
 import { ADD_POST } from "../../../../../../graphql/post/mutation";
-import { LOAD_NEWSFEED } from "../../../../../../graphql/post/query";
+import {
+	LOAD_GROUP_POSTS,
+	LOAD_NEWSFEED,
+} from "../../../../../../graphql/post/query";
 import toast from "react-hot-toast";
 import MediaPreviewContainer from "./MediaPreviewContainer";
 import { getUploadaedMediaUrls } from "../../../../../../utils";
 import { useLocation } from "react-router";
+import { CurrentAppContext } from "../../../../../../contexts/AppContext";
 
 export default function NewPostModalForm({ setCurrentStatus }) {
-	const location = useLocation();
-	let currentLocation = location.pathname.split("/")[1];
-	console.log(currentLocation);
+	const { selectedGroup } = useContext(CurrentAppContext);
+
 	// formdata this.state
 	const [formData, setFormData] = useState({ content: "" });
 
@@ -48,6 +51,30 @@ export default function NewPostModalForm({ setCurrentStatus }) {
 		},
 	});
 
+	// add post mutation for groups
+	const [addGroupPost] = useMutation(ADD_POST, {
+		onError: (_) => {
+			console.log(_);
+			toast.error("Something Went Wrong!");
+		},
+		onCompleted: (_) => {
+			setCurrentStatus("completed");
+		},
+		update: (cache, { data }) => {
+			cache.modify({
+				fields: {
+					loadGroupPosts(existingPosts = []) {
+						const { addPost } = data;
+						cache.writeQuery({
+							query: LOAD_GROUP_POSTS,
+							data: { addPost, existingPosts },
+						});
+					},
+				},
+			});
+		},
+	});
+
 	// handle form submission
 	const handleFormSubmission = async (e) => {
 		e.preventDefault();
@@ -55,13 +82,21 @@ export default function NewPostModalForm({ setCurrentStatus }) {
 
 		if (media.length > 0) {
 			await getUploadaedMediaUrls(media).then((res) => {
-				currentLocation === "group"
-					? console.log("in group")
+				selectedGroup !== ""
+					? addGroupPost({
+							variables: {
+								content: formData.content,
+								media: res,
+								group: selectedGroup.id,
+							},
+					  })
 					: addPost({ variables: { content: formData.content, media: res } });
 			});
 		} else {
-			currentLocation === "group"
-				? console.log("in group")
+			selectedGroup !== ""
+				? addGroupPost({
+						variables: { content: formData.content, group: selectedGroup.id },
+				  })
 				: addPost({ variables: { content: formData.content } });
 		}
 	};

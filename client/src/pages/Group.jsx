@@ -1,16 +1,18 @@
 import { useLazyQuery } from "@apollo/client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
 import GroupHeader from "../components/group/GroupHeader";
 import { LOAD_GROUP } from "../graphql/group/query";
 import LoadingSpinner from "../components/utils/LoadingSpinner";
 import GroupSectionSelector from "../components/group/GroupSectionSelector";
+import { CurrentAppContext } from "../contexts/AppContext";
 
 export default function Group() {
 	const { groupId } = useParams();
 	const navigate = useNavigate();
 	const [loadedGroup, setLoadedGroup] = useState(null);
+	const { setSelectedGroup } = useContext(CurrentAppContext);
 
 	// load group query
 	const [loadGroup, { loading }] = useLazyQuery(LOAD_GROUP, {
@@ -21,11 +23,16 @@ export default function Group() {
 		},
 		onCompleted: ({ loadSingleGroup }) => {
 			setLoadedGroup(loadSingleGroup);
+			setSelectedGroup(loadSingleGroup);
 		},
 	});
 
 	useEffect(() => {
 		loadGroup();
+
+		return () => {
+			setSelectedGroup("");
+		};
 	}, [groupId]);
 
 	if (loading || loadedGroup === null) return <LoadingSpinner />;

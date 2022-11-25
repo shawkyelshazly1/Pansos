@@ -8,10 +8,13 @@ export const CurrentAppContext = createContext(null);
 export const CurrentAppProvider = ({ children }) => {
 	// initial state
 	const [selectedPost, setSelectedPost] = useState("");
+	const [selectedGroup, setSelectedGroup] = useState("");
 
 	const stateValues = {
 		setSelectedPost,
 		selectedPost,
+		selectedGroup,
+		setSelectedGroup,
 	};
 
 	return (
