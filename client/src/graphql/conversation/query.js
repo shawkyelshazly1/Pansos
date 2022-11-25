@@ -17,10 +17,10 @@ const LOAD_USER_CONVERSATIONS = gql`
 				id
 				firstName
 				lastName
-				profileImage{
-				url
-				type
-			}
+				profileImage {
+					url
+					type
+				}
 			}
 			unreadMessagesCount
 		}
@@ -35,14 +35,24 @@ const LOAD_SINGLE_CONVERSATION = gql`
 				id
 				firstName
 				lastName
-				profileImage{
-				url
-				type
-			}
+				profileImage {
+					url
+					type
+				}
 			}
 			unreadMessagesCount
 		}
 	}
 `;
 
-export { LOAD_USER_CONVERSATIONS, LOAD_SINGLE_CONVERSATION };
+const LOAD_UNCREADcONVERSATIONS_COUNT = gql`
+	query loadUnreadConversationsCount($userId: ID!) {
+		loadUnreadConversationsCount(userId: $userId)
+	}
+`;
+
+export {
+	LOAD_USER_CONVERSATIONS,
+	LOAD_SINGLE_CONVERSATION,
+	LOAD_UNCREADcONVERSATIONS_COUNT,
+};

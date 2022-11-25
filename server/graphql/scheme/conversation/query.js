@@ -28,6 +28,13 @@ const conversationQueries = {
 			userId,
 		]);
 	},
+
+	// load unread conversations count
+	loadUnreadConversationsCount: async (_, __, context) => {
+		await isAuthenticated(context);
+		const { _id } = context.req.payload;
+		return await conversationService.getUnreadConversationsCount(_id);
+	},
 };
 
 module.exports = conversationQueries;

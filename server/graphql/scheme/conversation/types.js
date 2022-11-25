@@ -12,6 +12,7 @@ const conversationTypes = `
 		loadConversationMessages(conversationId: ID!): [Message]!
 		loadUserConversations: [Conversation]!
 		loadSingleConversation(userId:ID!):Conversation!
+		loadUnreadConversationsCount(userId:ID!):Int!
 	}
 
 	type Mutation {

@@ -1,6 +1,9 @@
-import { useApolloClient } from "@apollo/client";
+import { useApolloClient, useLazyQuery } from "@apollo/client";
 import { createContext, useContext, useEffect, useState } from "react";
-import { LOAD_SINGLE_CONVERSATION } from "../graphql/conversation/query";
+import {
+	LOAD_SINGLE_CONVERSATION,
+	LOAD_UNCREADcONVERSATIONS_COUNT,
+} from "../graphql/conversation/query";
 import { connectSocketIo } from "../socketIo/connection";
 import socket from "../socketIo/socket";
 import { adjustMessageObjectIdFields, showMessageNotification } from "../utils";
@@ -38,6 +41,11 @@ export const ChatAppProvier = ({ children }) => {
 		});
 	});
 
+	useEffect(() => {
+		// load unread conversations count
+		loadUnreadConversationsCount();
+	}, []);
+
 	// attache new Message handler
 	const addNewMessage = (messageData) => {
 		// update message returned IDs fields
@@ -50,6 +58,16 @@ export const ChatAppProvier = ({ children }) => {
 		// update conversations' last Message
 		updateLastMessage(newMessage);
 	};
+
+	const [loadUnreadConversationsCount] = useLazyQuery(
+		LOAD_UNCREADcONVERSATIONS_COUNT,
+		{
+			variables: { userId: currentUser?.id },
+			onCompleted: ({ loadUnreadConversationsCount }) => {
+				setUnreadConversationsCount(loadUnreadConversationsCount);
+			},
+		}
+	);
 
 	// mark conversation messages as read
 	const markConversationAsRead = (conversationId) => {

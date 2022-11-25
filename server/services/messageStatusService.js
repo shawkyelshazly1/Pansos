@@ -44,6 +44,22 @@ class MessageStatusService {
 		}
 	}
 
+	// get unread messaegs for a certain user
+	async getUnreadMessagesByUserId(userId) {
+		try {
+			if (!userId) return await BadInputGraphQLError(" User Ids is required.");
+
+			const unreadMessagesCount = await this.repository.GetUnreadMessages(
+				userId
+			);
+
+			return unreadMessagesCount;
+		} catch (error) {
+			consola.error(error);
+			return await BadInputGraphQLError("Something went wrong!");
+		}
+	}
+
 	// mark all conversation messages as read
 	async markAllAsRead(conversationId, userId) {
 		try {
@@ -51,7 +67,7 @@ class MessageStatusService {
 				return await BadInputGraphQLError(
 					"Conversation & User Ids are required."
 				);
-			
+
 			const updatedMessagesStatus =
 				await this.repository.UpdateMessageStatusIsRead(conversationId, userId);
 
@@ -69,7 +85,7 @@ class MessageStatusService {
 				return await BadInputGraphQLError(
 					"Conversation, Message & User Ids are required."
 				);
-			
+
 			const updatedMessagesStatus =
 				await this.repository.UpdateMessageStatusIsUnRead(
 					conversationId,

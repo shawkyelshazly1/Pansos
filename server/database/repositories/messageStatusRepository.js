@@ -68,6 +68,20 @@ class MessageStatusRepository {
 			return { error: "Something Went Wrong!" };
 		}
 	}
+
+	// get unread messages by userId
+	async GetUnreadMessages(userId) {
+		try {
+			const unreadMessages = await MessageStatusModal.find({
+				recipient: mongoose.Types.ObjectId(userId),
+				is_read: false,
+			});
+			return unreadMessages;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
 }
 
 module.exports = MessageStatusRepository;

@@ -1,11 +1,16 @@
-const { ConversationRepository } = require("../database");
+const {
+	ConversationRepository,
+	MessageStatusRepository,
+} = require("../database");
 const { BadInputGraphQLError } = require("../utils/error");
 const consola = require("consola");
+const _ = require("lodash");
 
 // class to interact with conversation repository funcs
 class ConversationService {
 	constructor() {
 		this.repository = new ConversationRepository();
+		this.messageStatusRepository = new MessageStatusRepository();
 	}
 
 	// add new conversation
@@ -43,7 +48,7 @@ class ConversationService {
 			const userConversations = await this.repository.GetUserConversations(
 				userId
 			);
-			
+
 			return userConversations;
 		} catch (error) {
 			consola.error(error);
@@ -91,6 +96,26 @@ class ConversationService {
 				return await BadInputGraphQLError("Conversation not found!");
 
 			return existingConversation;
+		} catch (error) {
+			consola.error(error);
+			return await BadInputGraphQLError("Something went wrong!");
+		}
+	}
+
+	// get number of unread conversations for user
+	async getUnreadConversationsCount(userId) {
+		try {
+			// validate input correct
+			if (!userId) return await BadInputGraphQLError("UserId  is required.");
+
+			const unreadUserMessages =
+				await this.messageStatusRepository.GetUnreadMessages(userId);
+
+			const unreadConversationsCount = _.uniqBy(unreadUserMessages, (message) =>
+				String(message.conversation)
+			).length;
+
+			return unreadConversationsCount;
 		} catch (error) {
 			consola.error(error);
 			return await BadInputGraphQLError("Something went wrong!");
