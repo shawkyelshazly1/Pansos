@@ -109,7 +109,9 @@ const resolvers = {
 	SharedPost: {
 		...sharedPostResolvers,
 	},
-
+	Group: {
+		...groupResolvers,
+	},
 	PostItem: {
 		__resolveType(obj) {
 			if (obj.is_shared) return "SharedPost";

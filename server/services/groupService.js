@@ -34,6 +34,12 @@ class GroupService {
 				administrators: [currentUserId],
 			});
 
+			const newGroupMember = await this.groupMemberRespository.JoinGroup({
+				user: mongoose.Types.ObjectId(currentUserId),
+				group: mongoose.Types.ObjectId(newGroup._id),
+				status: "accepted",
+			});
+
 			return newGroup;
 		} catch (error) {
 			consola.error(error);
@@ -51,6 +57,26 @@ class GroupService {
 				return await BadInputGraphQLError("Group Exists Already!");
 
 			return existingGroup.administrators;
+		} catch (error) {
+			consola.error(error);
+			return await BadInputGraphQLError("Something went wrong!");
+		}
+	}
+
+	// get suggested user groups user not member of #TODO: let suggesstions be based on user friends
+	async loadSuggesstedGroups(currentUserId) {
+		try {
+			let userGroups = await this.groupMemberRespository.GetUserGroups(
+				currentUserId
+			);
+
+			userGroups = userGroups.map((group) => group._id);
+
+			let suggesstedGroups = await this.repository.GetSuggesstedGroups(
+				userGroups
+			);
+
+			return suggesstedGroups;
 		} catch (error) {
 			consola.error(error);
 			return await BadInputGraphQLError("Something went wrong!");

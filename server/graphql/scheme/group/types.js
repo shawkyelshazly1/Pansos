@@ -5,6 +5,8 @@ const groupTypes = `
 		administrators: [User]!
 		groupType: String!
 		photo: Media!
+		groupMembersCount: Int!
+		membershipStatus:String!
 
 	}
 
@@ -13,6 +15,7 @@ const groupTypes = `
 		loadGroupMembers(groupId: ID!): [GroupMember]!
 		loadUserGroups(userId: ID!): [Group]!
 		loadJoinRequests(groupId: ID!): [GroupMember]!
+		loadSuggesstedGroups:[Group]!
 	}
 
 	type Mutation {

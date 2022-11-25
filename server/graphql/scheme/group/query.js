@@ -1,5 +1,5 @@
 const { GroupService, GroupMemberService } = require("../../../services");
-const isAuthenticated = require("../../middlewares/auth");
+const {isAuthenticated} = require("../../middlewares/auth");
 
 const groupService = new GroupService();
 const groupMemberService = new GroupMemberService();
@@ -28,6 +28,13 @@ const groupQueries = {
 	loadUserGroups: async (_, { userId }, context) => {
 		await isAuthenticated(context);
 		return await groupMemberService.loadUserGroups(userId);
+	},
+
+	// load suggessted groupService
+	loadSuggesstedGroups: async (_, __, context) => {
+		await isAuthenticated(context);
+		const { _id } = context.req.payload;
+		return await groupService.loadSuggesstedGroups(_id);
 	},
 };
 

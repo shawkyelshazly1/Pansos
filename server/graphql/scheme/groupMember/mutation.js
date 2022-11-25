@@ -1,5 +1,5 @@
 const { GroupMemberService } = require("../../../services");
-const isAuthenticated = require("../../middlewares/auth");
+const {isAuthenticated} = require("../../middlewares/auth");
 
 const groupMemberService = new GroupMemberService();
 

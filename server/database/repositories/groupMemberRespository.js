@@ -126,6 +126,22 @@ class GroupMemberRepository {
 			return { error: "Something Went Wrong!" };
 		}
 	}
+
+	// get memberShip status
+	async getMemberShipStatus(userId, groupId) {
+		try {
+			const existingMember = await GroupMemberModal.findOne({
+				user: mongoose.Types.ObjectId(userId),
+				group: mongoose.Types.ObjectId(groupId),
+			});
+
+			if (existingMember) return existingMember.status;
+			else return "notMember";
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
 }
 
 module.exports = GroupMemberRepository;

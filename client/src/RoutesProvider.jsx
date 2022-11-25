@@ -9,6 +9,8 @@ import Profile from "./pages/Profile";
 import Search from "./pages/Search";
 import Navbar from "./components/nav/Navbar";
 import Conversations from "./pages/Conversations";
+import Group from "./pages/Group";
+import GroupExplore from "./pages/GroupExplore";
 
 export default function RoutesProvider() {
 	return (
@@ -29,6 +31,8 @@ export default function RoutesProvider() {
 											<Route path="/profile/:userId/*" element={<Profile />} />
 											<Route path="/search/:searchQuery" element={<Search />} />
 											<Route path="/explore" element={<Search />} />
+											<Route path="/group" element={<GroupExplore />} />
+											<Route path="/group/:groupId" element={<Group />} />
 											<Route path="/message" element={<Conversations />} />
 											<Route
 												path="/message/:userId"

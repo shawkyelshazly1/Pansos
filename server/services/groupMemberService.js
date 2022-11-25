@@ -143,6 +143,21 @@ class GroupMemberService {
 			return await BadInputGraphQLError("Something went wrong!");
 		}
 	}
+
+	// check if user is in group already
+	async getMemberShipStatus(userId, groupId) {
+		try {
+			let membershipStatus = await this.repository.getMemberShipStatus(
+				userId,
+				groupId
+			);
+
+			return membershipStatus;
+		} catch (error) {
+			consola.error(error);
+			return await BadInputGraphQLError("Something went wrong!");
+		}
+	}
 }
 
 module.exports = GroupMemberService;

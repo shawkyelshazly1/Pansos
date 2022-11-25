@@ -45,8 +45,6 @@ class GroupRepository {
 		}
 	}
 
-	// get suggested user groups user not member of #TODO: let suggesstions be based on user friends
-
 	// load single group
 	async GetGroupById(groupId) {
 		try {
@@ -94,6 +92,20 @@ class GroupRepository {
 			let existingGroup = await GroupModal.findOne({ name: groupName });
 
 			return existingGroup;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
+
+	// get suggesstedGroups
+	async GetSuggesstedGroups(userGroups) {
+		try {
+			let suggesstedGroups = await GroupModal.find({
+				_id: { $nin: userGroups },
+			});
+
+			return suggesstedGroups;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };
