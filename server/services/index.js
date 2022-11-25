@@ -9,4 +9,6 @@ module.exports = {
 	MessageStatusService: require("./messageStatusService"),
 	MediaService: require("./mediaService"),
 	SharedPostService: require("./sharedPostService"),
+	GroupService: require("./groupService"),
+	GroupMemberService: require("./groupMemberService"),
 };

@@ -10,4 +10,6 @@ module.exports = {
 	MessageStatusRepository: require("./repositories/messageStatusRepository"),
 	MediaRepository: require("./repositories/mediaRepository"),
 	SharedPostRepository: require("./repositories/sharedPostRepository"),
+	GroupRepository: require("./repositories/groupRepository"),
+	GroupMemberRepository: require("./repositories/groupMemberRespository"),
 };

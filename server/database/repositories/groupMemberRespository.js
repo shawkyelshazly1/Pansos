@@ -109,6 +109,23 @@ class GroupMemberRepository {
 			return { error: "Something Went Wrong!" };
 		}
 	}
+
+	// load user groups
+	async GetUserGroups(userId) {
+		try {
+			let userMemberships = await GroupMemberModal.find({
+				user: mongoose.Types.ObjectId(userId),
+				status: "accepted",
+			});
+
+			let userGroups = userMemberships.map((membership) => membership.group);
+
+			return userGroups;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
 }
 
 module.exports = GroupMemberRepository;

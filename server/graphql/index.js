@@ -4,6 +4,16 @@ const {
 	conversationMutations,
 	conversationResolvers,
 } = require("./scheme/conversation");
+const {
+	groupTypes,
+	groupQueries,
+	groupMutations,
+	groupResolvers,
+} = require("./scheme/group");
+const {
+	groupMemberTypes,
+	groupMemberMutations,
+} = require("./scheme/groupMember");
 const { mediaTypes, mediaQueries } = require("./scheme/media");
 const {
 	messageTypes,
@@ -59,6 +69,8 @@ const typeDefs = `
 	${messageTypes}
 	${mediaTypes}
 	${sharedPostTypes}
+	${groupTypes}
+	${groupMemberTypes}
 `;
 
 const resolvers = {
@@ -71,6 +83,7 @@ const resolvers = {
 		...conversationQueries,
 		...mediaQueries,
 		...sharedPostQueries,
+		...groupQueries,
 	},
 	Mutation: {
 		...userMutations,
@@ -81,6 +94,8 @@ const resolvers = {
 		...conversationMutations,
 		...messageMutations,
 		...sharedPostMutations,
+		...groupMutations,
+		...groupMemberMutations,
 	},
 	User: {
 		...userResolvers,
@@ -94,6 +109,7 @@ const resolvers = {
 	SharedPost: {
 		...sharedPostResolvers,
 	},
+
 	PostItem: {
 		__resolveType(obj) {
 			if (obj.is_shared) return "SharedPost";

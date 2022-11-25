@@ -1,6 +1,6 @@
 const { default: mongoose } = require("mongoose");
 
-const consola = requirE("consola"),
+const consola = require("consola"),
 	{ GroupModal } = require("../models");
 
 // class to interact with the group modal on DB
@@ -82,6 +82,18 @@ class GroupRepository {
 			let groupAdministrators = await GroupModal.findById(groupId);
 
 			return groupAdministrators.administrators;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
+
+	// get group by name
+	async GetGroupByName(groupName) {
+		try {
+			let existingGroup = await GroupModal.findOne({ name: groupName });
+
+			return existingGroup;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };
