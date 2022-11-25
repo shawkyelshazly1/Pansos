@@ -32,7 +32,7 @@ export default function RoutesProvider() {
 											<Route path="/search/:searchQuery" element={<Search />} />
 											<Route path="/explore" element={<Search />} />
 											<Route path="/group" element={<GroupExplore />} />
-											<Route path="/group/:groupId" element={<Group />} />
+											<Route path="/group/:groupId/*" element={<Group />} />
 											<Route path="/message" element={<Conversations />} />
 											<Route
 												path="/message/:userId"

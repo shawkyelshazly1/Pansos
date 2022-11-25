@@ -15,4 +15,22 @@ const LOAD_SUGGESSTED_GROUPS = gql`
 	}
 `;
 
-export { LOAD_SUGGESSTED_GROUPS };
+const LOAD_GROUP = gql`
+	query loadGroup($groupId: ID!) {
+		loadSingleGroup(groupId: $groupId) {
+			id
+			groupType
+			membershipStatus
+			name
+			photo {
+				url
+			}
+			groupMembersCount
+			administrators {
+				id
+			}
+		}
+	}
+`;
+
+export { LOAD_SUGGESSTED_GROUPS, LOAD_GROUP };

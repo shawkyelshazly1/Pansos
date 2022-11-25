@@ -7,8 +7,12 @@ import { LOAD_NEWSFEED } from "../../../../../../graphql/post/query";
 import toast from "react-hot-toast";
 import MediaPreviewContainer from "./MediaPreviewContainer";
 import { getUploadaedMediaUrls } from "../../../../../../utils";
+import { useLocation } from "react-router";
 
 export default function NewPostModalForm({ setCurrentStatus }) {
+	const location = useLocation();
+	let currentLocation = location.pathname.split("/")[1];
+	console.log(currentLocation);
 	// formdata this.state
 	const [formData, setFormData] = useState({ content: "" });
 
@@ -51,10 +55,14 @@ export default function NewPostModalForm({ setCurrentStatus }) {
 
 		if (media.length > 0) {
 			await getUploadaedMediaUrls(media).then((res) => {
-				addPost({ variables: { content: formData.content, media: res } });
+				currentLocation === "group"
+					? console.log("in group")
+					: addPost({ variables: { content: formData.content, media: res } });
 			});
 		} else {
-			addPost({ variables: { content: formData.content } });
+			currentLocation === "group"
+				? console.log("in group")
+				: addPost({ variables: { content: formData.content } });
 		}
 	};
 
