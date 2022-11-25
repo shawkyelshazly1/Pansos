@@ -46,4 +46,24 @@ const LOAD_GROUP = gql`
 	}
 `;
 
-export { LOAD_SUGGESSTED_GROUPS, LOAD_GROUP };
+const LOAD_JOIN_REQUESTS = gql`
+	query loadJoinRequests($groupId: ID!) {
+		loadJoinRequests(groupId: $groupId) {
+			id
+			group {
+				id
+			}
+			status
+			user {
+				id
+				firstName
+				lastName
+				profileImage {
+					url
+				}
+			}
+		}
+	}
+`;
+
+export { LOAD_SUGGESSTED_GROUPS, LOAD_GROUP, LOAD_JOIN_REQUESTS };

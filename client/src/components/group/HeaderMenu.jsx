@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdPublic } from "react-icons/md";
 import { RiGitRepositoryPrivateFill } from "react-icons/ri";
 import S from "underscore.string";
 import numeral from "numeral";
 import GroupMembershipButton from "./GroupMembershipButton";
 import { Link, useLocation } from "react-router-dom";
+import { currentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function HeaderMenu({ group }) {
 	const location = useLocation();
 	const [selectedPage, setSelectedPage] = useState("discussion");
+
+	const { currentUser } = useContext(currentUserContext);
 
 	// useeffect to determine the page section to show based on the url
 	useEffect(() => {
@@ -96,6 +99,28 @@ export default function HeaderMenu({ group }) {
 						People
 					</button>
 				</Link>
+				{group.administrators.some(
+					(user) => String(user.id) === String(currentUser.id)
+				) ? (
+					<Link to={`/group/${group.id}/member-requests`}>
+						<button
+							className={`px-2 py-3 font-medium ${
+								group.groupType === "private" &&
+								group.membershipStatus !== "accepted"
+									? "hidden"
+									: ""
+							} ${
+								selectedPage === "member-requests"
+									? " border-b-4 border-b-mainColor text-mainColor "
+									: " border-b-4 border-b-transparent hover:bg-bgColor rounded-lg"
+							}`}
+						>
+							Member Requests
+						</button>
+					</Link>
+				) : (
+					<></>
+				)}
 			</div>
 		</div>
 	);

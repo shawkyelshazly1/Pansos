@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import React, { useContext, useEffect, useState } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router";
+import { currentUserContext } from "../../contexts/CurrentUserContext";
 import About from "../group/pageComponents/About";
 import Discussion from "./pageComponents/Discussion";
+import MemberRequests from "./pageComponents/MemberRequests";
 import People from "./pageComponents/People";
 
 export default function GroupSectionSelector({ group }) {
 	const location = useLocation();
+	const navigate = useNavigate();
+	const { currentUser } = useContext(currentUserContext);
 	const [selectedPage, setSelectedPage] = useState(
 		group.groupType === "private" && group.membershipStatus !== "accepted"
 			? "about"
 			: "discussion"
 	);
 
-	console.log(
-		group.groupType === "private" && group.membershipStatus !== "accepted"
-	);
 	// useeffect to determine the page section to show based on the url
 	useEffect(() => {
 		if (
@@ -37,7 +38,20 @@ export default function GroupSectionSelector({ group }) {
 			) {
 				setSelectedPage("about");
 			} else {
-				setSelectedPage(location.pathname.split("/")[3]);
+				if (location.pathname.split("/")[3] === "member-requests") {
+					if (
+						group.administrators.some(
+							(user) => String(user.id) === String(currentUser.id)
+						)
+					) {
+						setSelectedPage(location.pathname.split("/")[3]);
+					} else {
+						navigate(`/group/${group.id}/about`);
+						setSelectedPage("about");
+					}
+				} else {
+					setSelectedPage(location.pathname.split("/")[3]);
+				}
 			}
 		}
 	}, [location]);
@@ -48,6 +62,8 @@ export default function GroupSectionSelector({ group }) {
 		<About group={group} />
 	) : selectedPage === "members" ? (
 		<People group={group} />
+	) : selectedPage === "member-requests" ? (
+		<MemberRequests group={group} selectedPage={selectedPage} />
 	) : (
 		""
 	);

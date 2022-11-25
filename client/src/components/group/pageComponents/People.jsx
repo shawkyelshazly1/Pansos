@@ -12,6 +12,7 @@ export default function People({ group }) {
 			</h1>
 			<hr className="border-[1px]" />
 
+			{/* // administrators section */}
 			<div className="flex flex-col gap-4">
 				<h1 className="font-medium flex flex-row gap-1 items-center justi">
 					Administrators -
@@ -25,7 +26,11 @@ export default function People({ group }) {
 					))}
 				</div>
 			</div>
+
 			<hr className="border-[1px]" />
+
+			{/* // Members section */}
+
 			<div className="flex flex-col gap-2">
 				<h1 className="font-medium flex flex-row gap-1 items-center justi">
 					Members -

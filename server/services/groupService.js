@@ -53,9 +53,6 @@ class GroupService {
 			// check if group exists with same name
 			const existingGroup = await this.repository.GetGroupById(groupId);
 
-			if (existingGroup)
-				return await BadInputGraphQLError("Group Exists Already!");
-
 			return existingGroup.administrators;
 		} catch (error) {
 			consola.error(error);

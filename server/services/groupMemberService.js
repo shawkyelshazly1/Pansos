@@ -71,7 +71,11 @@ class GroupMemberService {
 				groupId
 			);
 
-			if (!groupAdmins.includes(mongoose.Types.ObjectId(currentUserId))) {
+			if (
+				!groupAdmins.some(
+					(admin) => String(admin._id) === String(currentUserId)
+				)
+			) {
 				return await NotAuthorizedGraphQLError("Not Authorized!");
 			}
 
@@ -94,7 +98,11 @@ class GroupMemberService {
 				groupId
 			);
 
-			if (!groupAdmins.includes(mongoose.Types.ObjectId(currentUserId))) {
+			if (
+				!groupAdmins.some(
+					(admin) => String(admin._id) === String(currentUserId)
+				)
+			) {
 				return await NotAuthorizedGraphQLError("Not Authorized!");
 			}
 
@@ -117,7 +125,11 @@ class GroupMemberService {
 				groupId
 			);
 
-			if (!groupAdmins.includes(mongoose.Types.ObjectId(currentUserId))) {
+			if (
+				!groupAdmins.some(
+					(admin) => String(admin._id) === String(currentUserId)
+				)
+			) {
 				return await NotAuthorizedGraphQLError("Not Authorized!");
 			}
 
