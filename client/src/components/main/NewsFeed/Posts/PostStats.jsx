@@ -10,6 +10,7 @@ import {
 } from "../../../../graphql/post/mutation";
 import { currentUserContext } from "../../../../contexts/CurrentUserContext";
 import PostShareOptions from "./PostShareOptions";
+import { CurrentAppContext } from "../../../../contexts/AppContext";
 
 export default function PostStats({
 	toggleCommentsModal,
@@ -18,6 +19,8 @@ export default function PostStats({
 	selectPost,
 }) {
 	const { currentUser } = useContext(currentUserContext);
+
+	const { selectedGroup } = useContext(CurrentAppContext);
 
 	// like or unlike post mutation
 	const [likeOrUnlikePost] = useMutation(LIKE_OR_UNLIKE_POST, {
@@ -55,7 +58,7 @@ export default function PostStats({
 				{post.commentsCount}
 			</div>
 
-			{currentUser.id !== post.author?.id ? (
+			{currentUser.id !== post.author?.id && selectedGroup === "" ? (
 				<div className="flex flex-col gap-1 items-center cursor-pointer justify-center w-full">
 					<PostShareOptions post={post} />
 				</div>

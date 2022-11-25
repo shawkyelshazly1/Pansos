@@ -23,6 +23,13 @@ const postQueries = {
 		const { _id } = context.req.payload;
 		return await postService.loadNewsFeed(_id);
 	},
+
+	// load groupPosts
+	loadGroupPosts: async (_, { groupId }, context) => {
+		await isAuthenticated(context);
+
+		return await postService.loadGroupPosts(groupId);
+	},
 };
 
 module.exports = postQueries;

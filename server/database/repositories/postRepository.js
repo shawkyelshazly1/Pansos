@@ -47,6 +47,7 @@ class PostRepository {
 		try {
 			const userPosts = await PostModal.find({
 				author: mongoose.Types.ObjectId(userId),
+				group: null,
 			}).sort({ createdAt: "desc" });
 
 			const userSharedPosts = await SharedPostModal.find({
@@ -79,23 +80,33 @@ class PostRepository {
 				.lean();
 
 			const posts = await PostModal.find({
-				$or: [
+				$and: [
+					{ group: null },
 					{
-						author: { $in: userFollowings },
-					},
-					{
-						author: mongoose.Types.ObjectId(userId),
+						$or: [
+							{
+								author: { $in: userFollowings },
+							},
+							{
+								author: mongoose.Types.ObjectId(userId),
+							},
+						],
 					},
 				],
 			}).sort({ createdAt: "desc" });
 
 			const sharedPosts = await SharedPostModal.find({
-				$or: [
+				$and: [
+					{ group: null },
 					{
-						author: { $in: userFollowings },
-					},
-					{
-						author: mongoose.Types.ObjectId(userId),
+						$or: [
+							{
+								author: { $in: userFollowings },
+							},
+							{
+								author: mongoose.Types.ObjectId(userId),
+							},
+						],
 					},
 				],
 			}).sort({ createdAt: "desc" });
@@ -134,6 +145,22 @@ class PostRepository {
 			await mediaService.deleteMedia(deletedPost.media);
 
 			return deletedPost;
+		} catch (error) {
+			consola.error(error);
+			return { error: "Something Went Wrong!" };
+		}
+	}
+
+	// Get group posts by ID
+	async GetGroupPostsById(groupId) {
+		try {
+			let groupPosts = await PostModal.find({
+				group: mongoose.Types.ObjectId(groupId),
+			});
+
+			groupPosts = _.orderBy(groupPosts, ["createdAt"], ["desc"]);
+
+			return groupPosts;
 		} catch (error) {
 			consola.error(error);
 			return { error: "Something Went Wrong!" };

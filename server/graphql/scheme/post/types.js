@@ -9,6 +9,7 @@ const postTypes = `
 		isLiked: Boolean!
 		createdAt: Date!
 		media:[Media]
+		group:Group
 	}
 
 
@@ -16,10 +17,11 @@ const postTypes = `
 		getPostById(postId: ID!): Post!
 		getUserPosts(userId: ID!): [PostItem]!
 		getUserNewsfeed: [PostItem]!
+		loadGroupPosts(groupId:ID!): [PostItem]!
 	}
 
 	type Mutation {
-		addPost(content: String!,media:[String]): Post!
+		addPost(content: String!,media:[String],group:ID): Post!
 		deletePost(postId: ID!): Post!
 	}
 `;
