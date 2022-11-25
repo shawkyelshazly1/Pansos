@@ -7,6 +7,7 @@ const groupTypes = `
 		photo: Media!
 		groupMembersCount: Int!
 		membershipStatus:String!
+		members:[User]!
 
 	}
 

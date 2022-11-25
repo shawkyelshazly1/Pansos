@@ -31,7 +31,7 @@ export default function Group() {
 	if (loading || loadedGroup === null) return <LoadingSpinner />;
 
 	return (
-		<div className="w-[90%] max-h-[calc(100vh-120px)]   flex flex-col  items-center min-h-full gap-4 overflow-y-scroll mx-auto">
+		<div className="w-[90%] max-h-[calc(100vh-120px)]   flex flex-col  items-center min-h-full gap-4 overflow-y-scroll mx-auto pb-6">
 			<GroupHeader group={loadedGroup} />
 			<GroupSectionSelector group={loadedGroup} />
 		</div>

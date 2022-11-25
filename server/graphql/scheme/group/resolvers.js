@@ -16,6 +16,11 @@ const groupResolvers = {
 		const { _id } = context.req.payload;
 		return await groupMemberService.getMemberShipStatus(_id, parent._id);
 	},
+
+	// load group members
+	async members(parent, __, context) {
+		return await groupMemberService.loadGroupMembers(parent._id);
+	},
 };
 
 module.exports = groupResolvers;

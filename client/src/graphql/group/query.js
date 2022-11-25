@@ -26,8 +26,21 @@ const LOAD_GROUP = gql`
 				url
 			}
 			groupMembersCount
+			members {
+				id
+				firstName
+				lastName
+				profileImage {
+					url
+				}
+			}
 			administrators {
 				id
+				firstName
+				lastName
+				profileImage {
+					url
+				}
 			}
 		}
 	}

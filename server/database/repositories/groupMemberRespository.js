@@ -7,10 +7,12 @@ class GroupMemberRepository {
 	// load group members
 	async GetGroupMembers(groupId) {
 		try {
-			const groupMembers = await GroupMemberModal.find({
+			let groupMembers = await GroupMemberModal.find({
 				group: mongoose.Types.ObjectId(groupId),
 				status: "accepted",
 			});
+
+			groupMembers = groupMembers.map((member) => member.user);
 
 			return groupMembers;
 		} catch (error) {
