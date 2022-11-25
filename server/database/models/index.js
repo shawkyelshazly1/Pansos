@@ -9,4 +9,6 @@ module.exports = {
 	MessageStatusModal: require("./messageStatus"),
 	MediaModal: require("./media"),
 	SharedPostModal: require("./sharedPost"),
+	GroupModal: require("./group"),
+	GroupMemberModal: require("./groupMember"),
 };

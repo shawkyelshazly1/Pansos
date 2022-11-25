@@ -11,6 +11,7 @@ const mediaSchema = mongoose.Schema(
 		},
 		user: { type: mongoose.Types.ObjectId, ref: "User" },
 		post: { type: mongoose.Types.ObjectId, ref: "Post" },
+		group: { type: mongoose.Types.ObjectId, ref: "Group" },
 	},
 	{ timestamps: true }
 );
