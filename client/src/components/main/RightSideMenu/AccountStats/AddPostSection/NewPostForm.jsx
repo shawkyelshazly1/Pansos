@@ -21,14 +21,20 @@ export default function NewPostForm() {
 				></textarea>
 				<hr />
 				<div className="flex flex-row justify-between gap-6">
-					<span
-						onClick={() => {
-							setShowModal(!showModal);
-						}}
-						className="cursor-pointer flex relative overflow-hidden bg-bgColor  w-full rounded-lg py-[10px] items-center justify-center text-xl text-[#92a1a8]"
-					>
+					<span className="cursor-pointer flex relative overflow-hidden bg-bgColor  w-full rounded-lg py-[10px] items-center justify-center text-xl text-[#92a1a8]">
 						<BsImageFill size={25} className="mr-4" color="#3ca8e8" />
 						Image
+						<input
+							className="cursor-pointer absolute top-0 right-0 block  opacity-0 w-full h-full"
+							type="file"
+							accept=".jpg,.jpeg,.png"
+							name="photoUpload"
+							id="photoUpload"
+							multiple
+							onInput={(e) => {
+								addMedia(e.target.files);
+							}}
+						/>
 					</span>
 					<span
 						onClick={() => {

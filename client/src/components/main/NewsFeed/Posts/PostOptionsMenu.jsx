@@ -25,7 +25,7 @@ export default function PostOptionsMenu({ postId }) {
 		},
 	});
 	return (
-		<Menu as="div" className="  inline-block relative  text-left z-[999]">
+		<Menu as="div" className="  inline-block relative  text-left z-[99]">
 			<Menu.Button className=" ">
 				<div className="flex flex-row gap-4 cursor-pointer">
 					<BiDotsHorizontalRounded size={25} />

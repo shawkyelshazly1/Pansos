@@ -5,7 +5,7 @@ import NotificationCard from "../main/RightSideMenu/Notifications/NotificationCa
 
 export default function NotificationComponent() {
 	return (
-		<Menu as="div" className="relative inline-block text-left z-[9999] ">
+		<Menu as="div" className="relative inline-block text-left z-[999] ">
 			<Menu.Button className=" ">
 				<div className="flex flex-row gap-4 cursor-pointer">
 					<span className="bg-[#eff3fa] p-1 rounded-lg relative hidden lg:block md:block">
