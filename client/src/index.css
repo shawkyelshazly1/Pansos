@@ -26,3 +26,15 @@ body{
     background: grey;
     margin-bottom: 30px;
   }
+
+  .story-carosal{
+    background: linear-gradient(to left,#858284 50%, white 50% ) right;
+    background-size: 200%;
+    transition: background-position 1s linear;
+ 
+  }
+
+  .active {
+
+    background-position: left;
+  }

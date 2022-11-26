@@ -4,7 +4,7 @@ export default function MessageCardLeft({ message }) {
 	return (
 		<div className="flex flex-row gap-4 items-end lg:max-w-[40%] max-w-[70%]">
 			<img
-				className="w-8 rounded-full"
+				className="w-8 h-8 rounded-full"
 				src={message.author.profileImage.url}
 				alt=""
 			/>

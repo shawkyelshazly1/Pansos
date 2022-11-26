@@ -1,11 +1,20 @@
+import { useMutation } from "@apollo/client";
 import React from "react";
+import toast from "react-hot-toast";
 import { BsImageFill, BsTrashFill } from "react-icons/bs";
+import { ADD_STORY } from "../../../../../graphql/story/mutation";
+import { getUploadaedMediaUrls } from "../../../../../utils";
 
-export default function MediaPreviewSection({ media, setMedia }) {
+export default function MediaPreviewSection({
+	media,
+	setMedia,
+	toggleModal,
+	setModalStatus,
+}) {
 	// add selected media to media & mediaPreviews
 	const addMedia = (files) => {
-		console.log(files);
 		let updatedMedia = [];
+		console.log(files);
 		if (files[0]) {
 			let previewSrc = URL.createObjectURL(files[0]);
 			updatedMedia.push({ file: files[0], previewSrc });
@@ -16,10 +25,23 @@ export default function MediaPreviewSection({ media, setMedia }) {
 
 	// remove selected media from media & mediaPreviews
 	const removeMedia = (file) => {
+		document.querySelector(".file-upload").value = "";
 		let updatedMedia = [...media];
 		updatedMedia = updatedMedia.filter((media) => media !== file);
 		setMedia(updatedMedia);
 	};
+
+	// add story Mutation
+
+	const [addStory] = useMutation(ADD_STORY, {
+		onError: (_) => {
+			console.log(_);
+			toast.error("Something Went Wrong!");
+		},
+		onCompleted: (_) => {
+			setModalStatus("completed");
+		},
+	});
 
 	return (
 		<div className="flex flex-col flex-1 items-center gap-4">
@@ -27,7 +49,7 @@ export default function MediaPreviewSection({ media, setMedia }) {
 				<BsImageFill size={25} className="mr-4" color="#3ca8e8" />
 				Image
 				<input
-					className="cursor-pointer absolute top-0 right-0 block  opacity-0 w-full h-full"
+					className="cursor-pointer absolute top-0 right-0 block  opacity-0 w-full h-full file-upload"
 					type="file"
 					accept=".jpg,.jpeg,.png"
 					name="photoUpload"
@@ -37,7 +59,25 @@ export default function MediaPreviewSection({ media, setMedia }) {
 					}}
 				/>
 			</span>
-			<p className="text-secondaryColor text-sm">Add up to 3 photos.</p>
+			<p className="text-secondaryColor text-sm">Allowed Only 1 Photo.</p>
+			<button
+				onClick={async () => {
+					if (media.length > 0) {
+						setModalStatus("loading");
+						await getUploadaedMediaUrls(media).then((res) => {
+							addStory({ variables: { media: res[0] } });
+						});
+					}
+				}}
+				className={`py-2 px-6  text-white text-2xl font-medium rounded-xl  ${
+					media.length === 0
+						? "bg-bgColor text-black opacity-40 cursor-not-allowed"
+						: "bg-green-500"
+				}`}
+				disabled={media.length === 0 ? true : false}
+			>
+				Save & Upload
+			</button>
 			<div className="flex flex-row flex-wrap items-start w-full h-full  gap-2">
 				{media.map((media) => (
 					<div className="relative">

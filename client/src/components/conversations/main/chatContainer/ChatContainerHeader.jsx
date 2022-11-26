@@ -6,7 +6,7 @@ export default function ChatContainerHeader({ loadedUser, otherParticipant }) {
 		<Link to={`/profile/${loadedUser?.loadUser.id || otherParticipant?.id}`}>
 			<div className="flex flex-row gap-3 cursor-pointer items-center">
 				<img
-					className="w-12 rounded-full"
+					className="w-12 h-12 rounded-full"
 					src={
 						loadedUser?.loadUser
 							? loadedUser?.loadUser.profileImage.url

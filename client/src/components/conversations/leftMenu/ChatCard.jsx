@@ -38,7 +38,7 @@ export default function ChatCard({ conversation }) {
 			>
 				<div className="relative">
 					<img
-						className="max-w-[4rem] max-h-[4rem] rounded-full object-cover"
+						className="w-[4rem] h-[4rem]  rounded-full object-cover"
 						src={otherParticipant.profileImage.url}
 						alt=""
 					/>

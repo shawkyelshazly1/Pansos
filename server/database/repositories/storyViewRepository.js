@@ -58,10 +58,11 @@ class StoryViewRepository {
 	// is story viewed
 	async GetIfUserViewedStory(currentUserId, storyId) {
 		try {
-			const storyViewed = await StoryViewModal.find({
+			const storyViewed = await StoryViewModal.findOne({
 				story: mongoose.Types.ObjectId(storyId),
 				user: mongoose.Types.ObjectId(currentUserId),
 			});
+
 
 			if (storyViewed) return true;
 			else return false;

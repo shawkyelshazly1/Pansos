@@ -5,9 +5,12 @@ const {
 	NotAuthorizedGraphQLError,
 } = require("../utils/error.js");
 
+const MediaService = require("./mediaService");
+
 class StoryService {
 	constructor() {
 		this.repository = new StoryRepository();
+		this.mediaService = new MediaService();
 	}
 
 	// add new story
@@ -19,9 +22,17 @@ class StoryService {
 			if (!userId || !media)
 				return await BadInputGraphQLError("Story Data is required!");
 
+			const newMedia = await this.mediaService.addNewMedia({
+				url: media,
+				type: "photo",
+				user: userId,
+			});
+
+			console.log();
+
 			const newStory = await this.repository.CreateStory({
 				user: userId,
-				media,
+				media: newMedia[0]._id,
 			});
 
 			return newStory;

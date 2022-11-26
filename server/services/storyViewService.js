@@ -37,11 +37,13 @@ class StoryViewService {
 			if (!currentUserId || !storyId)
 				return await BadInputGraphQLError("Story View Data is required!");
 
-			const existingStory = this.storyRepository.GetStoryById(storyId);
+			const existingStory = await this.storyRepository.GetStoryById(storyId);
 
 			if (!existingStory) return await BadInputGraphQLError("Story not found!");
 
-			if (String(existingStory.user) !== String(currentUserId))
+			console.log(existingStory);
+
+			if (String(existingStory.user._id) !== String(currentUserId))
 				return await NotAuthorizedGraphQLError("Not Authorized!");
 
 			const storyViewers = await this.repository.GetStoryViewers(storyId);
@@ -59,11 +61,11 @@ class StoryViewService {
 			if (!currentUserId || !storyId)
 				return await BadInputGraphQLError("Story View Data is required!");
 
-			const existingStory = this.storyRepository.GetStoryById(storyId);
+			const existingStory = await this.storyRepository.GetStoryById(storyId);
 
 			if (!existingStory) return await BadInputGraphQLError("Story not found!");
 
-			if (String(existingStory.user) !== String(currentUserId))
+			if (String(existingStory.user._id) !== String(currentUserId))
 				return await NotAuthorizedGraphQLError("Not Authorized!");
 
 			const storyViewersCount = await this.repository.GetStoryViewersCount(
@@ -85,15 +87,11 @@ class StoryViewService {
 
 			const existingStory = this.storyRepository.GetStoryById(storyId);
 
-			if (!existingStory) return await BadInputGraphQLError("Story not found!");
-
-			if (String(existingStory.user) !== String(currentUserId))
-				return await NotAuthorizedGraphQLError("Not Authorized!");
-
 			const isStoryViewed = await this.repository.GetIfUserViewedStory(
 				currentUserId,
 				storyId
 			);
+
 
 			return isStoryViewed;
 		} catch (error) {

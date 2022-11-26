@@ -7,7 +7,7 @@ class StoryRepository {
 	// create new story
 	async CreateStory(storyData) {
 		try {
-			const newStory = await StoryModal(storyData);
+			let newStory = await StoryModal(storyData);
 
 			newStory = await newStory.save();
 			return newStory;
