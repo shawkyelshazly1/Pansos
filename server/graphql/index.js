@@ -54,6 +54,13 @@ const {
 	sharedPostMutations,
 	sharedPostResolvers,
 } = require("./scheme/sharedPost");
+const {
+	storyTypes,
+	storyQueries,
+	storyMutations,
+	storyResolvers,
+} = require("./scheme/story");
+const { storyViewTypes, storyViewMutations } = require("./scheme/storyView");
 //
 
 const typeDefs = `
@@ -71,6 +78,8 @@ const typeDefs = `
 	${sharedPostTypes}
 	${groupTypes}
 	${groupMemberTypes}
+	${storyTypes}
+	${storyViewTypes}
 `;
 
 const resolvers = {
@@ -84,6 +93,7 @@ const resolvers = {
 		...mediaQueries,
 		...sharedPostQueries,
 		...groupQueries,
+		...storyQueries,
 	},
 	Mutation: {
 		...userMutations,
@@ -96,6 +106,8 @@ const resolvers = {
 		...sharedPostMutations,
 		...groupMutations,
 		...groupMemberMutations,
+		...storyMutations,
+		...storyViewMutations,
 	},
 	User: {
 		...userResolvers,
@@ -111,6 +123,9 @@ const resolvers = {
 	},
 	Group: {
 		...groupResolvers,
+	},
+	Story: {
+		...storyResolvers,
 	},
 	PostItem: {
 		__resolveType(obj) {

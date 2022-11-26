@@ -11,4 +11,6 @@ module.exports = {
 	SharedPostModal: require("./sharedPost"),
 	GroupModal: require("./group"),
 	GroupMemberModal: require("./groupMember"),
+	StoryModal: require("./story"),
+	StoryViewModal: require("./storyView"),
 };

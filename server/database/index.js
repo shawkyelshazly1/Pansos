@@ -12,4 +12,6 @@ module.exports = {
 	SharedPostRepository: require("./repositories/sharedPostRepository"),
 	GroupRepository: require("./repositories/groupRepository"),
 	GroupMemberRepository: require("./repositories/groupMemberRespository"),
+	StoryRepository: require("./repositories/storyRespository"),
+	StoryViewRepository: require("./repositories/storyViewRepository"),
 };

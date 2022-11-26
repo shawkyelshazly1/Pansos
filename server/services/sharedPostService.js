@@ -1,4 +1,5 @@
 const { SharedPostRepository } = require("../database");
+const consola = require("consola");
 const { BadInputGraphQLError } = require("../utils/error.js");
 
 // class to interact with shared post repository on DB

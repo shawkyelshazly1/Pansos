@@ -11,4 +11,6 @@ module.exports = {
 	SharedPostService: require("./sharedPostService"),
 	GroupService: require("./groupService"),
 	GroupMemberService: require("./groupMemberService"),
+	StoryService: require("./storyService"),
+	StoryViewService: require("./storyViewService"),
 };

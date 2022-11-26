@@ -1,22 +1,17 @@
 import React from "react";
 import { BsImageFill, BsTrashFill } from "react-icons/bs";
 
-export default function MediaPreviewSection({
-	media,
-	setMedia,
-	
-}) {
+export default function MediaPreviewSection({ media, setMedia }) {
 	// add selected media to media & mediaPreviews
 	const addMedia = (files) => {
+		console.log(files);
 		let updatedMedia = [];
-		[...files].forEach((file) => {
-			if (file) {
-				let previewSrc = URL.createObjectURL(file);
-				updatedMedia.push({ file, previewSrc });
-			}
-		});
+		if (files[0]) {
+			let previewSrc = URL.createObjectURL(files[0]);
+			updatedMedia.push({ file: files[0], previewSrc });
+		}
 
-		setMedia([...media, ...updatedMedia]);
+		setMedia([...updatedMedia]);
 	};
 
 	// remove selected media from media & mediaPreviews
