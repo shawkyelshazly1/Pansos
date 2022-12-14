@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
 //url
-const URL = "http://localhost:5000";
+const URL = "https://pansos-api.onrender.com/";
 
 // connect socket on demand
 const socket = io(URL, { autoConnect: false });

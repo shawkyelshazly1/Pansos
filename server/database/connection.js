@@ -3,10 +3,15 @@ const mongoose = require("mongoose"),
 
 module.exports = () => {
 	try {
-		mongoose.connect(process.env.MONGODB_URI_DEV, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		});
+		mongoose.connect(
+			process.env.NODE_ENV === "development"
+				? process.env.MONGODB_URI_DEV
+				: process.env.MONGODB_URI,
+			{
+				useNewUrlParser: true,
+				useUnifiedTopology: true,
+			}
+		);
 		consola.success("💾 Pansos DB connected!");
 	} catch (error) {
 		consola.error("🪲 Pansos DB failed to connect!");

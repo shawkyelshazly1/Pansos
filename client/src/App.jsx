@@ -16,7 +16,7 @@ import { ChatAppProvier } from "./contexts/ChatContext";
 function App() {
 	// basic http link
 	const httpLink = createHttpLink({
-		uri: "http://localhost:5000/graphql",
+		uri: "https://pansos-api.onrender.com/graphql",
 	});
 
 	// auth link with headers
