@@ -36,11 +36,9 @@ require("dotenv").config();
 	// setup redis client
 	const Redis = require("ioredis");
 
-	const redis = new Redis({
-		host: "redis-16721.c250.eu-central-1-1.ec2.cloud.redislabs.com",
-		port: 16721,
-		password: "phEw2I6joe4CPxwUGQkscpSxS4pYDfBA",
-	});
+	const redis = new Redis(
+		process.env.NODE_ENV === "development" ? process.env.REDIS_URI : ""
+	);
 
 	// create apollo server
 	const server = new ApolloServer({
