@@ -9,9 +9,9 @@ export default function PostModalCommentCard({ comment }) {
 
 	return (
 		<div key={comment.id} className="flex flex-row gap-2">
-			<Link className="max-w-[2rem]" to={`/profile/${comment.author.id}`}>
+			<Link className="" to={`/profile/${comment.author.id}`}>
 				<img
-					className=" rounded-full"
+					className="w-12 h-12 rounded-full object-cover "
 					src={comment.author.profileImage.url}
 					alt=""
 				/>

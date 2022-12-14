@@ -1,11 +1,13 @@
 import React from "react";
 import RegisterForm from "../../components/auth/RegisterForm";
+import animatedShapeSvg from "../../assets/AnimatedShape.svg";
 
 export default function Register() {
 	return (
 		<div
-			className="flex w-full items-center justify-center flex-col gap-8
+			className="flex w-full items-center justify-center flex-col gap-8  bg-cover
 "
+			style={{ backgroundImage: `url(${animatedShapeSvg})` }}
 		>
 			<div className="flex flex-col gap-2 items-center ">
 				<h1 className="font-lobster text-mainColor text-8xl">Pansos.</h1>
