@@ -79,8 +79,6 @@
 
 ## About The Project
 
-
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
@@ -150,8 +148,7 @@ This is an example of how to list things you need to use the software and how to
    ```sh
     cd client && npm run start
    ```
-   
-8. Start Redis Clinet service based on your OS, install & setup guide: <a href="https://redis.io/docs/getting-started/">Redis Guide</a>
+9. Start Redis Clinet service based on your OS, install & setup guide: <a href="https://redis.io/docs/getting-started/">Redis Guide</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -170,7 +167,6 @@ _For more examples, please refer to the [Documentation](https://github.com/shawk
 ## Roadmap
 
 - [ ] Stories section functionality and design.
-
 
 See the [open issues](https://github.com/shawkyelshazly1/Pansos/issues) for a full list of proposed features (and known issues).
 

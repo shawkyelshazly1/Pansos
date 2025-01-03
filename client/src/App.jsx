@@ -4,19 +4,18 @@ import RoutesProvider from "./RoutesProvider";
 
 import {
 	ApolloClient,
-	InMemoryCache,
 	ApolloProvider,
 	createHttpLink,
+	InMemoryCache,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { CurrentAppProvider } from "./contexts/AppContext";
-import { useEffect } from "react";
 import { ChatAppProvier } from "./contexts/ChatContext";
 
 function App() {
 	// basic http link
 	const httpLink = createHttpLink({
-		uri: "https://pansos-api.onrender.com/graphql",
+		uri: `${import.meta.env.VITE_API_URL}/graphql`,
 	});
 
 	// auth link with headers

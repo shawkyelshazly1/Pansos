@@ -1,10 +1,7 @@
 import { io } from "socket.io-client";
 
-//url
-const URL = "https://pansos-api.onrender.com/";
-
 // connect socket on demand
-const socket = io(URL, { autoConnect: false });
+const socket = io(import.meta.env.VITE_API_URL, { autoConnect: true });
 
 // listen to all events from server
 socket.onAny((event, ...args) => {

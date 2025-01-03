@@ -5,9 +5,9 @@ const express = require("express"),
 	{ ApolloServer } = require("@apollo/server"),
 	{ expressMiddleware } = require("@apollo/server/express4"),
 	{ initiDBConnection } = require("./database"),
-	{ typeDefs, resolvers } = require("./graphql");
-const { initSocketIO } = require("./socketIO"),
-	Redis = require("ioredis");
+	{ typeDefs, resolvers } = require("./graphql"),
+	{ initSocketIO } = require("./socketIO"),
+	redis = require("ioredis");
 
 // set env variables config
 require("dotenv").config();
@@ -23,7 +23,7 @@ require("dotenv").config();
 			origin: [
 				"http://localhost:3000",
 				"http://127.0.0.1:3000",
-				"https://pansos.onrender.com",
+				process.env.WEBSITE_URL,
 			],
 		})
 	);
@@ -31,14 +31,18 @@ require("dotenv").config();
 	// app.use(morgan("combined"));
 
 	// starting DB connection
-	initiDBConnection();
+	await initiDBConnection();
 
 	// setup redis client
-	const Redis = require("ioredis");
 
-	const redis = new Redis(
-		process.env.NODE_ENV === "development" ? process.env.REDIS_URI : ""
-	);
+	const redisClient =
+		process.env.NODE_ENV === "production"
+			? redis.createClient({
+					url: process.env.REDIS_URL,
+			  })
+			: redis.createClient({
+					password: process.env.REDIS_PASSWORD,
+			  });
 
 	// create apollo server
 	const server = new ApolloServer({
@@ -63,5 +67,5 @@ require("dotenv").config();
 	});
 
 	// init socket io connection
-	initSocketIO(httpServer, redis);
+	initSocketIO(httpServer, redisClient);
 })();
