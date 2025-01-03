@@ -7,7 +7,7 @@ const express = require("express"),
 	{ initiDBConnection } = require("./database"),
 	{ typeDefs, resolvers } = require("./graphql"),
 	{ initSocketIO } = require("./socketIO"),
-	redis = require("ioredis");
+	Redis = require("ioredis");
 
 // set env variables config
 require("dotenv").config();
@@ -37,10 +37,10 @@ require("dotenv").config();
 
 	const redisClient =
 		process.env.NODE_ENV === "production"
-			? redis.createClient({
-					url: process.env.REDIS_URL,
-			  })
-			: redis.createClient({
+			? new Redis(process.env.REDIS_URL)
+			: new Redis({
+					hostname: process.env.REDIS_HOST,
+					port: process.env.REDIS_PORT,
 					password: process.env.REDIS_PASSWORD,
 			  });
 
